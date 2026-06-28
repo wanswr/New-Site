@@ -1,13 +1,13 @@
 import Navbar from "@/components/ui/Navbar";
 import SmoothScroll from "@/components/ui/SmoothScroll";
-import MobileStickyCTA from "@/components/ui/MobileStickyCTA";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SmoothScroll>
+      <CustomCursor />
       <Navbar />
-      <main>{children}</main>
-      <MobileStickyCTA />
+      <main className="overflow-x-hidden">{children}</main>
       <footer className="bg-premium-graphite text-premium-white py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
           <div>

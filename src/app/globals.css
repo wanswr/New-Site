@@ -22,6 +22,16 @@ body {
   color: rgb(var(--foreground-rgb));
   background: var(--color-premium-white);
   overflow-x: hidden;
+  cursor: none;
+}
+
+* {
+  cursor: none !important;
+}
+
+::selection {
+  background: #C5A059;
+  color: white;
 }
 
 @layer base {
