@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --color-premium-white: #F9F8F6;
+  --color-premium-ivory: #F2EFE9;
+  --color-premium-grey: #D1D1D1;
+  --color-premium-graphite: #2C2C2C;
+  --color-premium-brass: #C5A059;
+  --color-premium-gold: #D4AF37;
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+}
+
+:root {
+  --foreground-rgb: 44, 44, 44;
+  --background-start-rgb: 249, 248, 246;
+  --background-end-rgb: 242, 239, 233;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: var(--color-premium-white);
+  overflow-x: hidden;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
