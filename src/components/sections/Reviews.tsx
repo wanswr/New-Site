@@ -27,9 +27,12 @@ export default function Reviews() {
 
   return (
     <section ref={containerRef} className="overflow-hidden bg-premium-graphite h-screen">
-      <div className="flex h-full w-[200vw]">
+      <div
+        className="flex h-full"
+        style={{ width: `${IMAGES.reviews.length * 100}vw` }}
+      >
         {IMAGES.reviews.map((review, index) => (
-          <div key={index} className="review-item relative w-screen h-full flex items-center justify-center overflow-hidden">
+          <div key={index} className="review-item relative w-screen flex-shrink-0 h-full flex items-center justify-center overflow-hidden">
             <Image
               src={review.photo}
               alt={review.name}
