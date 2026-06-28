@@ -13,6 +13,8 @@ export default function PortfolioScene() {
             alt={project.title}
             fill
             className="object-cover project-image"
+            quality={90}
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 flex flex-col items-center justify-center text-white">

@@ -13,6 +13,8 @@ export default function HeroScene() {
           fill
           className="object-cover"
           priority
+          quality={100}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/30" />
       </div>
@@ -32,6 +34,8 @@ export default function HeroScene() {
           alt="Ceiling Detail"
           fill
           className="object-cover scale-150"
+          quality={100}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full">

@@ -31,6 +31,8 @@ export default function ExplorerScene() {
               alt={activeType.title}
               fill
               className="object-cover"
+              quality={90}
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-black/50" />
           </motion.div>
