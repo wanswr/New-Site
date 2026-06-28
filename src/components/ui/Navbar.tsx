@@ -19,12 +19,21 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "О нас", href: "#about" },
-    { name: "Виды потолков", href: "#types" },
-    { name: "Портфолио", href: "#portfolio" },
-    { name: "Калькулятор", href: "#calculator" },
-    { name: "FAQ", href: "#faq" },
+    { name: "О нас", href: "#about", progress: 0.25 },
+    { name: "Портфолио", href: "#portfolio", progress: 0.42 },
+    { name: "Калькулятор", href: "#calculator", progress: 0.64 },
+    { name: "FAQ", href: "#faq", progress: 0.81 },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, progress: number) => {
+    e.preventDefault();
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({
+      top: totalHeight * progress,
+      behavior: "smooth"
+    });
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <nav
@@ -34,20 +43,28 @@ export default function Navbar() {
       )}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link href="/" className="text-2xl font-serif tracking-tighter text-premium-graphite">
+        <Link
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="text-2xl font-serif tracking-tighter text-premium-graphite"
+        >
           Potolok<span className="text-premium-brass">Bel</span>
         </Link>
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
               href={link.href}
-              className="text-sm uppercase tracking-widest hover:text-premium-brass transition-colors"
+              onClick={(e) => handleNavClick(e, link.progress)}
+              className="text-sm uppercase tracking-widest hover:text-premium-brass transition-colors cursor-pointer"
             >
               {link.name}
-            </Link>
+            </a>
           ))}
           <button className="bg-premium-graphite text-premium-white px-6 py-2 text-sm uppercase tracking-widest hover:bg-premium-brass transition-colors">
             Вызвать замерщика
@@ -74,14 +91,14 @@ export default function Navbar() {
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
-                <Link
+                <a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.progress)}
                   className="text-lg font-serif"
-                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.name}
-                </Link>
+                </a>
               ))}
               <button className="bg-premium-graphite text-premium-white py-3 text-center uppercase tracking-widest">
                 Вызвать замерщика
