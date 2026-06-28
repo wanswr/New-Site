@@ -15,8 +15,8 @@ export default function ExplorerScene() {
   const [activeType, setActiveType] = useState(TYPES[0]);
 
   return (
-    <div id="explorer-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-ivory px-6">
-      <div className="relative w-full h-full">
+    <div id="explorer-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-ivory px-6 overflow-hidden">
+      <div className="relative w-full h-full max-w-[2400px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeType.id}

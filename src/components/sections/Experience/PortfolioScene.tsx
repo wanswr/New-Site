@@ -9,8 +9,12 @@ export default function PortfolioScene() {
       {IMAGES.portfolio.map((project, index) => (
         <div
           key={index}
-          className="portfolio-project absolute inset-0 w-full h-full will-change-transform"
-          style={{ clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)', zIndex: index + 1 }}
+          className="portfolio-project absolute inset-0 w-full h-full will-change-transform bg-premium-white"
+          style={{
+            clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
+            zIndex: index + 1,
+            pointerEvents: index === 0 ? 'auto' : 'none'
+          }}
         >
           {/* Minimalist Grid Layout */}
           <div className="relative w-full h-full grid grid-cols-12 grid-rows-12">

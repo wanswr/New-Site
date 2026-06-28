@@ -21,81 +21,113 @@ export default function Experience() {
   useGSAP(() => {
     const sections = ["#hero-scene", "#explorer-scene", "#portfolio-scene", "#calculator-scene", "#faq-scene", "#final-scene"];
 
-    // Set initial state: all sections except first are moved down
-    sections.slice(1).forEach((id) => {
-      gsap.set(id, { yPercent: 100 });
+    // Reset all sections to a base state
+    gsap.set(sections, {
+      autoAlpha: 0,
+      yPercent: 0,
+      pointerEvents: "none",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%"
     });
+
+    // Initial state for Hero
+    gsap.set("#hero-scene", { autoAlpha: 1, pointerEvents: "auto" });
+    // Prepare upcoming sections
+    gsap.set(sections.slice(1), { yPercent: 100 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1200%", // Increased for better control
+        end: "+=1600%", // Slightly longer for smoother narrative
         pin: true,
         scrub: 1,
         snap: {
-          snapTo: [0, 0.1, 0.2, 0.3, 0.45, 0.6, 0.75, 0.9, 1],
+          snapTo: "labels", // Use labels for precise snapping
           duration: { min: 0.5, max: 1.2 },
-          delay: 0,
+          delay: 0.1,
           ease: "power2.inOut"
         }
       }
     });
 
-    // --- STACKED LAYER JOURNEY (Like Opora Sibiri) ---
+    // --- SCENE 0: HERO NARRATIVE ---
+    tl.addLabel("hero-start");
+    tl.to("#hero-bg-wrapper", { scale: 1.1, duration: 4, ease: "power2.inOut" }, "hero-start")
+      .to("#hero-content", { autoAlpha: 0, y: -100, duration: 2, ease: "power2.inIn" }, "hero-start+=0.5")
+      .to("#ceiling-detail", { autoAlpha: 1, duration: 2.5, ease: "expo.inOut" }, "hero-start+=1.5");
+    tl.addLabel("hero-end");
 
-    // 0. Hero zoom-in detail
-    tl.to("#hero-bg-wrapper", { scale: 1.1, duration: 2, ease: "power2.inOut" }, 0)
-      .to("#hero-content", { opacity: 0, y: -100, scale: 1.1, filter: "blur(20px)", duration: 1.5 }, 0.2)
-      .to("#ceiling-detail", { opacity: 1, duration: 2, ease: "power4.inOut" }, 1);
+    // --- TRANSITION: HERO -> EXPLORER ---
+    tl.addLabel("transition-explorer");
+    tl.to("#explorer-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-explorer")
+      .to("#hero-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-explorer");
+    tl.addLabel("explorer-main");
 
-    // 1. Move to Explorer (Cover effect)
-    tl.to("#explorer-scene", { yPercent: 0, duration: 2, ease: "expo.inOut" }, 2);
-    // Parallax background for scene 1 while scene 2 covers it
-    tl.to("#hero-scene", { yPercent: -30, duration: 2, ease: "expo.inOut" }, 2);
+    // --- TRANSITION: EXPLORER -> PORTFOLIO ---
+    tl.addLabel("transition-portfolio");
+    tl.to("#portfolio-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-portfolio")
+      .to("#explorer-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-portfolio");
+    tl.addLabel("portfolio-0");
 
-    // 2. Move to Portfolio
-    tl.to("#portfolio-scene", { yPercent: 0, duration: 2, ease: "expo.inOut" }, 4.5);
-    tl.to("#explorer-scene", { yPercent: -30, duration: 2, ease: "expo.inOut" }, 4.5);
-
-    // 3. Portfolio internal steps with high-end reveals
+    // --- PORTFOLIO NARRATIVE (Sequential projects) ---
     const projects: HTMLElement[] = gsap.utils.toArray(".portfolio-project");
     projects.forEach((project, i) => {
-      const startTime = 5.5 + i * 1.5;
       if (i > 0) {
+        const label = `portfolio-${i}`;
+        tl.addLabel(label);
+
+        // Reveal next project
         tl.to(project, {
           clipPath: "inset(0% 0% 0% 0%)",
-          duration: 2,
+          duration: 3,
           ease: "expo.inOut"
-        }, startTime);
+        }, label);
 
-        // Parallax sliding for text elements
+        // Content animations for the project
         tl.from(project.querySelector(".project-title"), {
-          yPercent: 100,
-          opacity: 0,
-          duration: 1.5,
+          yPercent: 50,
+          autoAlpha: 0,
+          duration: 2,
           ease: "power4.out"
-        }, startTime + 0.8);
+        }, label + "+=1");
 
         tl.from(project.querySelector(".project-image-wrapper"), {
-          scale: 1.3,
-          duration: 2.5,
+          scale: 1.2,
+          duration: 4,
           ease: "power2.out"
-        }, startTime);
+        }, label);
+
+        // Enable pointer events for current project and hide previous
+        tl.set(project, { pointerEvents: "auto" }, label + "+=2.5");
+        if (i > 0) {
+           tl.to(projects[i-1], { autoAlpha: 0, pointerEvents: "none", duration: 0.1 }, label + "+=2.5");
+        }
       }
     });
+    tl.addLabel("portfolio-end");
 
-    // 4. Move to Calculator
-    tl.to("#calculator-scene", { yPercent: 0, duration: 2, ease: "expo.inOut" }, 13);
-    tl.to("#portfolio-scene", { yPercent: -30, duration: 2, ease: "expo.inOut" }, 13);
+    // --- TRANSITION: PORTFOLIO -> CALCULATOR ---
+    tl.addLabel("transition-calculator");
+    tl.to("#calculator-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-calculator")
+      .to("#portfolio-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-calculator");
+    tl.addLabel("calculator-main");
 
-    // 5. Move to FAQ
-    tl.to("#faq-scene", { yPercent: 0, duration: 2, ease: "expo.inOut" }, 15.5);
-    tl.to("#calculator-scene", { yPercent: -30, duration: 2, ease: "expo.inOut" }, 15.5);
+    // --- TRANSITION: CALCULATOR -> FAQ ---
+    tl.addLabel("transition-faq");
+    tl.to("#faq-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-faq")
+      .to("#calculator-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-faq");
+    tl.addLabel("faq-main");
 
-    // 6. Move to Final
-    tl.to("#final-scene", { yPercent: 0, duration: 2, ease: "expo.inOut" }, 18);
-    tl.to("#faq-scene", { yPercent: -30, duration: 2, ease: "expo.inOut" }, 18);
+    // --- TRANSITION: FAQ -> FINAL ---
+    tl.addLabel("transition-final");
+    tl.to("#final-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-final")
+      .to("#faq-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-final")
+      .to("#final-bg", { scale: 1, duration: 5, ease: "power2.out" }, "transition-final");
+    tl.addLabel("final-main");
 
   }, { scope: containerRef });
 

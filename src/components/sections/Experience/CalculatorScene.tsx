@@ -23,8 +23,8 @@ export default function CalculatorScene() {
     (lights * PRICE_PER_LIGHT);
 
   return (
-    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-white text-premium-graphite px-6 overflow-hidden">
-      <div className="max-w-6xl w-full grid lg:grid-cols-[1fr_450px] gap-24 items-center">
+    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-white text-premium-graphite px-6 overflow-y-auto lg:overflow-hidden py-24 lg:py-0">
+      <div className="max-w-6xl w-full grid lg:grid-cols-[1fr_450px] gap-12 lg:gap-24 items-center">
         <div className="space-y-12">
           <div>
             <span className="text-premium-brass text-xs uppercase tracking-[0.5em] mb-4 block">Project Estimator</span>
