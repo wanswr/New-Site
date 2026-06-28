@@ -112,6 +112,23 @@ Use these for maximum realism (Flux.1 / Midjourney style). These are tuned to lo
 
 ---
 
+## AI Upscaling & Refinement Workflow
+If you have low-resolution real photos (like those from a messenger or small previews), use this workflow to turn them into **4K High-End content** for the site.
+
+### Step-by-Step "Enhancement" Recipe:
+1.  **Tool:** Open **Recraft.ai** or **Flux.1 (via SeaArt/Fal)**.
+2.  **Feature:** Use **Image-to-Image** (or Upload as Reference).
+3.  **Settings:**
+    *   **Image Strength:** Set to **0.3 or 0.4**. (This keeps your layout but lets the AI add pixels/details).
+    *   **Style:** `Realistic Image` / `Photography`.
+4.  **Prompt:** Use one of the **Hyper-Realism** prompts from the section above that matches your photo.
+5.  **Upscale:** After generation, use the **"Upscale 4x"** button.
+
+### Why this works:
+Instead of just stretching the small photo (which makes it blurry), the AI "re-draws" it using your photo as a map. It adds real texture to the matte ceiling, sharpens the light lines, and creates a 4K image that looks like it was shot on a pro camera.
+
+---
+
 ## Troubleshooting: Avoiding Collages/Grids
 If the AI generates 4-5 small photos in one image instead of one big shot:
 
