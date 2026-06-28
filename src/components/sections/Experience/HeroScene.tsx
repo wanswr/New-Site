@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { IMAGES } from "@/constants/content";
+import { ChevronDown } from "lucide-react";
 
 export default function HeroScene() {
   return (
@@ -26,6 +27,11 @@ export default function HeroScene() {
         <p className="text-lg md:text-xl uppercase tracking-[0.5em] text-premium-grey opacity-80">
           PotolokBel Premium
         </p>
+
+        <div className="absolute bottom-12 flex flex-col items-center animate-bounce opacity-40">
+           <span className="text-[10px] uppercase tracking-[0.3em] mb-2">Листайте вниз</span>
+           <ChevronDown size={20} />
+        </div>
       </div>
 
       <div id="ceiling-detail" className="absolute inset-0 opacity-0 pointer-events-none">
