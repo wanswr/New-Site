@@ -1,47 +1,47 @@
 export const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=90&w=3840&auto=format&fit=crop", // Ultra high-res premium living room
-  detail: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=90&w=3840&auto=format&fit=crop", // Lighting/Ceiling focus
+  hero: "/images/projects/hero.png",
+  detail: "/images/projects/interior-demo.png",
   details: {
-    shadow: "https://images.unsplash.com/photo-1560185127-6a430584496e?q=90&w=3840&auto=format&fit=crop", // Architectural shadow detail
-    light_lines: "https://images.unsplash.com/photo-1534073828943-f801091bb18c?q=90&w=3840&auto=format&fit=crop", // Clean light lines
-    texture: "https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?q=90&w=3840&auto=format&fit=crop", // Texture detail
-    floating: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=90&w=3840&auto=format&fit=crop", // Floating effect interior
+    shadow: "/images/projects/detail-slot.png",
+    light_lines: "/images/projects/linear-window.png",
+    texture: "/images/projects/detail-curtain.png",
+    floating: "/images/projects/living-spots.png",
   },
   types: {
-    matte: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=90&w=3840&auto=format&fit=crop",
-    shadow: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=90&w=3840&auto=format&fit=crop",
-    floating: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?q=90&w=3840&auto=format&fit=crop",
+    matte: "/images/projects/track-rect.png",
+    shadow: "/images/projects/track-rect-2.png",
+    floating: "/images/projects/track-zigzag.png",
   },
   portfolio: [
     {
-      url: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=90&w=3840&auto=format&fit=crop",
+      url: "/images/projects/hero.png",
       title: "Гостиная • ЖК «Сердце Столицы»",
       year: "2024",
       category: "Living Room"
     },
     {
-      url: "https://images.unsplash.com/photo-1600566753086-00f18fb6f3ea?q=90&w=3840&auto=format&fit=crop",
-      title: "Спальня • Барвиха",
+      url: "/images/projects/kitchen-tracks.png",
+      title: "Кухня • Пентхаус Сити",
+      year: "2024",
+      category: "Kitchen"
+    },
+    {
+      url: "/images/projects/living-spots.png",
+      title: "Зал • Барвиха",
+      year: "2024",
+      category: "Living Room"
+    },
+    {
+      url: "/images/projects/starry-sky.png",
+      title: "Спальня • Новая Рига",
       year: "2024",
       category: "Bedroom"
     },
     {
-      url: "https://images.unsplash.com/photo-1600121848594-d8644e57abab?q=90&w=3840&auto=format&fit=crop",
-      title: "Кухня • Пентхаус Сити",
-      year: "2023",
-      category: "Kitchen"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?q=90&w=3840&auto=format&fit=crop",
-      title: "Кабинет • Новая Рига",
+      url: "/images/projects/linear-window.png",
+      title: "Кабинет • ЖК «Пресня Сити»",
       year: "2024",
       category: "Office"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=90&w=3840&auto=format&fit=crop",
-      title: "Загородный Дом • Жуковка",
-      year: "2024",
-      category: "House"
     }
   ],
   reviews: [
