@@ -23,11 +23,11 @@ export default function Experience() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1200%", // Reduced from 1800% for snappier experience
+        end: "+=1400%", // Slightly increased for more "weight" in transitions
         pin: true,
-        scrub: 1,
+        scrub: 1.2,
         snap: {
-          snapTo: [0, 0.25, 0.42, 0.64, 0.81, 1], // Align with nav links
+          snapTo: [0, 0.22, 0.38, 0.68, 0.84, 1], // Re-aligned for new portfolio timings
           duration: { min: 0.2, max: 1 },
           delay: 0.1,
           ease: "power1.inOut"
@@ -84,11 +84,46 @@ export default function Experience() {
 
     const projects: HTMLElement[] = gsap.utils.toArray(".portfolio-project");
     projects.forEach((project, i) => {
+      const startTime = 5.5 + i * 1.5;
+      const title = project.querySelector(".project-title");
+      const number = project.querySelector(".project-number");
+      const meta = project.querySelector(".project-meta");
+      const img = project.querySelector(".project-image-wrapper");
+
+      // Entrance animation for each project (except the first which is visible)
       if (i > 0) {
-        tl.to(projects[i-1], { opacity: 0, scale: 0.8, duration: 1 }, 6 + i * 1);
-        tl.to(project, { opacity: 1, duration: 1 }, 6 + i * 1);
+        tl.to(project, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 1.5,
+          ease: "expo.inOut"
+        }, startTime);
+
+        // Parallax offset for the image to create a "sliding reveal" effect
+        tl.fromTo(img,
+          { yPercent: 20, scale: 1.2 },
+          { yPercent: 0, scale: 1.1, duration: 1.5, ease: "expo.out" },
+          startTime
+        );
+
+        // Staggered text reveals
+        tl.fromTo([number, title, meta],
+          { yPercent: 100, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power4.out" },
+          startTime + 0.5
+        );
+      } else {
+        // Initial state for first project
+        tl.to(img, { scale: 1.2, duration: 3, ease: "none" }, 5.2);
       }
-      tl.to(project.querySelector("img"), { scale: 1.2, duration: 2 }, 5.5 + i * 1);
+
+      // Exit/Transition out logic for previous project when next enters
+      if (i < projects.length - 1) {
+        tl.to(project.querySelector(".project-image-wrapper"), {
+          yPercent: -15,
+          duration: 1.5,
+          ease: "expo.inOut"
+        }, startTime + 1.5);
+      }
     });
 
     // --- SCENE 4: Calculator (8 to 9.5) ---
