@@ -85,6 +85,33 @@ These prompts use specific architectural terminology to mimic top-tier ceiling i
 
 ---
 
+## Hyper-Realism (Reference-Based)
+Use these for maximum realism (Flux.1 / Midjourney style). These are tuned to look like real iPhone/Pro-camera photos of actual installations, not 3D renders.
+
+### 1. Modern Track System (Kitchen/Living)
+**Based on references:** Black magnetic tracks, sharp geometric lines, matte white ceiling.
+> **Prompt:**
+> A real smartphone photo of a high-end kitchen ceiling. White matte stretch ceiling with integrated black magnetic track lighting system forming a rectangular shape. Professional installation, sharp shadow gap profile around the perimeter. Natural daylight from a nearby window, realistic soft shadows, slightly grainy texture like a real photo, not a render. No CGI look, 8k.
+
+### 2. Technical Detail: Recessed Lighting
+**Based on references:** Slott lines, built-in spots, perfect corners.
+> **Prompt:**
+> Close-up wide-angle shot of a ceiling corner. Flawless white satin stretch ceiling with a recessed black SLOTT light line and built-in circular spots. Realistic reflections on the ceiling surface, slight natural imperfections in the wall texture. High contrast between black tracks and white ceiling, architectural detail, shot on iPhone 15 Pro, natural indoor lighting.
+
+### 3. Decorative Lighting (Starry Sky / Backlight)
+**Based on references:** Fiber optic "starry sky" or perimeter LED glow.
+> **Prompt:**
+> Real photo of a ceiling with a "starry sky" effect. Fiber optic lights integrated into a dark stretch ceiling, soft ambient glow from the perimeter. Real room environment, slightly blurred furniture at the bottom. Authentic evening atmosphere, long exposure photography feel, realistic light bloom.
+
+---
+
+## Technical Performance Settings
+- **Flux.1:** Use `Guidance: 3.5`, `Steps: 30` for best results.
+- **Midjourney:** Add `--style raw` to the end of your prompt to avoid the "AI art" look.
+- **Image-to-Image:** If using a reference photo, set `Image Strength` to **0.3 - 0.5** to keep the structure but improve the quality.
+
+---
+
 ## Troubleshooting: Avoiding Collages/Grids
 If the AI generates 4-5 small photos in one image instead of one big shot:
 
