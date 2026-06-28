@@ -37,6 +37,29 @@ This document contains professional prompts for generating high-quality interior
 
 ---
 
+## Export Guidelines & Sizes
+
+For a premium experience, especially with the scroll-zoom animations on the site, use the following export settings:
+
+### 1. Hero & Background Images
+*   **Target Size:** 3840 x 2160 px (4K)
+*   **Why:** The site uses a **3x zoom animation** on the Hero section. A high-resolution image ensures the texture remains sharp as the user scrolls.
+*   **Format:** Export as High-Quality JPG or PNG, then convert to **WebP** for the website.
+
+### 2. Portfolio & General Interiors
+*   **Target Size:** 2560 x 1440 px (2K) or 1920 x 1080 px (FHD)
+*   **Why:** These images have a subtle 1.2x zoom. 2K resolution is the "sweet spot" for retina displays.
+
+### 3. Technical Macro Shots (Details)
+*   **Target Size:** 1920 x 1080 px or 1080 x 1080 px (if used in square cards)
+*   **Why:** These are usually displayed in smaller containers, so standard HD is sufficient.
+
+### 4. Technical Recommendation
+*   **Compression:** Aim for a final WebP file size of **< 500KB** for Hero images and **< 200KB** for portfolio items to maintain fast loading speeds.
+*   **Aspect Ratio:** Always stick to **16:9** for full-screen backgrounds.
+
+---
+
 ## Negative Prompt (Optional)
 Use these to avoid common AI artifacts:
 `saturated, cartoon, low quality, messy wires, distorted, yellow light, watermark, text, grainy, blurry, unrealistic reflections`
