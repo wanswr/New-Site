@@ -5,7 +5,7 @@ import { IMAGES } from "@/constants/content";
 
 export default function FinalScene() {
   return (
-    <div id="final-scene" className="absolute inset-0 w-full h-full opacity-0 pointer-events-none">
+    <div id="final-scene" className="absolute inset-0 w-full h-full pointer-events-auto">
       <div id="final-bg" className="absolute inset-0 scale-150">
          <Image
           src={IMAGES.hero}

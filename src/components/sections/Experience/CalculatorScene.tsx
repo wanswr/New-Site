@@ -24,7 +24,7 @@ export default function CalculatorScene() {
     (lights * PRICE_PER_LIGHT);
 
   return (
-    <div id="calculator-scene" className="absolute inset-0 w-full h-full opacity-0 pointer-events-none flex items-center justify-center bg-premium-graphite text-white px-6">
+    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-graphite text-white px-6">
       <div className="max-w-4xl w-full grid md:grid-cols-2 gap-12 items-center">
         <div>
           <h2 className="text-4xl md:text-5xl font-serif mb-6">Рассчитайте ваш проект</h2>

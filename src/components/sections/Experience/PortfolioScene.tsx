@@ -5,7 +5,7 @@ import { IMAGES } from "@/constants/content";
 
 export default function PortfolioScene() {
   return (
-    <div id="portfolio-scene" className="absolute inset-0 w-full h-full opacity-0 pointer-events-none overflow-hidden">
+    <div id="portfolio-scene" className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden bg-black">
       {IMAGES.portfolio.map((project, index) => (
         <div
           key={index}

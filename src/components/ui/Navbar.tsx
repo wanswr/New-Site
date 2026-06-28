@@ -19,10 +19,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "О нас", href: "#about", progress: 0.25 },
-    { name: "Портфолио", href: "#portfolio", progress: 0.42 },
-    { name: "Калькулятор", href: "#calculator", progress: 0.64 },
-    { name: "FAQ", href: "#faq", progress: 0.81 },
+    { name: "О нас", href: "#about", progress: 0.20 },
+    { name: "Портфолио", href: "#portfolio", progress: 0.45 },
+    { name: "Калькулятор", href: "#calculator", progress: 0.75 },
+    { name: "FAQ", href: "#faq", progress: 0.90 },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, progress: number) => {

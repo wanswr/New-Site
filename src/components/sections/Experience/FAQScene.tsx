@@ -23,7 +23,7 @@ export default function FAQScene() {
   ];
 
   return (
-    <div id="faq-scene" className="absolute inset-0 w-full h-full opacity-0 pointer-events-none flex items-center justify-center bg-black text-white px-6">
+    <div id="faq-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-black text-white px-6">
       <div className="max-w-3xl w-full">
         <h2 className="text-4xl md:text-5xl font-serif mb-12 text-center">Частые вопросы</h2>
 

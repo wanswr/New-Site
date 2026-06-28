@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 
 export default function HeroScene() {
   return (
-    <div id="hero-scene" className="absolute inset-0 w-full h-full">
+    <div id="hero-scene" className="absolute inset-0 w-full h-full pointer-events-auto">
       <div id="hero-bg-wrapper" className="relative w-full h-full overflow-hidden">
         <Image
           src={IMAGES.hero}
