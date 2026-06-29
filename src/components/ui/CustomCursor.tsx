@@ -27,21 +27,30 @@ export default function CustomCursor() {
 
     window.addEventListener("mousemove", handleMouseMove);
 
-    // Hover effects
-    const links = document.querySelectorAll('a, button, [role="button"]');
-    links.forEach(link => {
-      link.addEventListener('mouseenter', () => {
+    // Hover effects with event delegation for robustness
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, [type="range"]');
+      if (target) {
         gsap.to(cursor, { scale: 1.5, opacity: 0.5, duration: 0.3 });
         gsap.to(follower, { scale: 2, opacity: 0.1, duration: 0.3 });
-      });
-      link.addEventListener('mouseleave', () => {
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, [type="range"]');
+      if (target) {
         gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
         gsap.to(follower, { scale: 1, opacity: 0.3, duration: 0.3 });
-      });
-    });
+      }
+    };
+
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 

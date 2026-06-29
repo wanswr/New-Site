@@ -19,19 +19,18 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Story", ru: "История", progress: 0.15 },
-    { name: "Masterpieces", ru: "Шедевры", progress: 0.45 },
-    { name: "Atelier", ru: "Ателье", progress: 0.70 },
-    { name: "Dialogue", ru: "Диалог", progress: 0.85 },
+    { name: "Философия", id: "explorer-scene" },
+    { name: "Проекты", id: "portfolio-scene" },
+    { name: "Расчет", id: "calculator-scene" },
+    { name: "Контакты", id: "final-scene" },
   ];
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, progress: number) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    window.scrollTo({
-      top: totalHeight * progress,
-      behavior: "smooth"
-    });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -58,18 +57,21 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-20">
           {navLinks.map((link) => (
             <a
-              key={link.name}
-              href="#"
-              onClick={(e) => handleNavClick(e, link.progress)}
+              key={link.id}
+              href={`#${link.id}`}
+              onClick={(e) => handleNavClick(e, link.id)}
               className="group relative text-[10px] uppercase tracking-[0.6em] text-luxury-text-muted hover:text-luxury-brass transition-colors duration-700 cursor-none font-bold"
             >
               <span className="block group-hover:-translate-y-4 opacity-100 group-hover:opacity-0 transition-all duration-500">{link.name}</span>
-              <span className="absolute top-0 left-0 block translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 text-luxury-brass">{link.ru}</span>
+              <span className="absolute top-0 left-0 block translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 text-luxury-brass">{link.name}</span>
             </a>
           ))}
 
-          <button className="group relative px-10 py-3 border border-luxury-brass/20 overflow-hidden transition-all duration-700 hover:border-luxury-brass cursor-none">
-             <span className="relative z-10 text-[10px] uppercase tracking-[0.5em] text-luxury-text font-bold">Request</span>
+          <button
+            onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'final-scene')}
+            className="group relative px-10 py-3 border border-luxury-brass/20 overflow-hidden transition-all duration-700 hover:border-luxury-brass cursor-none"
+          >
+             <span className="relative z-10 text-[10px] uppercase tracking-[0.5em] text-luxury-text font-bold">Заявка</span>
              <div className="absolute inset-0 bg-luxury-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
           </button>
         </div>
@@ -99,15 +101,18 @@ export default function Navbar() {
             <div className="flex flex-col space-y-12">
               {navLinks.map((link) => (
                 <a
-                  key={link.name}
-                  href="#"
-                  onClick={(e) => handleNavClick(e, link.progress)}
+                  key={link.id}
+                  href={`#${link.id}`}
+                  onClick={(e) => handleNavClick(e, link.id)}
                   className="text-4xl font-serif text-luxury-text hover:text-luxury-brass transition-colors"
                 >
-                  {link.ru}
+                  {link.name}
                 </a>
               ))}
-              <button className="w-full bg-luxury-brass text-black py-6 text-[11px] uppercase tracking-[1em] font-bold">
+              <button
+                onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'final-scene')}
+                className="w-full bg-luxury-brass text-black py-6 text-[11px] uppercase tracking-[1em] font-bold"
+              >
                 Связаться
               </button>
             </div>

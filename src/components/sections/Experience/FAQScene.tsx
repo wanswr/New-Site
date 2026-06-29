@@ -25,40 +25,37 @@ export default function FAQScene() {
   ];
 
   return (
-    <div id="faq-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-luxury-bg text-luxury-text px-6 overflow-hidden">
-      <div className="max-w-7xl w-full grid md:grid-cols-2 gap-24 items-center relative z-10">
+    <div id="faq-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg text-luxury-text py-32 md:py-64">
+      <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
 
-        {/* Abstract Background Element */}
-        <div className="absolute -top-40 -left-40 w-80 h-80 border border-luxury-brass/5 rounded-full blur-[80px]" />
-
-        <div className="space-y-12">
-           <span className="text-luxury-brass text-[10px] md:text-xs uppercase tracking-[1.5em] mb-12 block font-bold">
+        <div className="space-y-8">
+           <span className="text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold">
              Диалог о Качестве
            </span>
-           <h2 className="text-[clamp(3rem,8vw,10rem)] font-serif mb-16 leading-[0.8] tracking-tighter">
+           <h2 className="text-3xl md:text-5xl font-serif leading-tight tracking-tighter">
              Детали <br />
-             <span className="italic text-luxury-brass/80">Мастерства</span>
+             <span className="italic text-luxury-brass/80 font-normal">Мастерства</span>
            </h2>
-           <div className="h-[1px] w-40 bg-luxury-brass/30" />
-           <p className="text-luxury-text-muted text-[10px] uppercase tracking-[0.5em] leading-relaxed max-w-xs font-medium">
+           <div className="h-[1px] w-24 bg-luxury-brass/30" />
+           <p className="text-luxury-text-muted text-[10px] md:text-xs uppercase tracking-[0.4em] leading-relaxed max-w-sm font-medium">
              В премиальном сегменте нет мелочей. Каждая деталь — это подтверждение нашего стандарта White Glove.
            </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="divide-y divide-luxury-brass/10">
           {faqs.map((faq, i) => (
-            <div key={i} className="border-b border-luxury-brass/10 group cursor-none">
-              <div className="flex justify-between items-center py-10 transition-all duration-700 group-hover:pl-8">
-                <div className="space-y-2">
-                   <span className="text-[8px] uppercase tracking-widest text-luxury-brass/40 font-bold block">{faq.q}</span>
-                   <h3 className="text-xl md:text-3xl font-serif group-hover:text-luxury-brass transition-colors">
+            <div key={i} className="group cursor-none">
+              <div className="flex justify-between items-center py-8 transition-all duration-700">
+                <div className="space-y-1">
+                   <span className="text-[10px] uppercase tracking-widest text-luxury-brass/40 font-bold block">{faq.q}</span>
+                   <h3 className="text-lg md:text-xl font-serif group-hover:text-luxury-brass transition-colors">
                      {faq.ru}
                    </h3>
                 </div>
-                <div className="w-12 h-[1px] bg-luxury-brass/20 group-hover:w-24 group-hover:bg-luxury-brass transition-all duration-700" />
+                <div className="w-10 h-[1px] bg-luxury-brass/20 group-hover:w-16 group-hover:bg-luxury-brass transition-all duration-700" />
               </div>
-              <div className="max-h-0 group-hover:max-h-60 overflow-hidden transition-all duration-1000 ease-expo">
-                <p className="text-luxury-text-muted text-[10px] md:text-xs uppercase tracking-[0.4em] leading-loose pb-12 font-medium pr-12">
+              <div className="max-h-0 group-hover:max-h-40 overflow-hidden transition-all duration-700 ease-in-out">
+                <p className="text-luxury-text-muted text-[10px] md:text-xs uppercase tracking-[0.3em] leading-loose pb-8 font-medium">
                   {faq.a}
                 </p>
               </div>
@@ -66,9 +63,6 @@ export default function FAQScene() {
           ))}
         </div>
       </div>
-
-      {/* Cinematic Frame */}
-      <div className="absolute inset-20 border border-luxury-brass/5 pointer-events-none" />
     </div>
   );
 }
