@@ -30,8 +30,8 @@ export default function ExplorerScene() {
               src={activeType.image}
               alt={activeType.title}
               fill
-              className="object-cover"
-              quality={100}
+              className="object-cover object-center"
+              quality={90}
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />

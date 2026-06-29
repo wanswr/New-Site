@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 const serif = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -35,7 +36,8 @@ export default function RootLayout({
       lang="ru"
       className={`${serif.variable} ${sans.variable} antialiased`}
     >
-      <body className="bg-premium-white text-premium-graphite font-sans">
+      <body className="bg-premium-white text-premium-graphite font-sans overflow-x-hidden">
+        <CustomCursor />
         <SchemaOrg />
         {children}
       </body>

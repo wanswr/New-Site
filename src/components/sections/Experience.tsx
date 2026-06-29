@@ -54,15 +54,10 @@ export default function Experience() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1600%", // Slightly reduced for tighter control
+        end: "+=1200%", // Reduced for faster navigation
         pin: true,
-        scrub: 1, // Faster response to reduce lag feel
-        snap: {
-          snapTo: [0, 0.1, 0.2, 0.3, 0.45, 0.6, 0.75, 0.9, 1], // Explicit snap points
-          duration: { min: 0.5, max: 1.2 },
-          delay: 0, // Instant snap init
-          ease: "power2.inOut"
-        }
+        scrub: 1.5, // Increased for smoother movement
+        // Removed snap to prevent "jumping"
       }
     });
 
@@ -74,18 +69,17 @@ export default function Experience() {
 
     // --- SCENE 0: HERO NARRATIVE ---
     tl.addLabel("hero-start");
-    tl.to("#hero-content", { autoAlpha: 0, scale: 0.9, y: -50, duration: 4, ease: "power2.in" }, "hero-start")
-      .to("#hero-bg-wrapper", { scale: 1.8, duration: 8, ease: "power2.inOut" }, "hero-start")
-      .to("#ceiling-detail", { autoAlpha: 1, scale: 1.1, duration: 6, ease: "expo.inOut" }, "hero-start+=2");
+    tl.to("#hero-content", { autoAlpha: 0, y: -30, duration: 4, ease: "power2.in" }, "hero-start")
+      .to("#hero-bg-wrapper", { scale: 1.2, duration: 8, ease: "power2.inOut" }, "hero-start")
+      .to("#ceiling-detail", { autoAlpha: 1, duration: 6, ease: "power2.inOut" }, "hero-start+=2");
     tl.addLabel("hero-end");
-    tl.to({}, { duration: 4 }); // Dwell
+    tl.to({}, { duration: 2 }); // Dwell
 
     // --- TRANSITION: HERO -> EXPLORER ---
     tl.addLabel("transition-explorer");
     tl.to("#scene-wrapper-hero", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-explorer")
-      .to("#hero-scene", { scale: 3, duration: 4, ease: "power2.in" }, "transition-explorer")
       .to("#scene-wrapper-explorer", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-explorer")
-      .to("#explorer-scene", { scale: 1, duration: 4, ease: "power2.out" }, "transition-explorer");
+      .fromTo("#explorer-scene", { yPercent: 20 }, { yPercent: 0, duration: 4, ease: "power2.out" }, "transition-explorer");
     tl.addLabel("explorer-main");
     tl.to({}, { duration: 6 }); // Dwell
 
@@ -109,8 +103,8 @@ export default function Experience() {
         const label = `portfolio-${i}`;
         tl.addLabel(label);
 
-        tl.to(projects[i-1], { scale: 1.5, autoAlpha: 0, duration: 4, ease: "power2.in" }, label)
-          .to(project, { autoAlpha: 1, scale: 1, duration: 4, ease: "power2.out" }, label);
+        tl.to(projects[i-1], { autoAlpha: 0, duration: 4, ease: "power2.in" }, label)
+          .to(project, { autoAlpha: 1, duration: 4, ease: "power2.out" }, label);
       }
     });
     tl.to({}, { duration: 4 }); // Dwell on last project
@@ -119,9 +113,8 @@ export default function Experience() {
     // --- TRANSITION: PORTFOLIO -> CALCULATOR ---
     tl.addLabel("transition-calculator");
     tl.to("#scene-wrapper-portfolio", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-calculator")
-      .to("#portfolio-scene", { scale: 0.5, duration: 4, ease: "power2.in" }, "transition-calculator")
       .to("#scene-wrapper-calculator", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-calculator")
-      .to("#calculator-scene", { scale: 1, duration: 4, ease: "power2.out" }, "transition-calculator");
+      .fromTo("#calculator-scene", { yPercent: 20 }, { yPercent: 0, duration: 4, ease: "power2.out" }, "transition-calculator");
     tl.addLabel("calculator-main");
     tl.to({}, { duration: 6 }); // Dwell
 
@@ -154,8 +147,8 @@ export default function Experience() {
       <div id="scene-wrapper-faq" className="absolute inset-0 z-50 bg-black overflow-hidden invisible opacity-0"><FAQScene /></div>
       <div id="scene-wrapper-final" className="absolute inset-0 z-60 bg-black overflow-hidden invisible opacity-0"><FinalScene /></div>
 
-      {/* Global Grain/Noise - Reduced opacity for performance */}
-      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.015] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* Global Grain/Noise - Further reduced opacity for performance */}
+      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.01] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
     </div>
   );
 }

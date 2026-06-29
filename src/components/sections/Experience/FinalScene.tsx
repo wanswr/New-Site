@@ -37,9 +37,9 @@ export default function FinalScene() {
                  <input type="tel" className="w-full bg-transparent border-b border-white/10 py-2 md:py-4 text-lg md:text-2xl font-serif text-white focus:border-premium-brass outline-none transition-all placeholder:text-white/5" placeholder="+7" />
                </div>
 
-               <button className="group relative w-full py-6 md:py-8 border border-white/10 overflow-hidden transition-all duration-700 hover:border-premium-brass">
-                 <span className="relative z-10 text-[9px] md:text-[10px] uppercase tracking-[0.8em] text-white group-hover:text-black transition-colors duration-700">Отправить запрос</span>
-                 <div className="absolute inset-0 bg-premium-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
+               <button className="group relative w-full py-6 md:py-8 bg-premium-brass overflow-hidden transition-all duration-700 hover:shadow-[0_0_30px_rgba(197,160,89,0.3)]">
+                 <span className="relative z-10 text-[9px] md:text-[10px] uppercase tracking-[0.8em] text-black font-bold">Отправить запрос</span>
+                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
                </button>
              </form>
 

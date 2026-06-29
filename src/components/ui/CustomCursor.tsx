@@ -11,9 +11,12 @@ export default function CustomCursor() {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
+    // Hide native cursor only when custom cursor is active
+    document.body.style.cursor = 'none';
+
     // Use GSAP for high-performance cursor movement
-    const xTo = gsap.quickTo(cursor, "x", { duration: 0.4, ease: "power3" });
-    const yTo = gsap.quickTo(cursor, "y", { duration: 0.4, ease: "power3" });
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.1, ease: "none" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.1, ease: "none" });
 
     const moveCursor = (e: MouseEvent) => {
       xTo(e.clientX);
@@ -43,7 +46,10 @@ export default function CustomCursor() {
     };
 
     window.addEventListener("mousemove", moveCursor);
-    return () => window.removeEventListener("mousemove", moveCursor);
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      document.body.style.cursor = 'auto';
+    };
   }, []);
 
   return (

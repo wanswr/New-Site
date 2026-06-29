@@ -19,14 +19,14 @@ export default function PortfolioScene() {
           <div className="relative w-full h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-24 overflow-y-auto md:overflow-hidden scrollbar-hide">
 
             {/* Massive Perspective Image */}
-            <div className="project-image-wrapper relative w-full h-[40vh] md:h-full max-w-6xl aspect-[4/5] md:aspect-[16/9] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] shrink-0 md:shrink">
+            <div className="project-image-wrapper relative w-full h-[50vh] md:h-[70vh] max-w-6xl overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] shrink-0">
               <Image
                 src={project.url}
                 alt={project.title}
                 fill
-                className="object-cover"
-                quality={100}
-                sizes="95vw"
+                className="object-cover object-center"
+                quality={90}
+                sizes="(max-width: 768px) 100vw, 80vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20" />
             </div>

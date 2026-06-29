@@ -136,9 +136,9 @@ export default function CalculatorScene() {
              Стоимость включает оригинальные комплектующие и профессиональный монтаж по стандарту White Glove.
            </p>
 
-           <button className="group relative w-full md:w-auto px-12 md:px-16 py-5 md:py-6 border border-white/20 overflow-hidden transition-all duration-700 hover:border-premium-brass mb-12 lg:mb-0">
-              <span className="relative z-10 text-[9px] md:text-[10px] uppercase tracking-[0.6em] text-white group-hover:text-black transition-colors duration-700">Обсудить проект</span>
-              <div className="absolute inset-0 bg-premium-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
+           <button className="group relative w-full md:w-auto px-12 md:px-16 py-5 md:py-6 bg-premium-brass overflow-hidden transition-all duration-700 hover:shadow-[0_0_30px_rgba(197,160,89,0.3)] mb-12 lg:mb-0">
+              <span className="relative z-10 text-[9px] md:text-[10px] uppercase tracking-[0.6em] text-black font-bold">Обсудить проект</span>
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
            </button>
         </div>
       </div>
