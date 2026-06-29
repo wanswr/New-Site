@@ -19,10 +19,17 @@ export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const sections = ["#hero-scene", "#explorer-scene", "#portfolio-scene", "#calculator-scene", "#faq-scene", "#final-scene"];
+    const scenes = [
+      "#scene-wrapper-hero",
+      "#scene-wrapper-explorer",
+      "#scene-wrapper-portfolio",
+      "#scene-wrapper-calculator",
+      "#scene-wrapper-faq",
+      "#scene-wrapper-final"
+    ];
 
-    // Reset all sections to a base state
-    gsap.set(sections, {
+    // Reset all scenes to a base state
+    gsap.set(scenes, {
       autoAlpha: 0,
       yPercent: 0,
       pointerEvents: "none",
@@ -33,113 +40,119 @@ export default function Experience() {
       height: "100%"
     });
 
-    // Initial state for Hero
-    gsap.set("#hero-scene", { autoAlpha: 1, pointerEvents: "auto" });
-    // Prepare upcoming sections
-    gsap.set(sections.slice(1), { yPercent: 100 });
+    // Initial state
+    gsap.set("#scene-wrapper-hero", { autoAlpha: 1, pointerEvents: "auto" });
+    gsap.set([
+      "#scene-wrapper-explorer",
+      "#scene-wrapper-portfolio",
+      "#scene-wrapper-calculator",
+      "#scene-wrapper-faq",
+      "#scene-wrapper-final"
+    ], { autoAlpha: 0, pointerEvents: "none" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1600%", // Slightly longer for smoother narrative
+        end: "+=2000%", // Extended for deeper immersion
         pin: true,
-        scrub: 1,
+        scrub: 1.5,
         snap: {
-          snapTo: "labels", // Use labels for precise snapping
-          duration: { min: 0.5, max: 1.2 },
+          snapTo: "labels",
+          duration: { min: 0.7, max: 1.5 },
           delay: 0.1,
-          ease: "power2.inOut"
+          ease: "power3.inOut"
         }
       }
     });
+
+    // --- GLOBAL LIGHTING FLOW ---
+    tl.to("#lighting-overlay", { backgroundColor: "#fef3c7", opacity: 0.15, duration: 5 }, "hero-start") // Morning
+      .to("#lighting-overlay", { backgroundColor: "#ffffff", opacity: 0, duration: 5 }, "explorer-main") // Day
+      .to("#lighting-overlay", { backgroundColor: "#f59e0b", opacity: 0.2, duration: 5 }, "portfolio-0") // Golden Hour
+      .to("#lighting-overlay", { backgroundColor: "#1e1b4b", opacity: 0.6, duration: 5 }, "calculator-main"); // Evening
 
     // --- SCENE 0: HERO NARRATIVE ---
     tl.addLabel("hero-start");
-    tl.to("#hero-bg-wrapper", { scale: 1.1, duration: 4, ease: "power2.inOut" }, "hero-start")
-      .to("#hero-content", { autoAlpha: 0, y: -100, duration: 2, ease: "power2.inIn" }, "hero-start+=0.5")
-      .to("#ceiling-detail", { autoAlpha: 1, duration: 2.5, ease: "expo.inOut" }, "hero-start+=1.5");
+    tl.to("#hero-content", { autoAlpha: 0, scale: 0.9, y: -50, duration: 4, ease: "power2.in" }, "hero-start")
+      .to("#hero-bg-wrapper", { scale: 1.8, duration: 8, ease: "power2.inOut" }, "hero-start")
+      .to("#ceiling-detail", { autoAlpha: 1, scale: 1.1, duration: 6, ease: "expo.inOut" }, "hero-start+=2");
     tl.addLabel("hero-end");
+    tl.to({}, { duration: 4 }); // Dwell
 
     // --- TRANSITION: HERO -> EXPLORER ---
     tl.addLabel("transition-explorer");
-    tl.to("#explorer-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-explorer")
-      .to("#hero-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-explorer");
+    tl.to("#scene-wrapper-hero", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-explorer")
+      .to("#hero-scene", { scale: 3, duration: 4, ease: "power2.in" }, "transition-explorer")
+      .to("#scene-wrapper-explorer", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-explorer")
+      .to("#explorer-scene", { scale: 1, duration: 4, ease: "power2.out" }, "transition-explorer");
     tl.addLabel("explorer-main");
+    tl.to({}, { duration: 6 }); // Dwell
 
     // --- TRANSITION: EXPLORER -> PORTFOLIO ---
     tl.addLabel("transition-portfolio");
-    tl.to("#portfolio-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-portfolio")
-      .to("#explorer-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-portfolio");
+    tl.to("#scene-wrapper-explorer", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-portfolio")
+      .to("#explorer-scene", { xPercent: -100, duration: 4, ease: "expo.inOut" }, "transition-portfolio")
+      .to("#scene-wrapper-portfolio", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-portfolio")
+      .fromTo("#portfolio-scene",
+        { xPercent: 100 },
+        { xPercent: 0, duration: 4, ease: "expo.inOut" },
+        "transition-portfolio"
+      );
     tl.addLabel("portfolio-0");
 
-    // --- PORTFOLIO NARRATIVE (Sequential projects) ---
+    // --- PORTFOLIO NARRATIVE ---
     const projects: HTMLElement[] = gsap.utils.toArray(".portfolio-project");
     projects.forEach((project, i) => {
       if (i > 0) {
+        tl.to({}, { duration: 4 }); // Dwell on current project
         const label = `portfolio-${i}`;
         tl.addLabel(label);
 
-        // Reveal next project
-        tl.to(project, {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 3,
-          ease: "expo.inOut"
-        }, label);
-
-        // Content animations for the project
-        tl.from(project.querySelector(".project-title"), {
-          yPercent: 50,
-          autoAlpha: 0,
-          duration: 2,
-          ease: "power4.out"
-        }, label + "+=1");
-
-        tl.from(project.querySelector(".project-image-wrapper"), {
-          scale: 1.2,
-          duration: 4,
-          ease: "power2.out"
-        }, label);
-
-        // Enable pointer events for current project and hide previous
-        tl.set(project, { pointerEvents: "auto" }, label + "+=2.5");
-        if (i > 0) {
-           tl.to(projects[i-1], { autoAlpha: 0, pointerEvents: "none", duration: 0.1 }, label + "+=2.5");
-        }
+        tl.to(projects[i-1], { scale: 1.5, autoAlpha: 0, duration: 4, ease: "power2.in" }, label)
+          .to(project, { autoAlpha: 1, scale: 1, duration: 4, ease: "power2.out" }, label);
       }
     });
+    tl.to({}, { duration: 4 }); // Dwell on last project
     tl.addLabel("portfolio-end");
 
     // --- TRANSITION: PORTFOLIO -> CALCULATOR ---
     tl.addLabel("transition-calculator");
-    tl.to("#calculator-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-calculator")
-      .to("#portfolio-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-calculator");
+    tl.to("#scene-wrapper-portfolio", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-calculator")
+      .to("#portfolio-scene", { scale: 0.5, duration: 4, ease: "power2.in" }, "transition-calculator")
+      .to("#scene-wrapper-calculator", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-calculator")
+      .to("#calculator-scene", { scale: 1, duration: 4, ease: "power2.out" }, "transition-calculator");
     tl.addLabel("calculator-main");
+    tl.to({}, { duration: 6 }); // Dwell
 
-    // --- TRANSITION: CALCULATOR -> FAQ ---
-    tl.addLabel("transition-faq");
-    tl.to("#faq-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-faq")
-      .to("#calculator-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-faq");
-    tl.addLabel("faq-main");
-
-    // --- TRANSITION: FAQ -> FINAL ---
+    // --- TRANSITION: CALCULATOR -> FAQ/FINAL ---
     tl.addLabel("transition-final");
-    tl.to("#final-scene", { autoAlpha: 1, yPercent: 0, pointerEvents: "auto", duration: 3, ease: "expo.inOut" }, "transition-final")
-      .to("#faq-scene", { yPercent: -30, autoAlpha: 0, pointerEvents: "none", duration: 3, ease: "expo.inOut" }, "transition-final")
-      .to("#final-bg", { scale: 1, duration: 5, ease: "power2.out" }, "transition-final");
+    tl.to("#scene-wrapper-calculator", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-final")
+      .to("#calculator-scene", { yPercent: -100, duration: 4, ease: "expo.inOut" }, "transition-final")
+      .to("#scene-wrapper-faq", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-final")
+      .to("#faq-scene", { yPercent: 0, duration: 4, ease: "expo.inOut" }, "transition-final");
+    tl.addLabel("faq-main");
+    tl.to({}, { duration: 6 }); // Dwell on FAQ
+
+    tl.addLabel("transition-final-form");
+    tl.to("#scene-wrapper-faq", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-final-form")
+      .to("#scene-wrapper-final", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-final-form");
     tl.addLabel("final-main");
 
   }, { scope: containerRef });
 
   return (
     <div id="main-experience" ref={containerRef} className="relative w-full h-screen overflow-hidden bg-black">
-      {/* Layers are stacked with z-index */}
-      <div className="absolute inset-0 z-10"><HeroScene /></div>
-      <div className="absolute inset-0 z-20"><ExplorerScene /></div>
-      <div className="absolute inset-0 z-30"><PortfolioScene /></div>
-      <div className="absolute inset-0 z-40"><CalculatorScene /></div>
-      <div className="absolute inset-0 z-50"><FAQScene /></div>
-      <div className="absolute inset-0 z-60"><FinalScene /></div>
+      {/* Global Lighting Overlay */}
+      <div id="lighting-overlay" className="pointer-events-none fixed inset-0 z-[80] mix-blend-multiply opacity-0 will-change-[background-color,opacity]" />
+
+      {/* Layers are stacked with z-index and explicit scene-wrapper IDs for GSAP targeting */}
+      <div id="scene-wrapper-hero" className="absolute inset-0 z-10 bg-black overflow-hidden"><HeroScene /></div>
+      <div id="scene-wrapper-explorer" className="absolute inset-0 z-20 bg-black overflow-hidden invisible opacity-0"><ExplorerScene /></div>
+      <div id="scene-wrapper-portfolio" className="absolute inset-0 z-30 bg-black overflow-hidden invisible opacity-0"><PortfolioScene /></div>
+      <div id="scene-wrapper-calculator" className="absolute inset-0 z-40 bg-black overflow-hidden invisible opacity-0"><CalculatorScene /></div>
+      <div id="scene-wrapper-faq" className="absolute inset-0 z-50 bg-black overflow-hidden invisible opacity-0"><FAQScene /></div>
+      <div id="scene-wrapper-final" className="absolute inset-0 z-60 bg-black overflow-hidden invisible opacity-0"><FinalScene /></div>
 
       {/* Global Grain/Noise */}
       <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />

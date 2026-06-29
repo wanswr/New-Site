@@ -2,137 +2,149 @@
 
 import { useState } from "react";
 
+import Image from "next/image";
+import { IMAGES } from "@/constants/content";
+import { motion, AnimatePresence } from "framer-motion";
+
 export default function CalculatorScene() {
-  const [area, setArea] = useState(20);
+  const [area, setArea] = useState(30);
   const [type, setType] = useState("premium");
-  const [corners, setCorners] = useState(4);
-  const [lights, setLights] = useState(4);
+  const [lights, setLights] = useState(8);
 
   const basePrices: Record<string, number> = {
-    standard: 400,
-    premium: 850,
-    exclusive: 1600,
+    standard: 1200,
+    premium: 2800,
+    exclusive: 5500,
   };
 
-  const PRICE_PER_CORNER = 150;
-  const PRICE_PER_LIGHT = 500;
-
-  const estimatedPrice =
-    (area * basePrices[type]) +
-    (Math.max(0, corners - 4) * PRICE_PER_CORNER) +
-    (lights * PRICE_PER_LIGHT);
+  const estimatedPrice = area * basePrices[type] + lights * 1500;
 
   return (
-    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-white text-premium-graphite px-6 overflow-y-auto lg:overflow-hidden py-24 lg:py-0">
-      <div className="max-w-6xl w-full grid lg:grid-cols-[1fr_450px] gap-12 lg:gap-24 items-center">
-        <div className="space-y-12">
-          <div>
-            <span className="text-premium-brass text-xs uppercase tracking-[0.5em] mb-4 block">Project Estimator</span>
-            <h2 className="text-5xl md:text-7xl font-serif leading-tight">Value your <br /><span className="italic">Vision</span></h2>
-          </div>
+    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto bg-black overflow-hidden flex items-center justify-center">
+      {/* Dynamic Environment Background */}
+      <div className="absolute inset-0">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={type}
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1.5, ease: "anticipate" }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={type === "exclusive" ? IMAGES.hero : IMAGES.details.floating}
+              alt="Environment"
+              fill
+              className="object-cover"
+              quality={100}
+            />
+            {/* Dynamic Light Overlay based on lighting state */}
+            <motion.div
+               animate={{ opacity: lights / 30 * 0.6 }}
+               className="absolute inset-0 bg-premium-brass/20 mix-blend-overlay"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-          <div className="space-y-10">
-            <div className="space-y-6">
-              <label className="block text-[10px] uppercase tracking-[0.3em] text-premium-brass font-bold">Selection</label>
-              <div className="flex flex-wrap gap-3">
-                {Object.keys(basePrices).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => setType(key)}
-                    className={`px-8 py-3 text-[10px] uppercase tracking-widest transition-all duration-500 border ${
-                      type === key ? "bg-premium-graphite text-white border-premium-graphite" : "border-premium-graphite/10 text-premium-graphite/40 hover:border-premium-graphite/30"
-                    }`}
-                  >
-                    {key === "standard" ? "Essentials" : key === "premium" ? "Curated" : "Signature"}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 grid lg:grid-cols-2 gap-12 lg:gap-32 items-center py-20 lg:py-0 overflow-y-auto max-h-full scrollbar-hide">
+        <div>
+          <motion.span
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-premium-brass text-[10px] uppercase tracking-[1em] mb-8 md:mb-12 block"
+          >
+            Конфигуратор
+          </motion.span>
 
-            <div className="grid md:grid-cols-2 gap-x-16 gap-y-10">
-              <div className="space-y-4">
+          <h2 className="text-[clamp(2.5rem,8vw,6rem)] font-serif text-white mb-6 md:mb-20 leading-[0.85] tracking-tighter">
+            Математика <br />
+            <span className="italic text-premium-brass/80">Качества</span>
+          </h2>
+
+          <div className="space-y-8 md:space-y-16">
+             {/* Type Selection */}
+             <div className="space-y-4 md:space-y-6">
+                <span className="text-[8px] uppercase tracking-widest text-premium-brass/60">Система примыкания</span>
+                <div className="flex flex-wrap gap-4 md:gap-8">
+                   {Object.keys(basePrices).map((key) => (
+                     <button
+                       key={key}
+                       onClick={() => setType(key)}
+                       className={`text-xs md:text-sm uppercase tracking-[0.3em] transition-all duration-500 pb-2 border-b ${
+                         type === key ? "text-white border-premium-brass" : "text-white/20 border-transparent hover:text-white/40"
+                       }`}
+                     >
+                       {key === "standard" ? "Classic" : key === "premium" ? "Shadow" : "Seamless"}
+                     </button>
+                   ))}
+                </div>
+             </div>
+
+             {/* Area Slider */}
+             <div className="space-y-6">
                 <div className="flex justify-between items-end">
-                   <label className="text-[10px] uppercase tracking-widest text-premium-graphite/60">Surface Area</label>
-                   <span className="font-serif text-2xl">{area} m²</span>
+                   <span className="text-[8px] uppercase tracking-widest text-premium-brass/60">Площадь</span>
+                   <span className="text-2xl font-serif text-white">{area} m²</span>
                 </div>
                 <input
                   type="range"
-                  min="5"
-                  max="150"
+                  min="10"
+                  max="200"
                   value={area}
                   onChange={(e) => setArea(parseInt(e.target.value))}
-                  className="w-full h-[1px] bg-premium-graphite/10 appearance-none cursor-none accent-premium-brass"
+                  className="w-full h-[1px] bg-white/10 appearance-none cursor-none accent-premium-brass"
                 />
-              </div>
+             </div>
 
-              <div className="space-y-4">
+             {/* Lighting Slider */}
+             <div className="space-y-6">
                 <div className="flex justify-between items-end">
-                   <label className="text-[10px] uppercase tracking-widest text-premium-graphite/60">Complexity Points</label>
-                   <span className="font-serif text-2xl">{corners}</span>
-                </div>
-                <input
-                  type="range"
-                  min="4"
-                  max="20"
-                  value={corners}
-                  onChange={(e) => setCorners(parseInt(e.target.value))}
-                  className="w-full h-[1px] bg-premium-graphite/10 appearance-none cursor-none accent-premium-brass"
-                />
-              </div>
-
-              <div className="space-y-4 md:col-span-2">
-                <div className="flex justify-between items-end">
-                   <label className="text-[10px] uppercase tracking-widest text-premium-graphite/60">Integrated Lighting</label>
-                   <span className="font-serif text-2xl">{lights} units</span>
+                   <span className="text-[8px] uppercase tracking-widest text-premium-brass/60">Световые точки</span>
+                   <span className="text-2xl font-serif text-white">{lights} units</span>
                 </div>
                 <input
                   type="range"
                   min="0"
-                  max="30"
+                  max="50"
                   value={lights}
                   onChange={(e) => setLights(parseInt(e.target.value))}
-                  className="w-full h-[1px] bg-premium-graphite/10 appearance-none cursor-none accent-premium-brass"
+                  className="w-full h-[1px] bg-white/10 appearance-none cursor-none accent-premium-brass"
                 />
-              </div>
-            </div>
+             </div>
           </div>
         </div>
 
-        <div className="relative group p-1 bg-gradient-to-tr from-premium-brass/20 to-transparent">
-          <div className="bg-white p-12 shadow-2xl relative z-10">
-            <div className="flex justify-between items-start mb-16">
-              <div className="w-12 h-[1px] bg-premium-brass mt-3" />
-              <span className="text-[10px] uppercase tracking-[0.4em] text-premium-brass font-bold text-right">Investment <br />Estimation</span>
-            </div>
+        {/* Price Output - Integrated */}
+        <div className="flex flex-col items-center lg:items-end mt-4 lg:mt-0">
+           <div className="relative mb-6 md:mb-12">
+             <motion.div
+               key={estimatedPrice}
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="text-5xl md:text-[10vw] font-serif text-white leading-none tracking-tighter"
+             >
+               {estimatedPrice.toLocaleString()}
+               <span className="text-2xl md:text-5xl text-premium-brass ml-2 md:ml-4">₽</span>
+             </motion.div>
+             <span className="absolute -top-10 lg:-top-12 right-0 text-[8px] md:text-[10px] uppercase tracking-[0.5em] text-premium-brass text-right">Предварительный <br />расчет</span>
+           </div>
 
-            <div className="mb-16">
-              <span className="text-6xl md:text-7xl font-serif text-premium-graphite block mb-2">
-                {estimatedPrice.toLocaleString()} <span className="text-2xl font-sans text-premium-brass">₽</span>
-              </span>
-              <p className="text-[9px] uppercase tracking-widest text-premium-graphite/30">Preliminary project valuation</p>
-            </div>
+           <p className="text-premium-grey/40 text-[8px] md:text-[10px] uppercase tracking-[0.3em] mb-6 md:mb-16 text-center lg:text-right max-w-xs">
+             Стоимость включает оригинальные комплектующие и профессиональный монтаж по стандарту White Glove.
+           </p>
 
-            <div className="space-y-6 mb-16">
-              <div className="flex items-center gap-4 group/item">
-                <div className="w-1.5 h-1.5 rounded-full bg-premium-brass transition-transform group-hover/item:scale-150" />
-                <span className="text-xs uppercase tracking-widest text-premium-graphite/70">MSD Evolution Textiles</span>
-              </div>
-              <div className="flex items-center gap-4 group/item">
-                <div className="w-1.5 h-1.5 rounded-full bg-premium-brass transition-transform group-hover/item:scale-150" />
-                <span className="text-xs uppercase tracking-widest text-premium-graphite/70">EuroKraab Shadow Systems</span>
-              </div>
-              <div className="flex items-center gap-4 group/item">
-                <div className="w-1.5 h-1.5 rounded-full bg-premium-brass transition-transform group-hover/item:scale-150" />
-                <span className="text-xs uppercase tracking-widest text-premium-graphite/70">White Glove Installation</span>
-              </div>
-            </div>
-
-            <button className="w-full border border-premium-graphite text-premium-graphite py-5 uppercase tracking-[0.4em] text-[10px] font-bold hover:bg-premium-graphite hover:text-white transition-all duration-700">
-              Request Consultation
-            </button>
-          </div>
+           <button className="group relative w-full md:w-auto px-12 md:px-16 py-5 md:py-6 border border-white/20 overflow-hidden transition-all duration-700 hover:border-premium-brass mb-12 lg:mb-0">
+              <span className="relative z-10 text-[9px] md:text-[10px] uppercase tracking-[0.6em] text-white group-hover:text-black transition-colors duration-700">Обсудить проект</span>
+              <div className="absolute inset-0 bg-premium-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
+           </button>
         </div>
       </div>
+
+      {/* Decorative architectural grid */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:100px_100px]" />
     </div>
   );
 }

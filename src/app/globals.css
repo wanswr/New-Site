@@ -20,7 +20,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: var(--color-premium-white);
+  background: #000;
   overflow-x: hidden;
   cursor: none;
 }
@@ -32,6 +32,10 @@ body {
 ::selection {
   background: #C5A059;
   color: white;
+}
+
+.ease-expo {
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 @layer base {

@@ -5,60 +5,65 @@ import { IMAGES } from "@/constants/content";
 
 export default function PortfolioScene() {
   return (
-    <div id="portfolio-scene" className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden bg-premium-white">
+    <div id="portfolio-scene" className="absolute inset-0 w-full h-full pointer-events-auto overflow-hidden bg-black">
       {IMAGES.portfolio.map((project, index) => (
         <div
           key={index}
-          className="portfolio-project absolute inset-0 w-full h-full will-change-transform bg-premium-white"
+          className="portfolio-project absolute inset-0 w-full h-full will-change-transform bg-black"
           style={{
-            clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
             zIndex: index + 1,
             pointerEvents: index === 0 ? 'auto' : 'none'
           }}
         >
-          {/* Minimalist Grid Layout */}
-          <div className="relative w-full h-full grid grid-cols-12 grid-rows-12">
+          {/* Spatial Composition */}
+          <div className="relative w-full h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-24 overflow-y-auto md:overflow-hidden scrollbar-hide">
 
-            {/* Main Image - Offset from grid for air */}
-            <div className="project-image-wrapper col-start-2 col-end-12 row-start-2 row-end-11 md:col-start-3 md:col-end-10 md:row-start-2 md:row-end-12 relative overflow-hidden shadow-2xl">
+            {/* Massive Perspective Image */}
+            <div className="project-image-wrapper relative w-full h-[40vh] md:h-full max-w-6xl aspect-[4/5] md:aspect-[16/9] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] shrink-0 md:shrink">
               <Image
                 src={project.url}
                 alt={project.title}
                 fill
                 className="object-cover"
                 quality={100}
-                sizes="80vw"
+                sizes="95vw"
               />
-              <div className="absolute inset-0 bg-black/10 mix-blend-multiply" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20" />
             </div>
 
-            {/* Editorial Content Layer */}
-            <div className="col-start-2 col-end-12 row-start-11 row-end-13 md:col-start-10 md:col-end-13 md:row-start-4 md:row-end-10 flex flex-col justify-center items-start md:items-start z-10 md:-ml-24">
-               <div className="overflow-hidden mb-6">
-                 <span className="project-number block text-premium-brass text-xs md:text-sm tracking-[0.5em] font-bold">
-                    GALLERY {String(index + 1).padStart(2, '0')}
+            {/* Floating Editorial Layer */}
+            <div className="relative md:absolute mt-8 md:mt-0 md:bottom-32 md:left-32 z-10 w-full md:max-w-2xl md:right-auto">
+               <div className="flex items-center gap-4 md:gap-6 mb-4 md:mb-8 overflow-hidden">
+                 <div className="w-8 md:w-12 h-[1px] bg-premium-brass/50" />
+                 <span className="project-number block text-premium-brass text-[10px] tracking-[0.8em]">
+                    OBJECT {String(index + 1).padStart(2, '0')}
                  </span>
                </div>
 
-               <div className="overflow-hidden mb-8">
-                 <h3 className="project-title text-3xl md:text-6xl font-serif text-premium-graphite leading-[1.1]">
+               <div className="mb-6 md:mb-12">
+                 <h3 className="project-title text-[clamp(2rem,8vw,6rem)] font-serif text-white leading-[0.85] tracking-tighter">
                    {project.title.split(' • ')[0]} <br />
-                   <span className="italic text-premium-brass/80 text-2xl md:text-4xl">{project.title.split(' • ')[1]}</span>
+                   <span className="italic text-premium-brass/80 text-[clamp(1.2rem,4vw,3rem)]">{project.title.split(' • ')[1]}</span>
                  </h3>
                </div>
 
-               <div className="overflow-hidden">
-                 <p className="project-meta text-[10px] md:text-xs text-premium-graphite/40 tracking-[0.3em] uppercase leading-loose border-l border-premium-brass pl-6">
-                    Material Excellence <br />
-                    System: {project.category} <br />
-                    Vintage: {project.year}
-                 </p>
+               <div className="grid grid-cols-2 gap-8 md:gap-12 border-t border-white/10 pt-6 md:pt-12 mb-12 md:mb-0">
+                 <div className="space-y-2">
+                    <span className="text-[8px] uppercase tracking-widest text-premium-brass">Локация</span>
+                    <p className="text-xs uppercase tracking-widest text-premium-grey">Москва</p>
+                 </div>
+                 <div className="space-y-2 text-right">
+                    <span className="text-[8px] uppercase tracking-widest text-premium-brass">Реализация</span>
+                    <p className="text-xs uppercase tracking-widest text-premium-grey">{project.year}</p>
+                 </div>
                </div>
             </div>
 
-            {/* Vertical Label - Zaha Hadid style element */}
-            <div className="hidden md:block absolute left-12 top-1/2 -rotate-90 origin-left">
-               <span className="text-[8px] uppercase tracking-[1em] text-premium-graphite/20">Bespoke Architectural Surface • Moscow</span>
+            {/* Subtle floating metadata */}
+            <div className="absolute top-12 right-12 hidden md:block">
+               <p className="text-[7px] uppercase tracking-[1em] text-white/20 rotate-90 origin-right">
+                 Architectural Excellence • Bespoke Surfaces
+               </p>
             </div>
           </div>
         </div>

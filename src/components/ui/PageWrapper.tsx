@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <SmoothScroll>
       <CustomCursor />
       <Navbar />
-      <main className="overflow-x-hidden h-screen w-full relative">{children}</main>
+      <main className="relative w-full">{children}</main>
     </SmoothScroll>
   );
 }

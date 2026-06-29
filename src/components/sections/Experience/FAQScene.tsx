@@ -1,53 +1,55 @@
 "use client";
 
-import { Plus } from "lucide-react";
-
 export default function FAQScene() {
   const faqs = [
     {
-      q: "Сколько времени занимает монтаж?",
-      a: "В среднем, установка в одной комнате занимает от 3 до 5 часов в зависимости от сложности освещения."
+      q: "Сроки реализации",
+      a: "От 3 до 5 часов на одно пространство. Мы ценим ваше время и работаем с хирургической точностью."
     },
     {
-      q: "Нужна ли подготовка помещения?",
-      a: "Мы рекомендуем обеспечить доступ к стенам и накрыть мебель пленкой. Основная пыль собирается нашим инструментом с пылеудалением."
+      q: "Подготовка интерьера",
+      a: "Минимальная. Наше оборудование с системой пылеудаления позволяет проводить работы в жилых интерьерах."
     },
     {
-      q: "Какой срок службы у потолка?",
-      a: "Гарантия на полотно составляет 15 лет, на монтажные работы — 3 года. Реальный срок службы превышает 25 лет."
+      q: "Гарантия и долговечность",
+      a: "15 лет на полотно и безупречное состояние конструкции. Реальный срок службы не ограничен."
     },
     {
-      q: "Вы работаете с дизайн-проектами?",
-      a: "Да, мы специализируемся на реализации сложных узлов: теневые примыкания, парящие линии и скрытые карнизы по вашим чертежам."
+      q: "Работа с проектами",
+      a: "Мы говорим на языке архитекторов. Теневые узлы, сложные световые сценарии и скрытые системы — наша специализация."
     }
   ];
 
   return (
-    <div id="faq-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-black text-white px-6 overflow-y-auto lg:overflow-hidden py-24 lg:py-0">
-      <div className="max-w-3xl w-full">
-        <h2 className="text-4xl md:text-5xl font-serif mb-12 text-center">Частые вопросы</h2>
-
-        <div className="space-y-4">
-          {faqs.map((faq, i) => (
-            <div key={i} className="border-b border-white/10 pb-4 group cursor-help">
-              <div className="flex justify-between items-center py-4">
-                <h3 className="text-lg md:text-xl font-light group-hover:text-premium-brass transition-colors">
-                  {faq.q}
-                </h3>
-                <Plus size={20} className="text-premium-brass" />
-              </div>
-              <p className="text-premium-grey text-sm md:text-base leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity max-h-0 group-hover:max-h-40 overflow-hidden">
-                {faq.a}
-              </p>
-            </div>
-          ))}
+    <div id="faq-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-black text-white px-6 overflow-y-auto py-20 md:py-0 scrollbar-hide">
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 md:gap-24 items-center">
+        <div>
+           <span className="text-premium-brass text-[10px] uppercase tracking-[0.8em] mb-8 md:mb-12 block">Вопросы</span>
+           <h2 className="text-[clamp(2.5rem,8vw,6rem)] font-serif mb-10 md:mb-16 leading-[0.85] tracking-tighter">
+             Детали <br />
+             <span className="italic text-premium-brass/80">Мастерства</span>
+           </h2>
+           <p className="text-premium-grey/40 text-[8px] md:text-[10px] uppercase tracking-[0.4em] leading-relaxed max-w-xs">
+             Мы верим, что в премиальном сегменте нет мелочей. Каждый вопрос — это возможность подтвердить наш стандарт.
+           </p>
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-premium-grey mb-4">Остались вопросы?</p>
-          <button className="border border-white/20 px-8 py-3 uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
-            Связаться в WhatsApp
-          </button>
+        <div className="space-y-1">
+          {faqs.map((faq, i) => (
+            <div key={i} className="border-t border-white/10 group cursor-none">
+              <div className="flex justify-between items-center py-6 md:py-10 transition-all duration-700 group-hover:pl-4">
+                <h3 className="text-lg md:text-2xl font-serif group-hover:text-premium-brass transition-colors">
+                  {faq.q}
+                </h3>
+                <div className="w-8 md:w-12 h-[1px] bg-premium-brass/30 group-hover:w-24 transition-all duration-700" />
+              </div>
+              <div className="max-h-0 group-hover:max-h-60 overflow-hidden transition-all duration-700 ease-in-out">
+                <p className="text-premium-grey text-[10px] md:text-sm uppercase tracking-widest leading-loose pb-8 md:pb-10 opacity-60">
+                  {faq.a}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
