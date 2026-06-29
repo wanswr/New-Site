@@ -5,60 +5,56 @@ import gsap from "gsap";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
+  const followerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const cursor = cursorRef.current;
-    if (!cursor) return;
+    const follower = followerRef.current;
+    if (!cursor || !follower) return;
 
-    // Hide native cursor only when custom cursor is active
-    document.body.style.cursor = 'none';
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.2, ease: "power3" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.2, ease: "power3" });
 
-    // Use GSAP for high-performance cursor movement
-    const xTo = gsap.quickTo(cursor, "x", { duration: 0.05, ease: "none" });
-    const yTo = gsap.quickTo(cursor, "y", { duration: 0.05, ease: "none" });
+    const fxTo = gsap.quickTo(follower, "x", { duration: 0.6, ease: "power3" });
+    const fyTo = gsap.quickTo(follower, "y", { duration: 0.6, ease: "power3" });
 
-    const moveCursor = (e: MouseEvent) => {
-      xTo(e.clientX - 6); // Offset half width
-      yTo(e.clientY - 6); // Offset half height
-
-      const target = e.target as HTMLElement;
-      const isHoverable = target.closest('button, a, input, [role="button"]');
-      const isProject = target.closest('.portfolio-project');
-
-      if (isHoverable) {
-        cursor.classList.add('scale-150', 'bg-white');
-        cursor.classList.remove('bg-premium-brass');
-        if (textRef.current) textRef.current.innerText = "";
-      } else if (isProject) {
-        cursor.classList.add('scale-[4]');
-        cursor.classList.remove('bg-premium-brass');
-        cursor.classList.add('bg-premium-brass/20', 'backdrop-blur-sm');
-        if (textRef.current) {
-          textRef.current.innerText = "VIEW";
-          textRef.current.style.opacity = "1";
-        }
-      } else {
-        cursor.classList.remove('scale-150', 'scale-[4]', 'bg-white', 'bg-premium-brass/20', 'backdrop-blur-sm');
-        cursor.classList.add('bg-premium-brass');
-        if (textRef.current) textRef.current.style.opacity = "0";
-      }
+    const handleMouseMove = (e: MouseEvent) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+      fxTo(e.clientX);
+      fyTo(e.clientY);
     };
 
-    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Hover effects
+    const links = document.querySelectorAll('a, button, [role="button"]');
+    links.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        gsap.to(cursor, { scale: 1.5, opacity: 0.5, duration: 0.3 });
+        gsap.to(follower, { scale: 2, opacity: 0.1, duration: 0.3 });
+      });
+      link.addEventListener('mouseleave', () => {
+        gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
+        gsap.to(follower, { scale: 1, opacity: 0.3, duration: 0.3 });
+      });
+    });
+
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      document.body.style.cursor = 'auto';
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
   return (
-    <div
-      ref={cursorRef}
-      className="fixed top-0 left-0 w-3 h-3 bg-premium-brass rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center overflow-hidden will-change-transform shadow-[0_0_10px_rgba(197,160,89,0.3)]"
-      style={{ transform: "translate3d(0,0,0)" }}
-    >
-      <span ref={textRef} className="text-[2px] font-bold tracking-widest text-black opacity-0 transition-opacity duration-300" />
-    </div>
+    <>
+      <div
+        ref={cursorRef}
+        className="fixed top-0 left-0 w-3 h-3 bg-luxury-brass rounded-full pointer-events-none z-[999] mix-blend-difference -translate-x-1/2 -translate-y-1/2"
+      />
+      <div
+        ref={followerRef}
+        className="fixed top-0 left-0 w-12 h-12 border border-luxury-brass/30 rounded-full pointer-events-none z-[998] -translate-x-1/2 -translate-y-1/2 opacity-30"
+      />
+    </>
   );
 }

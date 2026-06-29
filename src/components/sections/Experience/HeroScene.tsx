@@ -19,97 +19,75 @@ export default function HeroScene() {
 
     gsap.from(split.chars, {
       opacity: 0,
-      y: 100,
+      z: 100,
       rotateX: -90,
       stagger: 0.02,
-      duration: 2,
-      ease: "power4.out",
+      duration: 3,
+      ease: "expo.out",
       delay: 0.5
     });
 
     gsap.from(".hero-subtext", {
       opacity: 0,
-      y: 20,
-      duration: 1.5,
-      ease: "power3.out",
+      z: 50,
+      duration: 2,
+      ease: "power2.out",
       delay: 1.5
     });
 
   }, { scope: containerRef });
 
   return (
-    <div id="hero-scene" ref={containerRef} className="absolute inset-0 w-full h-full pointer-events-auto bg-premium-white">
+    <div id="hero-scene" ref={containerRef} className="absolute inset-0 w-full h-full pointer-events-auto bg-luxury-bg overflow-hidden">
       <div id="hero-bg-wrapper" className="relative w-full h-full overflow-hidden will-change-transform">
         <Image
           src={IMAGES.hero}
           alt="Luxury Architectural Interior"
           fill
-          className="object-cover object-center scale-105"
+          className="object-cover object-center scale-110 opacity-40 grayscale-[0.2]"
           priority
           quality={100}
           sizes="100vw"
         />
-        {/* Lighter gradient for clarity */}
-        <div className="absolute inset-0 bg-gradient-to-t from-premium-white/90 via-transparent to-transparent" />
+        {/* Cinematic gradient vignette */}
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-luxury-bg/60 to-luxury-bg" />
       </div>
 
-      <div id="hero-content" className="absolute inset-0 flex flex-col items-center justify-center text-premium-graphite px-6">
-        <div className="hero-subtext overflow-hidden mb-8">
-          <p className="text-[10px] md:text-xs uppercase tracking-[1em] text-premium-brass">
-            PotolokBel • Bespoke Ceilings
+      <div id="hero-content" className="absolute inset-0 flex flex-col items-center justify-center text-luxury-text px-6" style={{ transformStyle: 'preserve-3d' }}>
+        <div className="hero-subtext overflow-hidden mb-12">
+          <p className="text-[10px] md:text-xs uppercase tracking-[1.5em] text-luxury-brass font-bold">
+            PotolokBel • Architectural Surfaces
           </p>
         </div>
 
-        <div className="overflow-hidden py-4">
+        <div className="overflow-hidden py-6">
           <h1
             ref={titleRef}
-            className="hero-title text-[clamp(2.5rem,12vw,12rem)] font-serif text-center leading-[0.85] tracking-tighter will-change-transform text-premium-graphite"
+            className="hero-title text-[clamp(2.5rem,14vw,14rem)] font-serif text-center leading-[0.8] tracking-tighter will-change-transform text-luxury-text"
           >
             Архитектура <br />
-            <span className="italic text-premium-brass/80">Света</span>
+            <span className="italic text-luxury-brass/80">Света</span>
           </h1>
         </div>
 
-        <div className="hero-subtext mt-8 md:mt-12 max-w-lg text-center space-y-8">
-          <p className="text-[10px] md:text-sm uppercase tracking-[0.4em] text-premium-graphite/60 leading-relaxed font-bold">
+        <div className="hero-subtext mt-12 md:mt-16 max-w-2xl text-center space-y-12">
+          <p className="text-[12px] md:text-sm uppercase tracking-[0.6em] text-luxury-text-muted leading-relaxed font-medium">
             Эстетика безупречности в каждом миллиметре пространства
           </p>
 
           <div className="flex justify-center">
-            <button className="group relative px-10 py-4 bg-premium-brass overflow-hidden shadow-lg hover:shadow-premium-brass/20 transition-all duration-500 cursor-none">
-              <span className="relative z-10 text-[10px] uppercase tracking-[0.4em] text-black font-bold">Заказать расчет</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+            <button className="group relative px-12 py-5 bg-transparent border border-luxury-brass/30 overflow-hidden transition-all duration-700 hover:border-luxury-brass cursor-none">
+              <span className="relative z-10 text-[11px] uppercase tracking-[0.6em] text-luxury-text group-hover:text-black transition-colors duration-700 font-bold">
+                Начать погружение
+              </span>
+              <div className="absolute inset-0 bg-luxury-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
             </button>
           </div>
         </div>
 
-        <div className="absolute bottom-16 flex flex-col items-center opacity-60">
-           <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-premium-brass to-transparent" />
-           <span className="text-[7px] uppercase tracking-[0.6em] mt-6 text-premium-graphite font-bold">Листайте для погружения</span>
-        </div>
-      </div>
-
-      {/* Ceiling Detail Scene (Nested Narrative) */}
-      <div id="ceiling-detail" className="absolute inset-0 opacity-0 pointer-events-none will-change-transform bg-premium-white">
-        <Image
-          src={IMAGES.detail}
-          alt="Bespoke Shadow Gap Detail"
-          fill
-          className="object-cover object-center"
-          quality={100}
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-premium-white/80 backdrop-blur-[1px]" />
-
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6">
-           <div className="max-w-4xl">
-             <span className="text-premium-brass text-[10px] uppercase tracking-[0.6em] mb-8 block">Стандарт</span>
-             <h2 className="text-[clamp(2.5rem,10vw,8rem)] font-serif text-premium-graphite mb-6 md:mb-10 leading-[0.9]">Чистота линий</h2>
-             <div className="h-[1px] w-24 md:w-32 bg-premium-brass/30 mx-auto mb-6 md:mb-10" />
-             <p className="text-premium-graphite/60 text-[10px] md:text-sm uppercase tracking-[0.4em] md:tracking-[0.5em] leading-loose max-w-2xl mx-auto font-bold">
-               Теневой профиль • Магнитные треки • Световая архитектура
-             </p>
-           </div>
+        <div className="absolute bottom-16 flex flex-col items-center opacity-40">
+           <div className="w-[1px] h-24 bg-gradient-to-b from-transparent via-luxury-brass to-transparent" />
+           <span className="text-[8px] uppercase tracking-[1em] mt-8 text-luxury-text-muted font-bold">scroll to explore</span>
         </div>
       </div>
     </div>

@@ -31,7 +31,8 @@ export default function Experience() {
     // Reset all scenes to a base state
     gsap.set(scenes, {
       autoAlpha: 0,
-      yPercent: 0,
+      scale: 1,
+      z: 0,
       pointerEvents: "none",
       position: "absolute",
       top: 0,
@@ -42,118 +43,120 @@ export default function Experience() {
 
     // Initial state
     gsap.set("#scene-wrapper-hero", { autoAlpha: 1, pointerEvents: "auto" });
-    gsap.set([
-      "#scene-wrapper-explorer",
-      "#scene-wrapper-portfolio",
-      "#scene-wrapper-calculator",
-      "#scene-wrapper-faq",
-      "#scene-wrapper-final"
-    ], { autoAlpha: 0, pointerEvents: "none" });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=1400%", // Balanced duration
+        end: "+=1600%", // Longer for smoother cinematic flow
         pin: true,
-        scrub: 1, // Tighter response
+        scrub: 1.5, // Even smoother
         snap: {
-          snapTo: [0, 0.1, 0.2, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1],
-          duration: { min: 0.2, max: 0.8 },
-          delay: 0.1,
-          ease: "power2.inOut"
+          snapTo: [0, 0.15, 0.35, 0.55, 0.75, 0.9, 1],
+          duration: { min: 0.5, max: 1.2 },
+          delay: 0.2,
+          ease: "power3.inOut"
         }
       }
     });
 
-    // --- GLOBAL LIGHTING FLOW (Subtle Tints) ---
-    tl.to("#lighting-overlay", { backgroundColor: "#fef3c7", opacity: 0.05, duration: 5 }, "hero-start")
-      .to("#lighting-overlay", { backgroundColor: "#ffffff", opacity: 0, duration: 5 }, "explorer-main")
-      .to("#lighting-overlay", { backgroundColor: "#f59e0b", opacity: 0.05, duration: 5 }, "portfolio-0")
-      .to("#lighting-overlay", { backgroundColor: "#2C2C2C", opacity: 0.1, duration: 5 }, "calculator-main");
+    // --- GLOBAL CAMERA LIGHTING ---
+    tl.to("#lighting-overlay", { backgroundColor: "#FFF6E8", opacity: 0.03, duration: 5 }, "start")
+      .to("#lighting-overlay", { backgroundColor: "#B08D57", opacity: 0.02, duration: 5 }, "portfolio");
 
-    // --- SCENE 0: HERO NARRATIVE ---
-    tl.addLabel("hero-start");
-    tl.to("#hero-content", { autoAlpha: 0, y: -30, duration: 4, ease: "power2.in" }, "hero-start")
-      .to("#hero-bg-wrapper", { scale: 1.2, duration: 8, ease: "power2.inOut" }, "hero-start")
-      .to("#ceiling-detail", { autoAlpha: 1, duration: 6, ease: "power2.inOut" }, "hero-start+=2");
-    tl.addLabel("hero-end");
-    tl.to({}, { duration: 2 }); // Dwell
+    // --- SCENE 1: HERO (Z-Axis Zoom In) ---
+    tl.addLabel("hero");
+    tl.to("#scene-wrapper-hero", {
+      scale: 1.5,
+      z: 500,
+      autoAlpha: 0,
+      duration: 10,
+      ease: "power2.in"
+    }, "hero");
 
-    // --- TRANSITION: HERO -> EXPLORER ---
-    tl.addLabel("transition-explorer");
-    tl.to("#scene-wrapper-hero", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-explorer")
-      .to("#scene-wrapper-explorer", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-explorer")
-      .fromTo("#explorer-scene", { yPercent: 50 }, { yPercent: 0, duration: 4, ease: "power2.inOut" }, "transition-explorer");
-    tl.addLabel("explorer-main");
-    tl.to({}, { duration: 4 }); // Dwell
+    // --- SCENE 2: EXPLORER (Brings from Z-depth) ---
+    tl.fromTo("#scene-wrapper-explorer",
+      { autoAlpha: 0, scale: 0.8, z: -500 },
+      { autoAlpha: 1, scale: 1, z: 0, duration: 6, ease: "power2.out", pointerEvents: "auto" },
+      "hero+=4"
+    );
+    tl.addLabel("explorer");
+    tl.to("#scene-wrapper-explorer", {
+      scale: 1.2,
+      z: 200,
+      autoAlpha: 0,
+      duration: 8,
+      ease: "power2.in"
+    }, "explorer+=4");
 
-    // --- TRANSITION: EXPLORER -> PORTFOLIO ---
-    tl.addLabel("transition-portfolio");
-    tl.to("#scene-wrapper-explorer", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-portfolio")
-      .to("#explorer-scene", { yPercent: -50, duration: 4, ease: "power2.inOut" }, "transition-portfolio")
-      .to("#scene-wrapper-portfolio", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-portfolio")
-      .fromTo("#portfolio-scene",
-        { yPercent: 100 },
-        { yPercent: 0, duration: 4, ease: "power2.inOut" },
-        "transition-portfolio"
-      );
-    tl.addLabel("portfolio-0");
+    // --- SCENE 3: PORTFOLIO ---
+    tl.fromTo("#scene-wrapper-portfolio",
+      { autoAlpha: 0, scale: 0.9, z: -300 },
+      { autoAlpha: 1, scale: 1, z: 0, duration: 6, ease: "power2.out", pointerEvents: "auto" },
+      "explorer+=8"
+    );
+    tl.addLabel("portfolio");
 
-    // --- PORTFOLIO NARRATIVE ---
-    const projects: HTMLElement[] = gsap.utils.toArray(".portfolio-project");
-    projects.forEach((project, i) => {
-      if (i > 0) {
-        tl.to({}, { duration: 4 }); // Dwell on current project
-        const label = `portfolio-${i}`;
-        tl.addLabel(label);
+    // Portfolio inner timeline would be driven by scroll too
+    // We'll add a dwell time
+    tl.to({}, { duration: 10 });
 
-        tl.to(projects[i-1], { autoAlpha: 0, duration: 4, ease: "power2.in" }, label)
-          .to(project, { autoAlpha: 1, duration: 4, ease: "power2.out" }, label);
-      }
-    });
-    tl.to({}, { duration: 4 }); // Dwell on last project
-    tl.addLabel("portfolio-end");
+    tl.to("#scene-wrapper-portfolio", {
+      scale: 1.3,
+      z: 400,
+      autoAlpha: 0,
+      duration: 8,
+      ease: "power2.in"
+    }, "portfolio+=10");
 
-    // --- TRANSITION: PORTFOLIO -> CALCULATOR ---
-    tl.addLabel("transition-calculator");
-    tl.to("#scene-wrapper-portfolio", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-calculator")
-      .to("#scene-wrapper-calculator", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-calculator")
-      .fromTo("#calculator-scene", { yPercent: 20 }, { yPercent: 0, duration: 4, ease: "power2.out" }, "transition-calculator");
-    tl.addLabel("calculator-main");
-    tl.to({}, { duration: 6 }); // Dwell
+    // --- SCENE 4: CALCULATOR ---
+    tl.fromTo("#scene-wrapper-calculator",
+      { autoAlpha: 0, scale: 0.85, z: -400 },
+      { autoAlpha: 1, scale: 1, z: 0, duration: 6, ease: "power2.out", pointerEvents: "auto" },
+      "portfolio+=14"
+    );
+    tl.addLabel("calculator");
+    tl.to("#scene-wrapper-calculator", {
+      autoAlpha: 0,
+      scale: 1.1,
+      duration: 6,
+      ease: "power2.in"
+    }, "calculator+=6");
 
-    // --- TRANSITION: CALCULATOR -> FAQ/FINAL ---
-    tl.addLabel("transition-final");
-    tl.to("#scene-wrapper-calculator", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-final")
-      .to("#calculator-scene", { yPercent: -100, duration: 4, ease: "expo.inOut" }, "transition-final")
-      .to("#scene-wrapper-faq", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-final")
-      .to("#faq-scene", { yPercent: 0, duration: 4, ease: "expo.inOut" }, "transition-final");
-    tl.addLabel("faq-main");
-    tl.to({}, { duration: 6 }); // Dwell on FAQ
+    // --- SCENE 5: FAQ & FINAL ---
+    tl.fromTo("#scene-wrapper-faq",
+      { autoAlpha: 0, yPercent: 20 },
+      { autoAlpha: 1, yPercent: 0, duration: 6, ease: "power3.out", pointerEvents: "auto" },
+      "calculator+=10"
+    );
+    tl.addLabel("faq");
+    tl.to("#scene-wrapper-faq", { autoAlpha: 0, scale: 0.9, duration: 6 }, "faq+=6");
 
-    tl.addLabel("transition-final-form");
-    tl.to("#scene-wrapper-faq", { autoAlpha: 0, pointerEvents: "none", duration: 2 }, "transition-final-form")
-      .to("#scene-wrapper-final", { autoAlpha: 1, pointerEvents: "auto", duration: 2 }, "transition-final-form");
-    tl.addLabel("final-main");
+    tl.fromTo("#scene-wrapper-final",
+      { autoAlpha: 0, scale: 1.1 },
+      { autoAlpha: 1, scale: 1, duration: 6, ease: "power2.out", pointerEvents: "auto" },
+      "faq+=10"
+    );
+    tl.addLabel("final");
 
   }, { scope: containerRef });
 
   return (
-    <div id="main-experience" ref={containerRef} className="relative w-full h-screen overflow-hidden bg-premium-white">
+    <div id="main-experience" ref={containerRef} className="relative w-full h-screen overflow-hidden bg-luxury-bg">
       {/* Global Lighting Overlay */}
-      <div id="lighting-overlay" className="pointer-events-none fixed inset-0 z-[80] mix-blend-multiply opacity-0 will-change-[background-color,opacity]" />
+      <div id="lighting-overlay" className="pointer-events-none fixed inset-0 z-[80] mix-blend-screen opacity-0 will-change-[background-color,opacity]" />
 
-      {/* Layers are stacked with z-index and explicit scene-wrapper IDs for GSAP targeting */}
-      <div id="scene-wrapper-hero" className="absolute inset-0 z-10 bg-premium-white overflow-hidden"><HeroScene /></div>
-      <div id="scene-wrapper-explorer" className="absolute inset-0 z-20 bg-premium-white overflow-hidden invisible opacity-0"><ExplorerScene /></div>
-      <div id="scene-wrapper-portfolio" className="absolute inset-0 z-30 bg-premium-white overflow-hidden invisible opacity-0"><PortfolioScene /></div>
-      <div id="scene-wrapper-calculator" className="absolute inset-0 z-40 bg-premium-white overflow-hidden invisible opacity-0"><CalculatorScene /></div>
-      <div id="scene-wrapper-faq" className="absolute inset-0 z-50 bg-premium-white overflow-hidden invisible opacity-0"><FAQScene /></div>
-      <div id="scene-wrapper-final" className="absolute inset-0 z-60 bg-premium-white overflow-hidden invisible opacity-0"><FinalScene /></div>
+      <div className="perspective-container absolute inset-0 w-full h-full" style={{ perspective: "1000px" }}>
+        <div id="scene-wrapper-hero" className="absolute inset-0 z-10"><HeroScene /></div>
+        <div id="scene-wrapper-explorer" className="absolute inset-0 z-20 invisible opacity-0"><ExplorerScene /></div>
+        <div id="scene-wrapper-portfolio" className="absolute inset-0 z-30 invisible opacity-0"><PortfolioScene /></div>
+        <div id="scene-wrapper-calculator" className="absolute inset-0 z-40 invisible opacity-0"><CalculatorScene /></div>
+        <div id="scene-wrapper-faq" className="absolute inset-0 z-50 invisible opacity-0"><FAQScene /></div>
+        <div id="scene-wrapper-final" className="absolute inset-0 z-60 invisible opacity-0"><FinalScene /></div>
+      </div>
 
-      {/* Global Grain/Noise - Further reduced opacity for performance */}
-      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.01] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* Global Cinematic Grain */}
+      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
     </div>
   );
 }

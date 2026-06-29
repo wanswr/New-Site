@@ -15,12 +15,11 @@ const sans = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Натяжные потолки в Москве — Установка под ключ | PotolokBel",
-  description: "Натяжные потолки премиум качества в Москве. Бесплатный замер. Гарантия на все виды работ. Теневые, парящие, световые решения для вашего интерьера.",
-  keywords: "натяжные потолки москва, установка натяжных потолков, теневые потолки, парящие потолки, дизайн интерьера москва",
+  title: "PotolokBel — Архитектурные Решения в Натяжных Потолках",
+  description: "Bespoke потолочные системы для премиальных интерьеров. Дизайн, свет, архитектура.",
   openGraph: {
-    title: "PotolokBel — Премиальные натяжные потолки",
-    description: "Проектируем и устанавливаем потолки под стиль вашего пространства",
+    title: "PotolokBel — Digital Experience",
+    description: "Кинематографическая презентация архитектурных потолочных систем.",
     type: "website",
     locale: "ru_RU",
   }
@@ -34,9 +33,9 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${serif.variable} ${sans.variable} antialiased`}
+      className={`${serif.variable} ${sans.variable} antialiased selection:bg-luxury-brass selection:text-luxury-bg`}
     >
-      <body className="bg-premium-white text-premium-graphite font-sans overflow-x-hidden">
+      <body className="bg-luxury-bg text-luxury-text font-sans overflow-x-hidden antialiased">
         <CustomCursor />
         <SchemaOrg />
         {children}

@@ -1,36 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-premium-white: #F9F8F6;
-  --color-premium-ivory: #F2EFE9;
-  --color-premium-grey: #D1D1D1;
-  --color-premium-graphite: #2C2C2C;
-  --color-premium-brass: #C5A059;
-  --color-premium-gold: #D4AF37;
+  --color-luxury-bg: #050505;
+  --color-luxury-bg-alt: #101010;
+  --color-luxury-card: #171717;
+  --color-luxury-surface: #1D1D1D;
+  --color-luxury-text: #F5F3EF;
+  --color-luxury-text-muted: #B6B1A8;
+  --color-luxury-brass: #B08D57;
+  --color-luxury-brass-dark: #8D6E45;
+  --color-luxury-warm-light: #FFF6E8;
 
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
 }
 
 :root {
-  --foreground-rgb: 44, 44, 44;
-  --background-start-rgb: 249, 248, 246;
-  --background-end-rgb: 242, 239, 233;
+  --foreground-rgb: 245, 243, 239;
+  --background-start-rgb: 5, 5, 5;
+  --background-end-rgb: 5, 5, 5;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #000;
+  color: var(--color-luxury-text);
+  background: var(--color-luxury-bg);
   overflow-x: hidden;
+  cursor: none; /* We will use a custom cinematic cursor */
 }
 
 ::selection {
-  background: #C5A059;
-  color: white;
+  background: var(--color-luxury-brass);
+  color: var(--color-luxury-bg);
 }
 
 .ease-expo {
-  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  transition-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
 }
 
 @layer base {
@@ -49,29 +53,20 @@ html.lenis body {
   scroll-behavior: auto !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
 .lenis.lenis-stopped {
   overflow: hidden;
 }
 
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
+/* Hide scrollbar for immersive feel */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@layer utilities {
-  .animate-spin-slow {
-    animation: spin 20s linear infinite;
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.text-stroke {
+  -webkit-text-stroke: 1px var(--color-luxury-brass);
+  color: transparent;
 }
