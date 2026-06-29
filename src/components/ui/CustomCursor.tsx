@@ -15,12 +15,12 @@ export default function CustomCursor() {
     document.body.style.cursor = 'none';
 
     // Use GSAP for high-performance cursor movement
-    const xTo = gsap.quickTo(cursor, "x", { duration: 0.1, ease: "none" });
-    const yTo = gsap.quickTo(cursor, "y", { duration: 0.1, ease: "none" });
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.05, ease: "none" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.05, ease: "none" });
 
     const moveCursor = (e: MouseEvent) => {
-      xTo(e.clientX);
-      yTo(e.clientY);
+      xTo(e.clientX - 6); // Offset half width
+      yTo(e.clientY - 6); // Offset half height
 
       const target = e.target as HTMLElement;
       const isHoverable = target.closest('button, a, input, [role="button"]');
@@ -55,8 +55,8 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 w-3 h-3 bg-premium-brass rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center overflow-hidden will-change-transform"
-      style={{ left: 0, top: 0 }}
+      className="fixed top-0 left-0 w-3 h-3 bg-premium-brass rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center overflow-hidden will-change-transform shadow-[0_0_10px_rgba(197,160,89,0.3)]"
+      style={{ transform: "translate3d(0,0,0)" }}
     >
       <span ref={textRef} className="text-[2px] font-bold tracking-widest text-black opacity-0 transition-opacity duration-300" />
     </div>

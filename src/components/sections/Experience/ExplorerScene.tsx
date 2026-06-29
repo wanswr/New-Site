@@ -15,7 +15,7 @@ export default function ExplorerScene() {
   const [activeType, setActiveType] = useState(TYPES[0]);
 
   return (
-    <div id="explorer-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-black overflow-hidden">
+    <div id="explorer-scene" className="absolute inset-0 w-full h-full pointer-events-auto flex items-center justify-center bg-premium-white overflow-hidden">
       <div className="relative w-full h-full">
         <AnimatePresence mode="wait">
           <motion.div
@@ -34,7 +34,8 @@ export default function ExplorerScene() {
               quality={90}
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
+            {/* Lighter gradient for clear text */}
+            <div className="absolute inset-0 bg-gradient-to-r from-premium-white/95 via-premium-white/40 to-transparent" />
           </motion.div>
         </AnimatePresence>
 
@@ -45,7 +46,7 @@ export default function ExplorerScene() {
                animate={{ opacity: 1, x: 0 }}
                className="text-premium-brass text-[10px] uppercase tracking-[0.8em] mb-8 md:mb-12 block"
             >
-              Материалы
+              Технологии
             </motion.span>
 
             <div className="space-y-2 md:space-y-4 mb-12 md:mb-16">
@@ -59,7 +60,7 @@ export default function ExplorerScene() {
                     activeType.id === type.id ? 'w-12 md:w-24' : 'w-0 group-hover:w-6 md:group-hover:w-12'
                   }`} />
                   <span className={`text-3xl md:text-[clamp(3rem,8vw,6rem)] font-serif transition-all duration-700 ${
-                    activeType.id === type.id ? 'text-white' : 'text-white/20 hover:text-white/40'
+                    activeType.id === type.id ? 'text-premium-graphite' : 'text-premium-graphite/10 hover:text-premium-graphite/30'
                   }`}>
                     {type.title}
                   </span>
@@ -74,7 +75,7 @@ export default function ExplorerScene() {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="max-w-md border-l border-premium-brass/30 pl-6 md:pl-12"
             >
-              <p className="text-premium-grey text-xs md:text-base uppercase tracking-widest leading-relaxed">
+              <p className="text-premium-graphite/60 text-xs md:text-sm uppercase tracking-widest leading-relaxed font-bold">
                 {activeType.desc}
               </p>
             </motion.div>
@@ -82,9 +83,9 @@ export default function ExplorerScene() {
         </div>
 
         {/* Decorative corner element */}
-        <div className="absolute bottom-12 right-12 flex flex-col items-end opacity-20">
-           <span className="text-[8px] uppercase tracking-[1em] mb-4">Tactile Excellence</span>
-           <div className="w-32 h-[1px] bg-white" />
+        <div className="absolute bottom-12 right-12 flex flex-col items-end opacity-40">
+           <span className="text-[8px] uppercase tracking-[1em] mb-4 text-premium-graphite">Tactile Excellence</span>
+           <div className="w-32 h-[1px] bg-premium-brass" />
         </div>
       </div>
     </div>

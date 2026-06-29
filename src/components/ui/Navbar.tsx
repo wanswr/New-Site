@@ -39,7 +39,7 @@ export default function Navbar() {
     <nav
       className={cn(
         "fixed top-0 left-0 w-full z-[100] transition-all duration-700 px-6 py-6 md:px-16 md:py-10",
-        isScrolled ? "bg-black/20 backdrop-blur-lg py-6" : "bg-transparent"
+        isScrolled ? "bg-premium-white/80 backdrop-blur-lg py-6 shadow-sm" : "bg-transparent"
       )}
     >
       <div className="max-w-[2400px] mx-auto flex justify-between items-center">
@@ -49,7 +49,7 @@ export default function Navbar() {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="text-2xl font-serif tracking-tighter text-white"
+          className="text-2xl font-serif tracking-tighter text-premium-graphite font-bold"
         >
           Potolok<span className="text-premium-brass">Bel</span>
         </Link>
@@ -61,20 +61,20 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.progress)}
-              className="text-[10px] uppercase tracking-[0.4em] text-white/60 hover:text-premium-brass transition-colors cursor-none"
+              className="text-[10px] uppercase tracking-[0.4em] text-premium-graphite/60 hover:text-premium-brass transition-colors cursor-none font-bold"
             >
               {link.name}
             </a>
           ))}
-          <button className="group relative px-8 py-3 border border-white/10 overflow-hidden transition-all duration-700 hover:border-premium-brass cursor-none">
-             <span className="relative z-10 text-[9px] uppercase tracking-[0.4em] text-white group-hover:text-black transition-colors duration-700">Замер</span>
+          <button className="group relative px-8 py-3 border border-premium-graphite/10 overflow-hidden transition-all duration-700 hover:border-premium-brass cursor-none">
+             <span className="relative z-10 text-[9px] uppercase tracking-[0.4em] text-premium-graphite group-hover:text-white transition-colors duration-700 font-bold">Замер</span>
              <div className="absolute inset-0 bg-premium-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
           </button>
         </div>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white"
+          className="md:hidden text-premium-graphite"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

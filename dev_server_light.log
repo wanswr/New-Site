@@ -1,0 +1,25 @@
+
+> potolok-app@0.1.0 dev
+> next dev --hostname 0.0.0.0
+
+   ▲ Next.js 15.1.6
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.4s
+ ○ Compiling / ...
+ ✓ Compiled / in 4.4s (1510 modules)
+ GET / 200 in 5456ms
+ ✓ Compiled in 2.6s (1524 modules)
+ ✓ Compiled in 541ms (1524 modules)
+ ✓ Compiled in 789ms (1524 modules)
+ ✓ Compiled in 438ms (1524 modules)
+ GET / 200 in 440ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 699ms (1514 modules)
+ GET /_next/static/chunks/main-app.js?v=1782752593433 404 in 911ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 909ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 2.6s (1756 modules)
+ HEAD / 404 in 2980ms

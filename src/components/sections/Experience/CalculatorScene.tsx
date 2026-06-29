@@ -20,7 +20,7 @@ export default function CalculatorScene() {
   const estimatedPrice = area * basePrices[type] + lights * 1500;
 
   return (
-    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto bg-black overflow-hidden flex items-center justify-center">
+    <div id="calculator-scene" className="absolute inset-0 w-full h-full pointer-events-auto bg-premium-white overflow-hidden flex items-center justify-center">
       {/* Dynamic Environment Background */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
@@ -41,16 +41,16 @@ export default function CalculatorScene() {
             />
             {/* Dynamic Light Overlay based on lighting state */}
             <motion.div
-               animate={{ opacity: lights / 30 * 0.6 }}
-               className="absolute inset-0 bg-premium-brass/20 mix-blend-overlay"
+               animate={{ opacity: lights / 30 * 0.4 }}
+               className="absolute inset-0 bg-premium-brass/10 mix-blend-overlay"
             />
-            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 bg-premium-white/80" />
           </motion.div>
         </AnimatePresence>
       </div>
 
       <div className="relative z-10 w-full max-w-7xl px-6 md:px-12 grid lg:grid-cols-2 gap-12 lg:gap-32 items-center py-20 lg:py-0 overflow-y-auto max-h-full scrollbar-hide">
-        <div>
+        <div className="text-premium-graphite">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -59,7 +59,7 @@ export default function CalculatorScene() {
             Конфигуратор
           </motion.span>
 
-          <h2 className="text-[clamp(2.5rem,8vw,6rem)] font-serif text-white mb-6 md:mb-20 leading-[0.85] tracking-tighter">
+          <h2 className="text-[clamp(2.5rem,8vw,6rem)] font-serif text-premium-graphite mb-6 md:mb-20 leading-[0.85] tracking-tighter">
             Математика <br />
             <span className="italic text-premium-brass/80">Качества</span>
           </h2>
@@ -67,17 +67,17 @@ export default function CalculatorScene() {
           <div className="space-y-8 md:space-y-16">
              {/* Type Selection */}
              <div className="space-y-4 md:space-y-6">
-                <span className="text-[8px] uppercase tracking-widest text-premium-brass/60">Система примыкания</span>
+                <span className="text-[8px] uppercase tracking-widest text-premium-brass/60 font-bold">Система примыкания</span>
                 <div className="flex flex-wrap gap-4 md:gap-8">
                    {Object.keys(basePrices).map((key) => (
                      <button
                        key={key}
                        onClick={() => setType(key)}
-                       className={`text-xs md:text-sm uppercase tracking-[0.3em] transition-all duration-500 pb-2 border-b ${
-                         type === key ? "text-white border-premium-brass" : "text-white/20 border-transparent hover:text-white/40"
+                       className={`text-xs md:text-sm uppercase tracking-[0.3em] transition-all duration-500 pb-2 border-b cursor-none font-bold ${
+                         type === key ? "text-premium-graphite border-premium-brass" : "text-premium-graphite/20 border-transparent hover:text-premium-graphite/40"
                        }`}
                      >
-                       {key === "standard" ? "Classic" : key === "premium" ? "Shadow" : "Seamless"}
+                       {key === "standard" ? "Классика" : key === "premium" ? "Теневой" : "Бесщелевой"}
                      </button>
                    ))}
                 </div>
@@ -86,8 +86,8 @@ export default function CalculatorScene() {
              {/* Area Slider */}
              <div className="space-y-6">
                 <div className="flex justify-between items-end">
-                   <span className="text-[8px] uppercase tracking-widest text-premium-brass/60">Площадь</span>
-                   <span className="text-2xl font-serif text-white">{area} m²</span>
+                   <span className="text-[8px] uppercase tracking-widest text-premium-brass/60 font-bold">Площадь</span>
+                   <span className="text-2xl font-serif text-premium-graphite">{area} м²</span>
                 </div>
                 <input
                   type="range"
@@ -95,15 +95,15 @@ export default function CalculatorScene() {
                   max="200"
                   value={area}
                   onChange={(e) => setArea(parseInt(e.target.value))}
-                  className="w-full h-[1px] bg-white/10 appearance-none cursor-none accent-premium-brass"
+                  className="w-full h-[1px] bg-premium-graphite/10 appearance-none cursor-none accent-premium-brass"
                 />
              </div>
 
              {/* Lighting Slider */}
              <div className="space-y-6">
                 <div className="flex justify-between items-end">
-                   <span className="text-[8px] uppercase tracking-widest text-premium-brass/60">Световые точки</span>
-                   <span className="text-2xl font-serif text-white">{lights} units</span>
+                   <span className="text-[8px] uppercase tracking-widest text-premium-brass/60 font-bold">Световые точки</span>
+                   <span className="text-2xl font-serif text-premium-graphite">{lights} ед.</span>
                 </div>
                 <input
                   type="range"
@@ -111,7 +111,7 @@ export default function CalculatorScene() {
                   max="50"
                   value={lights}
                   onChange={(e) => setLights(parseInt(e.target.value))}
-                  className="w-full h-[1px] bg-white/10 appearance-none cursor-none accent-premium-brass"
+                  className="w-full h-[1px] bg-premium-graphite/10 appearance-none cursor-none accent-premium-brass"
                 />
              </div>
           </div>
@@ -124,7 +124,7 @@ export default function CalculatorScene() {
                key={estimatedPrice}
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
-               className="text-5xl md:text-[10vw] font-serif text-white leading-none tracking-tighter"
+               className="text-5xl md:text-[10vw] font-serif text-premium-graphite leading-none tracking-tighter"
              >
                {estimatedPrice.toLocaleString()}
                <span className="text-2xl md:text-5xl text-premium-brass ml-2 md:ml-4">₽</span>
@@ -132,7 +132,7 @@ export default function CalculatorScene() {
              <span className="absolute -top-10 lg:-top-12 right-0 text-[8px] md:text-[10px] uppercase tracking-[0.5em] text-premium-brass text-right">Предварительный <br />расчет</span>
            </div>
 
-           <p className="text-premium-grey/40 text-[8px] md:text-[10px] uppercase tracking-[0.3em] mb-6 md:mb-16 text-center lg:text-right max-w-xs">
+           <p className="text-premium-graphite/40 text-[8px] md:text-[10px] uppercase tracking-[0.3em] mb-6 md:mb-16 text-center lg:text-right max-w-xs font-bold">
              Стоимость включает оригинальные комплектующие и профессиональный монтаж по стандарту White Glove.
            </p>
 
