@@ -54,14 +54,14 @@ export default function Experience() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=2000%", // Extended for deeper immersion
+        end: "+=1600%", // Slightly reduced for tighter control
         pin: true,
-        scrub: 1.5,
+        scrub: 1, // Faster response to reduce lag feel
         snap: {
-          snapTo: "labels",
-          duration: { min: 0.7, max: 1.5 },
-          delay: 0.1,
-          ease: "power3.inOut"
+          snapTo: [0, 0.1, 0.2, 0.3, 0.45, 0.6, 0.75, 0.9, 1], // Explicit snap points
+          duration: { min: 0.5, max: 1.2 },
+          delay: 0, // Instant snap init
+          ease: "power2.inOut"
         }
       }
     });
@@ -154,8 +154,8 @@ export default function Experience() {
       <div id="scene-wrapper-faq" className="absolute inset-0 z-50 bg-black overflow-hidden invisible opacity-0"><FAQScene /></div>
       <div id="scene-wrapper-final" className="absolute inset-0 z-60 bg-black overflow-hidden invisible opacity-0"><FinalScene /></div>
 
-      {/* Global Grain/Noise */}
-      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* Global Grain/Noise - Reduced opacity for performance */}
+      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.015] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
     </div>
   );
 }

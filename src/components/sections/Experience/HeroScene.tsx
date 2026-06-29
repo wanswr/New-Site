@@ -44,7 +44,7 @@ export default function HeroScene() {
           src={IMAGES.hero}
           alt="Luxury Architectural Interior"
           fill
-          className="object-cover"
+          className="object-cover object-center scale-105"
           priority
           quality={100}
           sizes="100vw"
@@ -88,7 +88,7 @@ export default function HeroScene() {
           src={IMAGES.detail}
           alt="Bespoke Shadow Gap Detail"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           quality={100}
           sizes="100vw"
         />

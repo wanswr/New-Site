@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -10,8 +11,13 @@ export default function CustomCursor() {
     const cursor = cursorRef.current;
     if (!cursor) return;
 
+    // Use GSAP for high-performance cursor movement
+    const xTo = gsap.quickTo(cursor, "x", { duration: 0.4, ease: "power3" });
+    const yTo = gsap.quickTo(cursor, "y", { duration: 0.4, ease: "power3" });
+
     const moveCursor = (e: MouseEvent) => {
-      cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+      xTo(e.clientX);
+      yTo(e.clientY);
 
       const target = e.target as HTMLElement;
       const isHoverable = target.closest('button, a, input, [role="button"]');
@@ -43,7 +49,8 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 w-3 h-3 bg-premium-brass rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-all duration-500 ease-expo hidden md:flex items-center justify-center overflow-hidden"
+      className="fixed top-0 left-0 w-3 h-3 bg-premium-brass rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center overflow-hidden will-change-transform"
+      style={{ left: 0, top: 0 }}
     >
       <span ref={textRef} className="text-[2px] font-bold tracking-widest text-black opacity-0 transition-opacity duration-300" />
     </div>
