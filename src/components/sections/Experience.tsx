@@ -1,6 +1,7 @@
 "use client";
 
 import HeroScene from "./Experience/HeroScene";
+import NarrativeScene from "./Experience/NarrativeScene";
 import AboutScene from "./Experience/AboutScene";
 import ExplorerScene from "./Experience/ExplorerScene";
 import PortfolioScene from "./Experience/PortfolioScene";
@@ -16,6 +17,9 @@ export default function Experience() {
 
       <section className="relative w-full min-h-screen">
         <HeroScene />
+      </section>
+      <section className="relative w-full">
+        <NarrativeScene />
       </section>
       <section className="relative w-full">
         <AboutScene />
