@@ -87,16 +87,16 @@ export default function AboutScene() {
             ref={titleRef}
             className="text-3xl md:text-5xl font-serif text-luxury-text leading-[1.2] tracking-tighter"
           >
-            Я создаю потолки, которые <br />
-            <span className="italic text-luxury-brass/80 font-normal">становятся частью интерьера</span>
+            Гарантирую результат, <br />
+            <span className="italic text-luxury-brass/80 font-normal">которым вы будете гордиться</span>
           </h2>
 
           <div className="about-reveal h-[1px] w-24 bg-luxury-brass/30" />
 
           <p className="about-reveal text-luxury-text-muted text-sm md:text-base tracking-[0.1em] leading-relaxed max-w-lg font-medium">
-            За каждым проектом стоит ручная работа, многолетний опыт и внимание к деталям.
-            Мы не просто натягиваем полотно — мы проектируем свет и геометрию вашего пространства,
-            чтобы каждый миллиметр выглядел безупречно.
+            За 10 лет я собрал команду лучших монтажников Москвы, чтобы воплощать проекты любой сложности.
+            Мы берем на себя всё: от инженерного проекта освещения до идеальной натяжки полотна с гарантией 15 лет.
+            Моя цель — сделать процесс для вас невидимым, а результат — безупречным.
           </p>
 
           <div className="grid grid-cols-2 gap-12 pt-8 about-reveal">

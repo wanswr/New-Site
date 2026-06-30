@@ -24,31 +24,50 @@ export default function Experience() {
       {/* Ambient Depth Layer */}
       <FloatingAtmosphere />
 
+      {/* 1. Emotion + USP */}
       <section className="relative w-full">
         <HeroScene />
       </section>
+
+      {/* 2. Trust Pillar: The Person & Experience */}
+      <div className="relative z-10 bg-luxury-bg shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
+        <AboutScene />
+      </div>
+
+      {/* 3. Product Explanation: Visual & Interactive */}
       <section className="relative w-full">
         <NarrativeScene />
       </section>
       <section className="relative w-full">
         <TransformationScene />
       </section>
+      <div className="relative z-10 bg-luxury-bg">
+        <ExplorerScene />
+      </div>
+
+      {/* 4. Deep Tech Proof & Details */}
       <section className="relative w-full">
         <LightingScene />
       </section>
       <section className="relative w-full">
         <MacroDetailScene />
       </section>
+
+      {/* 5. Proof of Result: Portfolio & Comparison */}
       <section className="relative w-full">
         <BeforeAfterScene />
       </section>
+      <div className="relative z-10 bg-luxury-bg">
+        <PortfolioScene />
+      </div>
+
+      {/* 6. Process & Service Trust */}
       <section className="relative w-full">
         <ProcessScene />
       </section>
+
+      {/* 7. Conversion Funnel: Price, FAQ, Contact */}
       <div className="relative z-10 bg-luxury-bg shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
-        <AboutScene />
-        <ExplorerScene />
-        <PortfolioScene />
         <CalculatorScene />
         <FAQScene />
         <FinalScene />

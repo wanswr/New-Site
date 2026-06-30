@@ -11,9 +11,9 @@ import { cinematicReveal } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 const TYPES = [
-  { id: 'matte', title: 'Матовый', image: IMAGES.types.matte, desc: 'Безупречная матовая поверхность. Эстетика классической штукатурки без лишнего блеска.' },
-  { id: 'shadow', title: 'Теневой', image: IMAGES.types.shadow, desc: 'Технологичный зазор по периметру. Создает эффект "парящей" плоскости и идеальные линии.' },
-  { id: 'floating', title: 'Световой', image: IMAGES.types.floating, desc: 'Мягкое заполняющее освещение. Потолок как основной источник атмосферы в интерьере.' }
+  { id: 'matte', title: 'Матовый', image: IMAGES.types.matte, desc: 'Замена классической штукатурке. Не трескается, не желтеет и выглядит идеально ровным десятилетиями.' },
+  { id: 'shadow', title: 'Теневой', image: IMAGES.types.shadow, desc: 'Архитектурный стандарт. Создает тонкий зазор между стеной и потолком, избавляя от дешевых пластиковых карнизов.' },
+  { id: 'floating', title: 'Световой', image: IMAGES.types.floating, desc: 'Потолок как искусство. Интегрированное освещение, которое заменяет громоздкие люстры и создает объем.' }
 ];
 
 export default function ExplorerScene() {

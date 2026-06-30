@@ -141,13 +141,13 @@ export default function HeroScene() {
             ref={titleRef}
             className="hero-title text-[clamp(2rem,7vw,110px)] font-serif leading-[1.1] tracking-tighter text-luxury-text mb-8 md:mb-12"
           >
-            Натяжные потолки, <br className="hidden md:block" />
-            которые становятся <br className="hidden md:block" />
-            <span className="italic text-luxury-brass font-normal">частью интерьера</span>
+            Архитектурные потолки <br className="hidden md:block" />
+            бизнес-класса <br className="hidden md:block" />
+            <span className="italic text-luxury-brass font-normal">для вашего дома</span>
           </h1>
 
           <p className="hero-reveal text-[10px] md:text-sm uppercase tracking-[0.3em] md:tracking-[0.4em] text-luxury-text-muted mb-12 md:mb-16 font-medium max-w-2xl">
-            Премиальные потолочные решения для современных домов и квартир
+            Проектируем свет и безупречную геометрию без щелей, плинтусов и компромиссов.
           </p>
 
           <button
