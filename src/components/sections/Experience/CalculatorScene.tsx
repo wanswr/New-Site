@@ -63,7 +63,7 @@ export default function CalculatorScene() {
                        }`}
                      >
                        <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">
-                         {key === "standard" ? "Classic" : key === "premium" ? "Shadow" : "Bespoke"}
+                         {key === "standard" ? "Классика" : key === "premium" ? "Теневой" : "Эксклюзив"}
                        </span>
                        {type === key && (
                          <motion.div layoutId="calc-underline" className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-brass" />
@@ -89,7 +89,7 @@ export default function CalculatorScene() {
                 <div className="space-y-6">
                   <div className="flex justify-between items-center border-b border-luxury-brass/10 pb-2">
                      <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Свет</span>
-                     <span className="text-2xl font-serif text-luxury-text">{lights} pts</span>
+                     <span className="text-2xl font-serif text-luxury-text">{lights} тчк.</span>
                   </div>
                   <input
                     type="range" min="0" max="100" value={lights}

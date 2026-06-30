@@ -6,9 +6,9 @@ import { IMAGES } from "@/constants/content";
 import { motion, AnimatePresence } from "framer-motion";
 
 const TYPES = [
-  { id: 'matte', title: 'Matte', ru: 'Матовый', image: IMAGES.types.matte, desc: 'Безупречная матовая поверхность. Эстетика классической штукатурки без лишнего блеска.' },
-  { id: 'shadow', title: 'Shadow', ru: 'Теневой', image: IMAGES.types.shadow, desc: 'Технологичный зазор по периметру. Создает эффект "парящей" плоскости и идеальные линии.' },
-  { id: 'floating', title: 'Light', ru: 'Световой', image: IMAGES.types.floating, desc: 'Мягкое заполняющее освещение. Потолок как основной источник атмосферы в интерьере.' }
+  { id: 'matte', title: 'Матовый', image: IMAGES.types.matte, desc: 'Безупречная матовая поверхность. Эстетика классической штукатурки без лишнего блеска.' },
+  { id: 'shadow', title: 'Теневой', image: IMAGES.types.shadow, desc: 'Технологичный зазор по периметру. Создает эффект "парящей" плоскости и идеальные линии.' },
+  { id: 'floating', title: 'Световой', image: IMAGES.types.floating, desc: 'Мягкое заполняющее освещение. Потолок как основной источник атмосферы в интерьере.' }
 ];
 
 export default function ExplorerScene() {
@@ -63,7 +63,7 @@ export default function ExplorerScene() {
                 <span className={`text-3xl md:text-5xl font-serif transition-all duration-700 ${
                   activeType.id === type.id ? 'text-luxury-text' : 'text-luxury-text/20 hover:text-luxury-text/40'
                 }`}>
-                  {type.ru}
+                  {type.title}
                 </span>
               </button>
             ))}

@@ -3,6 +3,7 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
 import CustomCursor from "@/components/ui/CustomCursor";
+import PageWrapper from "@/components/ui/PageWrapper";
 
 const serif = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -38,7 +39,9 @@ export default function RootLayout({
       <body className="bg-luxury-bg text-luxury-text font-sans overflow-x-hidden antialiased">
         <CustomCursor />
         <SchemaOrg />
-        {children}
+        <PageWrapper>
+          {children}
+        </PageWrapper>
       </body>
     </html>
   );

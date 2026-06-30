@@ -118,25 +118,25 @@ export default function MacroDetailScene() {
           ref={titleRef}
           className="text-[clamp(4rem,15vw,250px)] font-serif text-luxury-text tracking-[0.1em] uppercase leading-none text-center"
         >
-          Details
+          Детали
         </h2>
 
         {/* Technical Callouts */}
         <div className="macro-label label-1 absolute top-[25%] left-[10%] md:left-[20%] text-luxury-text max-w-xs">
            <div className="w-16 h-[1px] bg-luxury-brass mb-6" />
-           <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-luxury-brass font-bold block mb-4">Precision Engineering</span>
-           <h3 className="text-3xl md:text-5xl font-serif tracking-tighter leading-none mb-6">EuroKraab Profile</h3>
+           <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-luxury-brass font-bold block mb-4">Прецизионная точность</span>
+           <h3 className="text-3xl md:text-5xl font-serif tracking-tighter leading-none mb-6">Профиль EuroKraab</h3>
            <p className="text-[11px] md:text-sm text-luxury-text-muted tracking-[0.2em] leading-relaxed font-medium">
-             A surgical shadow gap that eliminates the need for decorative cornices, creating a pure architectural transition between wall and ceiling.
+             Хирургически точный теневой зазор, который исключает потребность в багетах, создавая чистый переход между стеной и потолком.
            </p>
         </div>
 
         <div className="macro-label label-2 absolute bottom-[20%] right-[10%] md:right-[20%] text-right text-luxury-text max-w-xs">
            <div className="w-16 h-[1px] bg-luxury-brass mb-6 ml-auto" />
-           <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-luxury-brass font-bold block mb-4">Tactile Excellence</span>
-           <h3 className="text-3xl md:text-5xl font-serif italic tracking-tighter leading-none mb-6">Ultra-Matte Canvas</h3>
+           <span className="text-[10px] md:text-xs uppercase tracking-[0.6em] text-luxury-brass font-bold block mb-4">Тактильное совершенство</span>
+           <h3 className="text-3xl md:text-5xl font-serif italic tracking-tighter leading-none mb-6">Матовое полотно</h3>
            <p className="text-[11px] md:text-sm text-luxury-text-muted tracking-[0.2em] leading-relaxed font-medium ml-auto">
-             European-grade textiles with zero reflection, mimicking the look of perfectly finished mineral plaster with added durability.
+             Европейский текстиль с нулевой рефлексией, имитирующий идеально выровненную минеральную штукатурку высшего качества.
            </p>
         </div>
 
@@ -144,7 +144,7 @@ export default function MacroDetailScene() {
 
       {/* Progress Mark */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-20">
-         <span className="text-[8px] uppercase tracking-[1em] mb-4 text-luxury-text font-bold">micro-perfection</span>
+         <span className="text-[8px] uppercase tracking-[1em] mb-4 text-luxury-text font-bold">микро-перфекционизм</span>
          <div className="w-[1px] h-20 bg-gradient-to-b from-luxury-brass to-transparent" />
       </div>
     </div>

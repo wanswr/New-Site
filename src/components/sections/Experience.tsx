@@ -7,6 +7,7 @@ import TransformationScene from "./Experience/TransformationScene";
 import LightingScene from "./Experience/LightingScene";
 import MacroDetailScene from "./Experience/MacroDetailScene";
 import BeforeAfterScene from "./Experience/BeforeAfterScene";
+import ProcessScene from "./Experience/ProcessScene";
 import AboutScene from "./Experience/AboutScene";
 import ExplorerScene from "./Experience/ExplorerScene";
 import PortfolioScene from "./Experience/PortfolioScene";
@@ -40,6 +41,9 @@ export default function Experience() {
       </section>
       <section className="relative w-full">
         <BeforeAfterScene />
+      </section>
+      <section className="relative w-full">
+        <ProcessScene />
       </section>
       <section className="relative w-full">
         <AboutScene />

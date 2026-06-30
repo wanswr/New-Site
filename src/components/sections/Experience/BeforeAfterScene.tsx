@@ -74,7 +74,7 @@ export default function BeforeAfterScene() {
         />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute top-12 left-12 md:top-24 md:left-24 z-20">
-           <span className="ba-label text-white/40 text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">Concept: Before</span>
+           <span className="ba-label text-white/40 text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">Состояние: ДО</span>
         </div>
       </div>
 
@@ -89,7 +89,7 @@ export default function BeforeAfterScene() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         <div className="absolute top-12 right-12 md:top-24 md:right-24 z-20 text-right">
-           <span className="ba-label text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">Execution: After</span>
+           <span className="ba-label text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">Результат: ПОСЛЕ</span>
         </div>
       </div>
 
