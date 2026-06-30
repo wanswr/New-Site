@@ -74,3 +74,11 @@ html.lenis body {
 .perspective-2000 {
   perspective: 2000px;
 }
+
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}

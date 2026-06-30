@@ -117,7 +117,7 @@ export default function HeroScene() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover grayscale-[0.2]"
+          className="w-full h-full object-cover grayscale-[0.2] will-change-transform"
         >
           <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-interior-design-of-a-living-room-with-a-fireplace-34538-large.mp4" type="video/mp4" />
         </video>
@@ -127,7 +127,7 @@ export default function HeroScene() {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-[#050505]" />
       </div>
 
-      <div id="hero-content-wrapper" className="relative z-10 w-full min-h-screen max-w-[2000px] mx-auto px-6 md:px-24 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end pt-32 pb-24 md:pb-48">
+      <div id="hero-content-wrapper" className="relative z-10 w-full min-h-screen max-w-[2000px] mx-auto px-6 md:px-24 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end pt-32 pb-24 md:pb-48 will-change-transform">
 
         {/* Left Content */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-5xl w-full">

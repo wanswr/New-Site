@@ -47,6 +47,10 @@ export default function TransformationScene() {
         }
       });
 
+      // Add will-change for performance
+      gsap.set(layer, { willChange: "opacity" });
+      gsap.set(layer.querySelector("img"), { willChange: "transform" });
+
       if (i > 0) {
         // Dissolve in
         tl.fromTo(layer,

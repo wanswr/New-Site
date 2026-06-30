@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,6 +11,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ProcessScene() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [coords, setCoords] = useState<{x: string, y: string}[]>([]);
+
+  useEffect(() => {
+    setCoords([...Array(6)].map(() => ({
+      x: (Math.random() * 1000).toFixed(2),
+      y: (Math.random() * 1000).toFixed(2)
+    })));
+  }, []);
 
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -86,13 +94,13 @@ export default function ProcessScene() {
 
       {/* FX Layer: Marking */}
       <div className="absolute inset-0 z-20 pointer-events-none p-24">
-        {[...Array(6)].map((_, i) => (
+        {coords.map((coord, i) => (
           <div key={i} className={`marking-dot absolute w-2 h-2 bg-luxury-brass rounded-full`} style={{
             top: `${20 + i * 10}%`,
             left: `${15 + (i % 3) * 30}%`
           }}>
             <span className="marking-coords absolute top-4 left-4 text-[8px] font-mono text-luxury-brass opacity-0">
-              X: {(Math.random() * 1000).toFixed(2)} Y: {(Math.random() * 1000).toFixed(2)}
+              X: {coord.x} Y: {coord.y}
             </span>
           </div>
         ))}
