@@ -24,7 +24,7 @@ export default function Experience() {
       {/* Ambient Depth Layer */}
       <FloatingAtmosphere />
 
-      <section className="relative w-full min-h-screen">
+      <section className="relative w-full">
         <HeroScene />
       </section>
       <section className="relative w-full">
@@ -45,24 +45,14 @@ export default function Experience() {
       <section className="relative w-full">
         <ProcessScene />
       </section>
-      <section className="relative w-full">
+      <div className="relative z-10 bg-luxury-bg shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
         <AboutScene />
-      </section>
-      <section className="relative w-full min-h-screen">
         <ExplorerScene />
-      </section>
-      <section className="relative w-full min-h-screen">
         <PortfolioScene />
-      </section>
-      <section className="relative w-full min-h-screen">
         <CalculatorScene />
-      </section>
-      <section className="relative w-full min-h-screen">
         <FAQScene />
-      </section>
-      <section className="relative w-full min-h-screen">
         <FinalScene />
-      </section>
+      </div>
     </div>
   );
 }

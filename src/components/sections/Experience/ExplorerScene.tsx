@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { IMAGES } from "@/constants/content";
-import { motion, AnimatePresence } from "framer-motion";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { cinematicReveal } from "@/lib/motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const TYPES = [
   { id: 'matte', title: 'Матовый', image: IMAGES.types.matte, desc: 'Безупречная матовая поверхность. Эстетика классической штукатурки без лишнего блеска.' },
@@ -13,44 +18,67 @@ const TYPES = [
 
 export default function ExplorerScene() {
   const [activeType, setActiveType] = useState(TYPES[0]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    // Entry animation
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    })
+    .add(cinematicReveal(".explorer-reveal"));
+
+    // Smooth transition between types
+    const transitionType = () => {
+      gsap.fromTo([bgRef.current, thumbRef.current],
+        { opacity: 0, scale: 1.1, filter: "blur(10px)" },
+        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.2, ease: "power3.out" }
+      );
+
+      gsap.fromTo(".explorer-desc",
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.8, ease: "power2.out" }
+      );
+    };
+
+    transitionType();
+
+  }, { scope: containerRef, dependencies: [activeType] });
 
   return (
-    <div id="explorer-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg overflow-hidden py-24 md:py-64">
-      <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeType.id}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 0.35, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 1.5, ease: [0.87, 0, 0.13, 1] }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={activeType.image}
-              alt={activeType.title}
-              fill
-              className="object-cover object-center grayscale-[0.3]"
-              quality={95}
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-luxury-bg via-luxury-bg/60 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-luxury-bg via-transparent to-transparent" />
-          </motion.div>
-        </AnimatePresence>
+    <div id="explorer-scene" ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg overflow-hidden py-24 md:py-64">
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          ref={bgRef}
+          className="absolute inset-0 opacity-35"
+        >
+          <Image
+            src={activeType.image}
+            alt={activeType.title}
+            fill
+            className="object-cover object-center grayscale-[0.3]"
+            quality={95}
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-luxury-bg via-luxury-bg/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-luxury-bg via-transparent to-transparent" />
+        </div>
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         <div>
-          <motion.span
-             initial={{ opacity: 0, x: -20 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             className="text-luxury-brass text-[10px] uppercase tracking-[0.8em] mb-12 block font-bold"
-          >
+          <span className="explorer-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] mb-12 block font-bold">
             Философия Пространства
-          </motion.span>
+          </span>
 
-          <div className="space-y-4 mb-16">
+          <div className="space-y-4 mb-16 explorer-reveal">
             {TYPES.map((type) => (
               <button
                 key={type.id}
@@ -69,41 +97,26 @@ export default function ExplorerScene() {
             ))}
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeType.id + "-desc"}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-md border-l border-luxury-brass/30 pl-8 md:pl-12 py-2"
-            >
-              <p className="text-luxury-text-muted text-sm md:text-base tracking-widest leading-relaxed font-medium">
-                {activeType.desc}
-              </p>
-            </motion.div>
-          </AnimatePresence>
+          <div className="explorer-desc max-w-md border-l border-luxury-brass/30 pl-8 md:pl-12 py-2 explorer-reveal">
+            <p className="text-luxury-text-muted text-sm md:text-base tracking-widest leading-relaxed font-medium">
+              {activeType.desc}
+            </p>
+          </div>
         </div>
 
-        <div className="hidden lg:flex justify-end">
+        <div className="hidden lg:flex justify-end explorer-reveal">
            <div className="relative w-80 h-[500px] border border-luxury-brass/20 overflow-hidden">
-             <AnimatePresence mode="wait">
-               <motion.div
-                 key={activeType.id + "-thumb"}
-                 initial={{ opacity: 0, y: 50 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 exit={{ opacity: 0, y: -50 }}
-                 transition={{ duration: 1, ease: "circOut" }}
-                 className="absolute inset-0"
-               >
-                 <Image
-                   src={activeType.image}
-                   alt={activeType.title}
-                   fill
-                   className="object-cover"
-                 />
-               </motion.div>
-             </AnimatePresence>
+             <div
+               ref={thumbRef}
+               className="absolute inset-0"
+             >
+               <Image
+                 src={activeType.image}
+                 alt={activeType.title}
+                 fill
+                 className="object-cover"
+               />
+             </div>
            </div>
         </div>
       </div>

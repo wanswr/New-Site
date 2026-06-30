@@ -1,6 +1,16 @@
 "use client";
 
+import { useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { splitTextReveal, cinematicReveal } from "@/lib/motion";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function FAQScene() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const faqs = [
     {
       q: "Architectural Timing",
@@ -24,20 +34,38 @@ export default function FAQScene() {
     }
   ];
 
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    if (titleRef.current) {
+      tl.add(splitTextReveal(titleRef.current), 0);
+    }
+    tl.add(cinematicReveal(".faq-reveal"), 0.2);
+
+  }, { scope: containerRef });
+
   return (
-    <div id="faq-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg text-luxury-text py-24 md:py-64">
+    <div id="faq-scene" ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg text-luxury-text py-24 md:py-64">
       <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
 
         <div className="space-y-8">
            <span className="text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold">
              Диалог о Качестве
            </span>
-           <h2 className="text-3xl md:text-5xl font-serif leading-tight tracking-tighter">
+           <h2 ref={titleRef} className="text-3xl md:text-5xl font-serif leading-tight tracking-tighter">
              Детали <br />
              <span className="italic text-luxury-brass/80 font-normal">Мастерства</span>
            </h2>
-           <div className="h-[1px] w-24 bg-luxury-brass/30" />
-           <p className="text-luxury-text-muted text-[10px] md:text-xs uppercase tracking-[0.4em] leading-relaxed max-w-sm font-medium">
+           <div className="faq-reveal h-[1px] w-24 bg-luxury-brass/30" />
+           <p className="faq-reveal text-luxury-text-muted text-[10px] md:text-xs uppercase tracking-[0.4em] leading-relaxed max-w-sm font-medium">
              В премиальном сегменте нет мелочей. Каждая деталь — это подтверждение нашего стандарта White Glove.
            </p>
         </div>

@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { IMAGES } from "@/constants/content";
-import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { cinematicReveal } from "@/lib/motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CalculatorScene() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [area, setArea] = useState(45);
   const [type, setType] = useState("premium");
   const [lights, setLights] = useState(12);
@@ -18,11 +24,37 @@ export default function CalculatorScene() {
 
   const estimatedPrice = area * basePrices[type] + lights * 2500;
 
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    })
+    .add(cinematicReveal(".calc-reveal"));
+
+    // Subtle background parallax
+    gsap.to(".calc-bg", {
+      yPercent: 10,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
+  }, { scope: containerRef });
+
   return (
-    <div id="calculator-scene" className="relative w-full min-h-screen bg-luxury-bg overflow-hidden flex items-center justify-center py-24 md:py-64">
+    <div id="calculator-scene" ref={containerRef} className="relative w-full min-h-screen bg-luxury-bg overflow-hidden flex items-center justify-center py-24 md:py-64">
 
       {/* Background Ambience */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="calc-bg absolute inset-0 opacity-20 will-change-transform">
          <Image
            src={type === "exclusive" ? IMAGES.hero : IMAGES.details.floating}
            alt="Atmosphere"
@@ -36,13 +68,9 @@ export default function CalculatorScene() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
         <div className="space-y-12">
           <div className="space-y-4">
-            <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold"
-            >
+            <span className="calc-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold">
               Конфигурация Стоимости
-            </motion.span>
+            </span>
 
             <h2 className="text-3xl md:text-5xl font-serif text-luxury-text leading-tight tracking-tighter">
               Архитектура <br />
@@ -66,7 +94,7 @@ export default function CalculatorScene() {
                          {key === "standard" ? "Классика" : key === "premium" ? "Теневой" : "Эксклюзив"}
                        </span>
                        {type === key && (
-                         <motion.div layoutId="calc-underline" className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-brass" />
+                         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-brass" />
                        )}
                      </button>
                    ))}
@@ -107,14 +135,12 @@ export default function CalculatorScene() {
                 Предварительная Оценка
               </span>
 
-              <motion.div
+              <div
                 key={estimatedPrice}
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-5xl md:text-7xl font-serif text-luxury-text leading-none tracking-tighter"
+                className="text-5xl md:text-7xl font-serif text-luxury-text leading-none tracking-tighter animate-in fade-in zoom-in duration-700"
               >
                 {estimatedPrice.toLocaleString()}<span className="text-xl md:text-2xl text-luxury-brass ml-2">₽</span>
-              </motion.div>
+              </div>
 
               <p className="mt-8 text-luxury-text-muted text-[10px] uppercase tracking-[0.3em] leading-relaxed max-w-xs lg:ml-auto font-medium">
                 Финальная стоимость уточняется после инженерного замера.

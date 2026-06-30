@@ -1,12 +1,52 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { IMAGES } from "@/constants/content";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { splitTextReveal, cinematicReveal } from "@/lib/motion";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function FinalScene() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top 80%",
+        toggleActions: "play none none reverse"
+      }
+    });
+
+    if (titleRef.current) {
+      tl.add(splitTextReveal(titleRef.current), 0);
+    }
+    tl.add(cinematicReveal(".final-reveal"), 0.2);
+
+    // Final background parallax
+    gsap.to("#final-bg img", {
+      scale: 1.2,
+      yPercent: 10,
+      ease: "none",
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
+  }, { scope: containerRef });
+
   return (
-    <div id="final-scene" className="relative w-full min-h-screen bg-luxury-bg overflow-hidden py-24 md:py-64">
-      <div id="final-bg" className="absolute inset-0 opacity-10">
+    <div id="final-scene" ref={containerRef} className="relative w-full min-h-screen bg-luxury-bg overflow-hidden py-24 md:py-64">
+      <div id="final-bg" className="absolute inset-0 opacity-10 will-change-transform">
          <Image
           src={IMAGES.hero}
           alt="Final Background"
@@ -18,17 +58,17 @@ export default function FinalScene() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
            <div className="mb-20 md:mb-32 text-center lg:text-left">
-              <span className="text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold mb-8">
+              <span className="final-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold mb-8">
                 Шедевр Ждет Вас
               </span>
-              <h2 className="text-4xl md:text-6xl font-serif text-luxury-text mb-8 leading-tight tracking-tighter">
+              <h2 ref={titleRef} className="text-4xl md:text-6xl font-serif text-luxury-text mb-8 leading-tight tracking-tighter">
                 Создадим <br />
                 <span className="italic text-luxury-brass/80 font-normal">Ваш Интерьер</span>
               </h2>
            </div>
 
            <div className="grid lg:grid-cols-2 gap-20 lg:gap-40 items-start">
-             <form className="space-y-12">
+             <form className="space-y-12 final-reveal">
                <div className="group relative">
                  <label className="block text-[10px] uppercase tracking-[0.4em] text-luxury-brass mb-2 opacity-40 group-focus-within:opacity-100 transition-opacity font-bold">Имя</label>
                  <input type="text" className="w-full bg-transparent border-b border-luxury-brass/20 py-4 text-lg md:text-xl font-serif text-luxury-text focus:border-luxury-brass outline-none transition-all placeholder:text-luxury-text/10 cursor-none" placeholder="Александр" />
@@ -44,7 +84,7 @@ export default function FinalScene() {
                </button>
              </form>
 
-             <div className="space-y-16">
+             <div className="space-y-16 final-reveal">
                 <div className="space-y-6">
                    <span className="text-luxury-brass text-[10px] uppercase tracking-[0.6em] block opacity-60 font-bold">Ателье</span>
                    <p className="text-lg md:text-xl font-serif text-luxury-text leading-relaxed">
