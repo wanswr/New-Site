@@ -6,8 +6,8 @@ import { IMAGES } from "@/constants/content";
 
 export default function AboutScene() {
   return (
-    <div id="about-scene" className="relative w-full bg-luxury-bg py-32 md:py-64 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-24 items-center">
+    <div id="about-scene" className="relative w-full bg-luxury-bg py-24 md:py-64 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}

@@ -108,7 +108,7 @@ export default function HeroScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="hero-scene" ref={containerRef} className="relative w-full h-screen bg-[#050505] overflow-hidden perspective-2000">
+    <div id="hero-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#050505] overflow-hidden perspective-2000">
       {/* Background Video */}
       <div className="absolute inset-0 overflow-hidden">
         <video
@@ -127,32 +127,32 @@ export default function HeroScene() {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-[#050505]" />
       </div>
 
-      <div id="hero-content-wrapper" className="relative z-10 w-full h-full max-w-[2000px] mx-auto px-6 md:px-24 flex flex-col md:flex-row justify-between items-center md:items-end pb-32 md:pb-48">
+      <div id="hero-content-wrapper" className="relative z-10 w-full min-h-screen max-w-[2000px] mx-auto px-6 md:px-24 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end pt-32 pb-24 md:pb-48">
 
         {/* Left Content */}
-        <div className="flex flex-col items-start text-left max-w-5xl">
-          <div className="hero-reveal mb-12">
-            <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] text-luxury-brass font-bold">
+        <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-5xl w-full">
+          <div className="hero-reveal mb-8 md:mb-12">
+            <p className="text-[9px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.5em] text-luxury-brass font-bold">
               POTOLKBEL • НАТЯЖНЫЕ ПОТОЛКИ И СВЕТОВЫЕ РЕШЕНИЯ
             </p>
           </div>
 
           <h1
             ref={titleRef}
-            className="hero-title text-[clamp(2.5rem,8vw,120px)] font-serif leading-[1.05] tracking-tighter text-luxury-text mb-12"
+            className="hero-title text-[clamp(2rem,7vw,110px)] font-serif leading-[1.1] tracking-tighter text-luxury-text mb-8 md:mb-12"
           >
-            Натяжные потолки, <br />
-            которые становятся <br />
+            Натяжные потолки, <br className="hidden md:block" />
+            которые становятся <br className="hidden md:block" />
             <span className="italic text-luxury-brass font-normal">частью интерьера</span>
           </h1>
 
-          <p className="hero-reveal text-[12px] md:text-sm uppercase tracking-[0.4em] text-luxury-text-muted mb-16 font-medium max-w-2xl">
+          <p className="hero-reveal text-[10px] md:text-sm uppercase tracking-[0.3em] md:tracking-[0.4em] text-luxury-text-muted mb-12 md:mb-16 font-medium max-w-2xl">
             Премиальные потолочные решения для современных домов и квартир
           </p>
 
           <button
             onClick={() => document.getElementById('calculator-scene')?.scrollIntoView({ behavior: 'smooth' })}
-            className="hero-reveal group relative px-16 py-6 bg-black border border-luxury-brass/40 overflow-hidden transition-all duration-700 cursor-none"
+            className="hero-reveal group relative px-10 md:px-16 py-5 md:py-6 bg-black border border-luxury-brass/40 overflow-hidden transition-all duration-700 cursor-none"
           >
             <span className="relative z-10 text-[11px] uppercase tracking-[0.6em] text-luxury-text font-bold">
               Получить расчет

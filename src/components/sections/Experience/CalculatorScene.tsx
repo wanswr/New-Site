@@ -19,7 +19,7 @@ export default function CalculatorScene() {
   const estimatedPrice = area * basePrices[type] + lights * 2500;
 
   return (
-    <div id="calculator-scene" className="relative w-full min-h-screen bg-luxury-bg overflow-hidden flex items-center justify-center py-32 md:py-64">
+    <div id="calculator-scene" className="relative w-full min-h-screen bg-luxury-bg overflow-hidden flex items-center justify-center py-24 md:py-64">
 
       {/* Background Ambience */}
       <div className="absolute inset-0 opacity-20">

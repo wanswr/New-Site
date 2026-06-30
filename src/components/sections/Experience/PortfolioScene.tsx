@@ -27,9 +27,9 @@ export default function PortfolioScene() {
   ];
 
   return (
-    <div id="portfolio-scene" className="relative w-full bg-luxury-bg py-32 md:py-64">
+    <div id="portfolio-scene" className="relative w-full bg-luxury-bg py-24 md:py-64">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-32 text-center">
+        <div className="mb-16 md:mb-32 text-center">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -46,11 +46,11 @@ export default function PortfolioScene() {
           </motion.h2>
         </div>
 
-        <div className="space-y-64">
+        <div className="space-y-32 md:space-y-64">
           {projects.map((project, index) => (
             <div
               key={index}
-              className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-24 lg:gap-32 items-center`}
+              className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 md:gap-24 lg:gap-32 items-center`}
             >
               {/* Image Reveal */}
               <motion.div

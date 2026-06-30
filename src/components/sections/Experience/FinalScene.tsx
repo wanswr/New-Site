@@ -5,7 +5,7 @@ import { IMAGES } from "@/constants/content";
 
 export default function FinalScene() {
   return (
-    <div id="final-scene" className="relative w-full min-h-screen bg-luxury-bg overflow-hidden py-32 md:py-64">
+    <div id="final-scene" className="relative w-full min-h-screen bg-luxury-bg overflow-hidden py-24 md:py-64">
       <div id="final-bg" className="absolute inset-0 opacity-10">
          <Image
           src={IMAGES.hero}

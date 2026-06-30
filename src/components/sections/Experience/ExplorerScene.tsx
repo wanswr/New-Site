@@ -15,7 +15,7 @@ export default function ExplorerScene() {
   const [activeType, setActiveType] = useState(TYPES[0]);
 
   return (
-    <div id="explorer-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg overflow-hidden py-32 md:py-64">
+    <div id="explorer-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg overflow-hidden py-24 md:py-64">
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
           <motion.div

@@ -25,7 +25,7 @@ export default function FAQScene() {
   ];
 
   return (
-    <div id="faq-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg text-luxury-text py-32 md:py-64">
+    <div id="faq-scene" className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg text-luxury-text py-24 md:py-64">
       <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
 
         <div className="space-y-8">
