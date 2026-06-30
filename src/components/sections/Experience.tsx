@@ -2,6 +2,7 @@
 
 import HeroScene from "./Experience/HeroScene";
 import NarrativeScene from "./Experience/NarrativeScene";
+import TransformationScene from "./Experience/TransformationScene";
 import AboutScene from "./Experience/AboutScene";
 import ExplorerScene from "./Experience/ExplorerScene";
 import PortfolioScene from "./Experience/PortfolioScene";
@@ -20,6 +21,9 @@ export default function Experience() {
       </section>
       <section className="relative w-full">
         <NarrativeScene />
+      </section>
+      <section className="relative w-full">
+        <TransformationScene />
       </section>
       <section className="relative w-full">
         <AboutScene />
