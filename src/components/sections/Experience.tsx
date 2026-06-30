@@ -2,8 +2,11 @@
 
 import HeroScene from "./Experience/HeroScene";
 import NarrativeScene from "./Experience/NarrativeScene";
+import FloatingAtmosphere from "../ui/FloatingAtmosphere";
 import TransformationScene from "./Experience/TransformationScene";
 import LightingScene from "./Experience/LightingScene";
+import MacroDetailScene from "./Experience/MacroDetailScene";
+import BeforeAfterScene from "./Experience/BeforeAfterScene";
 import AboutScene from "./Experience/AboutScene";
 import ExplorerScene from "./Experience/ExplorerScene";
 import PortfolioScene from "./Experience/PortfolioScene";
@@ -17,6 +20,9 @@ export default function Experience() {
       {/* Global Cinematic Grain */}
       <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.02] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
+      {/* Ambient Depth Layer */}
+      <FloatingAtmosphere />
+
       <section className="relative w-full min-h-screen">
         <HeroScene />
       </section>
@@ -28,6 +34,12 @@ export default function Experience() {
       </section>
       <section className="relative w-full">
         <LightingScene />
+      </section>
+      <section className="relative w-full">
+        <MacroDetailScene />
+      </section>
+      <section className="relative w-full">
+        <BeforeAfterScene />
       </section>
       <section className="relative w-full">
         <AboutScene />

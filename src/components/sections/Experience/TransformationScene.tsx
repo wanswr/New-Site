@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,15 +56,17 @@ export default function TransformationScene() {
         );
 
         // Title transition
-        tl.fromTo(titles[i],
+        const split = new SplitType(titles[i], { types: "chars" });
+        tl.fromTo(split.chars,
           { opacity: 0, y: 30, filter: "blur(10px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5 },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.02 },
           i - 0.2
         );
 
         // Previous title dissolve
-        tl.to(titles[i-1],
-          { opacity: 0, y: -30, filter: "blur(10px)", duration: 0.5 },
+        const prevSplit = new SplitType(titles[i-1], { types: "chars" });
+        tl.to(prevSplit.chars,
+          { opacity: 0, y: -30, filter: "blur(10px)", duration: 0.5, stagger: 0.01 },
           i - 0.2
         );
       } else {
@@ -75,6 +78,13 @@ export default function TransformationScene() {
     // Light movement effect (global over the pinned section)
     tl.to(".transformation-light-sweep", {
       xPercent: 100,
+      ease: "none",
+      duration: 4
+    }, 0);
+
+    // Progress Line animation
+    tl.to(".transformation-progress-line", {
+      height: "100%",
       ease: "none",
       duration: 4
     }, 0);

@@ -5,11 +5,13 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function LightingScene() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -39,11 +41,21 @@ export default function LightingScene() {
     tl.to("#full-light", { opacity: 1, duration: 1.5 }, 3.5);
     tl.to("#dark-overlay", { opacity: 0, duration: 1.5 }, 3.5);
 
-    tl.fromTo("#lighting-headline",
-      { opacity: 0, y: 30, filter: "blur(10px)" },
-      { opacity: 1, y: 0, filter: "blur(0px)", duration: 1 },
-      3.8
-    );
+    // Progress Line animation
+    tl.to(".lighting-progress-line", {
+      width: "100%",
+      ease: "none",
+      duration: 3.5
+    }, 0);
+
+    if (headlineRef.current) {
+      const split = new SplitType(headlineRef.current, { types: "words,chars" });
+      tl.fromTo(split.chars,
+        { opacity: 0, y: 30, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, stagger: 0.03 },
+        3.8
+      );
+    }
 
   }, { scope: containerRef });
 
@@ -87,7 +99,7 @@ export default function LightingScene() {
              <span className="text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold mb-8 block opacity-40">
                Световой Сценарий
              </span>
-             <h2 id="lighting-headline" className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter max-w-4xl leading-tight">
+             <h2 ref={headlineRef} className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter max-w-4xl leading-tight">
                Свет, который <br />
                <span className="italic text-luxury-brass font-normal">создает жизнь</span>
              </h2>

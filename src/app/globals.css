@@ -70,3 +70,7 @@ html.lenis body {
   -webkit-text-stroke: 1px var(--color-luxury-brass);
   color: transparent;
 }
+
+.perspective-2000 {
+  perspective: 2000px;
+}
