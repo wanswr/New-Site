@@ -34,17 +34,17 @@ export default function FloatingAtmosphere() {
 
   return (
     <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[5] overflow-hidden">
-      {/* Warm Brass Orb */}
-      <div className="atmos-orb absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-luxury-brass/10 blur-[150px] rounded-full" />
+      {/* Warm Brass Orb - Reduced blur for GPU performance */}
+      <div className="atmos-orb absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-luxury-brass/5 blur-[100px] rounded-full will-change-transform" />
 
       {/* Soft Ivory Orb */}
-      <div className="atmos-orb absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full" />
+      <div className="atmos-orb absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-white/5 blur-[80px] rounded-full will-change-transform" />
 
       {/* Deep Shadow Orb */}
-      <div className="atmos-orb absolute top-[60%] left-[50%] w-[700px] h-[700px] bg-black/40 blur-[180px] rounded-full" />
+      <div className="atmos-orb absolute top-[60%] left-[50%] w-[700px] h-[700px] bg-black/30 blur-[120px] rounded-full will-change-transform" />
 
       {/* Micro Dust Particles (Mockup with CSS) */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
+      <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
     </div>
   );
 }

@@ -18,8 +18,8 @@ import FinalScene from "./Experience/FinalScene";
 export default function Experience() {
   return (
     <div id="main-experience" className="relative w-full bg-luxury-bg">
-      {/* Global Cinematic Grain */}
-      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.02] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* Global Cinematic Grain - Reduced opacity for performance */}
+      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.015] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
       {/* Ambient Depth Layer */}
       <FloatingAtmosphere />

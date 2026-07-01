@@ -61,9 +61,13 @@ html.lenis body {
 ::-webkit-scrollbar {
   display: none;
 }
+
 * {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  /* Optimize rendering across the board */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .text-stroke {

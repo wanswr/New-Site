@@ -112,6 +112,7 @@ export default function TransformationScene() {
               className="object-cover grayscale-[0.3]"
               priority={i === 0}
               quality={90}
+              sizes="100vw"
             />
             {/* Cinematic overlays */}
             <div className="absolute inset-0 bg-black/40" />
