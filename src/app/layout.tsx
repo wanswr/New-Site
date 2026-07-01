@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
@@ -15,14 +15,30 @@ const sans = Montserrat({
   variable: "--font-sans",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   title: "PotolokBel — Архитектурные Решения в Натяжных Потолках",
-  description: "Bespoke потолочные системы для премиальных интерьеров. Дизайн, свет, архитектура.",
+  description: "Проектируем и монтируем натяжные потолки бизнес-класса в Москве. Теневой профиль, световые сценарии, идеальная геометрия.",
+  keywords: ["натяжные потолки москва", "теневой профиль eurokraab", "световые линии", "архитектурные потолки", "премиальные потолки"],
+  authors: [{ name: "PotolokBel" }],
+  robots: "index, follow",
   openGraph: {
     title: "PotolokBel — Digital Experience",
-    description: "Кинематографическая презентация архитектурных потолочных систем.",
+    description: "Кинематографическая презентация архитектурных потолочных систем в Москве.",
+    url: "https://potolokbel.ru",
+    siteName: "PotolokBel",
     type: "website",
     locale: "ru_RU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PotolokBel — Архитектурные Решения",
+    description: "Премиальные натяжные потолки и световой дизайн.",
   }
 };
 
