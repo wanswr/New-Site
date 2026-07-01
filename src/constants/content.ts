@@ -7,6 +7,12 @@ export const IMAGES = {
     texture: "/images/projects/detail-curtain.png",
     floating: "/images/projects/living-spots.png",
   },
+  rooms: {
+    kitchen: "/images/projects/kitchen-tracks.png",
+    living: "/images/projects/living-spots.png",
+    bedroom: "/images/projects/starry-sky.png",
+    bathroom: "/images/projects/interior-demo.png",
+  },
   types: {
     matte: "/images/projects/track-rect.png",
     shadow: "/images/projects/track-rect-2.png",

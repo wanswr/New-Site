@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
+import CustomCursor from "@/components/ui/CustomCursor";
+import PageWrapper from "@/components/ui/PageWrapper";
 
 const serif = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -13,15 +15,30 @@ const sans = Montserrat({
   variable: "--font-sans",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
-  title: "Натяжные потолки в Москве — Установка под ключ | PotolokBel",
-  description: "Натяжные потолки премиум качества в Москве. Бесплатный замер. Гарантия на все виды работ. Теневые, парящие, световые решения для вашего интерьера.",
-  keywords: "натяжные потолки москва, установка натяжных потолков, теневые потолки, парящие потолки, дизайн интерьера москва",
+  title: "PotolokBel — Архитектурные Решения в Натяжных Потолках",
+  description: "Проектируем и монтируем натяжные потолки бизнес-класса в Москве. Теневой профиль, световые сценарии, идеальная геометрия.",
+  keywords: ["натяжные потолки москва", "теневой профиль eurokraab", "световые линии", "архитектурные потолки", "премиальные потолки"],
+  authors: [{ name: "PotolokBel" }],
+  robots: "index, follow",
   openGraph: {
-    title: "PotolokBel — Премиальные натяжные потолки",
-    description: "Проектируем и устанавливаем потолки под стиль вашего пространства",
+    title: "PotolokBel — Digital Experience",
+    description: "Кинематографическая презентация архитектурных потолочных систем в Москве.",
+    url: "https://potolokbel.ru",
+    siteName: "PotolokBel",
     type: "website",
     locale: "ru_RU",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PotolokBel — Архитектурные Решения",
+    description: "Премиальные натяжные потолки и световой дизайн.",
   }
 };
 
@@ -33,11 +50,14 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${serif.variable} ${sans.variable} antialiased`}
+      className={`${serif.variable} ${sans.variable} antialiased selection:bg-luxury-brass selection:text-luxury-bg`}
     >
-      <body className="bg-premium-white text-premium-graphite font-sans">
+      <body className="bg-luxury-bg text-luxury-text font-sans overflow-x-hidden antialiased">
+        <CustomCursor />
         <SchemaOrg />
-        {children}
+        <PageWrapper>
+          {children}
+        </PageWrapper>
       </body>
     </html>
   );
