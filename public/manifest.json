@@ -1,0 +1,16 @@
+{
+  "name": "PotolokBel — Архитектурные Решения",
+  "short_name": "PotolokBel",
+  "description": "Проектируем и монтируем натяжные потолки бизнес-класса в Москве.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#B08D57",
+  "icons": [
+    {
+      "src": "/file.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
