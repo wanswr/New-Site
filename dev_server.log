@@ -1,0 +1,17 @@
+
+> potolok-app@0.1.0 dev
+> next dev --port 3005
+
+   ▲ Next.js 15.1.7
+   - Local:        http://localhost:3005
+   - Network:      http://192.168.0.2:3005
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 3.7s (1538 modules)
+ GET / 200 in 4489ms
+ GET / 200 in 71ms
+ GET / 200 in 62ms
+ GET / 200 in 59ms
+ ✓ Compiled in 793ms (1538 modules)

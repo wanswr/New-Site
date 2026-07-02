@@ -47,7 +47,8 @@ export default function PortfolioScene() {
     });
 
     if (titleRef.current) {
-      headerTl.add(splitTextReveal(titleRef.current), 0);
+      const reveal = splitTextReveal(titleRef.current);
+      if (reveal) headerTl.add(reveal, 0);
     }
     headerTl.add(cinematicReveal(".portfolio-reveal"), 0.2);
 

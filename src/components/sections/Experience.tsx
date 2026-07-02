@@ -1,10 +1,8 @@
 "use client";
 
 import HeroScene from "./Experience/HeroScene";
-import NarrativeScene from "./Experience/NarrativeScene";
 import FloatingAtmosphere from "../ui/FloatingAtmosphere";
 import TransformationScene from "./Experience/TransformationScene";
-import LightingScene from "./Experience/LightingScene";
 import MacroDetailScene from "./Experience/MacroDetailScene";
 import BeforeAfterScene from "./Experience/BeforeAfterScene";
 import ProcessScene from "./Experience/ProcessScene";
@@ -36,9 +34,6 @@ export default function Experience() {
 
       {/* 3. Product Explanation: Visual & Interactive */}
       <section className="relative w-full">
-        <NarrativeScene />
-      </section>
-      <section className="relative w-full">
         <TransformationScene />
       </section>
       <div className="relative z-10 bg-luxury-bg">
@@ -46,9 +41,6 @@ export default function Experience() {
       </div>
 
       {/* 4. Deep Tech Proof & Details */}
-      <section className="relative w-full">
-        <LightingScene />
-      </section>
       <section className="relative w-full">
         <MacroDetailScene />
       </section>

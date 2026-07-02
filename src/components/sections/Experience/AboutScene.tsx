@@ -50,7 +50,8 @@ export default function AboutScene() {
 
     // Text animations
     if (titleRef.current) {
-      tl.add(splitTextReveal(titleRef.current), 0.3);
+      const reveal = splitTextReveal(titleRef.current);
+      if (reveal) tl.add(reveal, 0.3);
     }
 
     tl.add(cinematicReveal(".about-reveal"), 0.5);

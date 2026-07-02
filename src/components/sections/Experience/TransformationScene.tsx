@@ -52,6 +52,9 @@ export default function TransformationScene() {
       gsap.set(layer, { willChange: "opacity" });
       gsap.set(layer.querySelector("img"), { willChange: "transform" });
 
+      const split = new SplitType(titles[i], { types: "chars" });
+      gsap.set(split.chars, { willChange: "transform, opacity" });
+
       if (i > 0) {
         // Dissolve in
         tl.fromTo(layer,
@@ -61,10 +64,9 @@ export default function TransformationScene() {
         );
 
         // Title transition
-        const split = new SplitType(titles[i], { types: "chars" });
         tl.fromTo(split.chars,
           { opacity: 0, y: 30, filter: "blur(10px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.02 },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.02, clearProps: "all" },
           i - 0.2
         );
 
@@ -134,7 +136,7 @@ export default function TransformationScene() {
           {ROOMS.map((room) => (
             <h2
               key={room.id}
-              className="room-title absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter text-center opacity-0"
+              className="room-title absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter text-center opacity-0 whitespace-nowrap"
             >
               {room.title}
             </h2>

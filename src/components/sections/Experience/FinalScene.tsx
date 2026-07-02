@@ -36,7 +36,8 @@ export default function FinalScene() {
     });
 
     if (titleRef.current) {
-      tl.add(splitTextReveal(titleRef.current), 0);
+      const reveal = splitTextReveal(titleRef.current);
+      if (reveal) tl.add(reveal, 0);
     }
     tl.add(cinematicReveal(".final-reveal"), 0.2);
 
@@ -72,7 +73,7 @@ export default function FinalScene() {
               <span className="final-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold mb-8">
                 Шедевр Ждет Вас
               </span>
-              <h2 ref={titleRef} className="text-4xl md:text-6xl font-serif text-luxury-text mb-8 leading-tight tracking-tighter">
+              <h2 ref={titleRef} className="text-4xl md:text-6xl font-serif text-luxury-text mb-8 leading-tight tracking-tighter whitespace-nowrap">
                 Создадим <br />
                 <span className="italic text-luxury-brass/80 font-normal">Ваш Интерьер</span>
               </h2>

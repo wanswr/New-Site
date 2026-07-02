@@ -56,7 +56,8 @@ export default function HeroScene() {
     gsap.set(split.words, {
       opacity: 0,
       y: 60,
-      filter: "blur(20px)"
+      filter: "blur(20px)",
+      willChange: "transform, opacity"
     });
 
     gsap.to(split.words, {
@@ -66,7 +67,8 @@ export default function HeroScene() {
       stagger: 0.15,
       duration: 2,
       ease: "expo.out",
-      delay: 0.8
+      delay: 0.8,
+      clearProps: "all"
     });
 
     // Subtext and Button entry

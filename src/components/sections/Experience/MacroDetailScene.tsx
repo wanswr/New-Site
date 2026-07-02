@@ -28,7 +28,8 @@ export default function MacroDetailScene() {
     });
 
     // Initial state
-    gsap.set(".macro-label", { opacity: 0, y: 30, filter: "blur(10px)" });
+    gsap.set(".macro-label", { opacity: 0, y: 30, filter: "blur(10px)", willChange: "transform, opacity" });
+    gsap.set(".macro-image", { willChange: "transform" });
 
     // 1. Extreme Zoom into the image
     tl.to(".macro-image", {
@@ -48,13 +49,15 @@ export default function MacroDetailScene() {
     // 3. Headline reveal with SplitType
     if (titleRef.current) {
       const split = new SplitType(titleRef.current, { types: "chars" });
+      gsap.set(split.chars, { willChange: "transform, opacity" });
       tl.from(split.chars, {
         opacity: 0,
         y: 40,
         filter: "blur(20px)",
-        stagger: 0.05,
+        stagger: 0.03,
         duration: 1.5,
-        ease: "expo.out"
+        ease: "expo.out",
+        clearProps: "all"
       }, 0.5);
 
       tl.to(split.chars, {
@@ -116,7 +119,7 @@ export default function MacroDetailScene() {
         {/* Giant Background Title */}
         <h2
           ref={titleRef}
-          className="text-[clamp(4rem,15vw,250px)] font-serif text-luxury-text tracking-[0.1em] uppercase leading-none text-center"
+          className="text-[clamp(4rem,15vw,250px)] font-serif text-luxury-text tracking-[0.1em] uppercase leading-none text-center whitespace-nowrap"
         >
           Детали
         </h2>

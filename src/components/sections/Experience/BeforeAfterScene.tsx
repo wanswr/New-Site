@@ -45,9 +45,10 @@ export default function BeforeAfterScene() {
     // 4. Text Reveal
     if (headlineRef.current) {
       const split = new SplitType(headlineRef.current, { types: "chars,words" });
+      gsap.set(split.chars, { willChange: "transform, opacity" });
       tl.fromTo(split.chars,
         { opacity: 0, y: 50, filter: "blur(10px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.02, ease: "expo.out" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.02, ease: "expo.out", clearProps: "all" },
         1.5
       );
     }
@@ -66,7 +67,7 @@ export default function BeforeAfterScene() {
       {/* Before Layer (Static Background) */}
       <div className="absolute inset-0">
         <Image
-          src={IMAGES.hero}
+          src={IMAGES.details.before_after}
           alt="Before Transformation"
           fill
           className="before-image object-cover grayscale sepia brightness-50"
@@ -81,7 +82,7 @@ export default function BeforeAfterScene() {
       {/* After Layer (Revealed) */}
       <div className="after-image-container absolute inset-0 z-10">
         <Image
-          src={IMAGES.hero}
+          src={IMAGES.details.before_after}
           alt="After Transformation"
           fill
           className="after-image object-cover"
@@ -94,8 +95,8 @@ export default function BeforeAfterScene() {
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center">
-         <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none max-w-5xl">
+      <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
+         <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none max-w-5xl whitespace-nowrap">
            Радикальное <br />
            <span className="italic text-luxury-brass">Преображение</span>
          </h2>

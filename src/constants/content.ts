@@ -6,6 +6,8 @@ export const IMAGES = {
     light_lines: "/images/projects/linear-window.png",
     texture: "/images/projects/detail-curtain.png",
     floating: "/images/projects/living-spots.png",
+    process: "/images/projects/track-rect.png",
+    before_after: "/images/projects/interior-demo.png",
   },
   rooms: {
     kitchen: "/images/projects/kitchen-tracks.png",

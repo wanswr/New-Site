@@ -46,7 +46,8 @@ export default function FAQScene() {
     });
 
     if (titleRef.current) {
-      tl.add(splitTextReveal(titleRef.current), 0);
+      const reveal = splitTextReveal(titleRef.current);
+      if (reveal) tl.add(reveal, 0);
     }
     tl.add(cinematicReveal(".faq-reveal"), 0.2);
 
