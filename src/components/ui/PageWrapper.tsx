@@ -20,7 +20,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
         {isLoading && (
           <motion.div
             key="loader"
-            className="fixed inset-0 z-[200] bg-[#050505] flex flex-col items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-[200] bg-[#0A0A0A] flex flex-col items-center justify-center overflow-hidden"
             exit={{
               opacity: 0,
               y: -20,

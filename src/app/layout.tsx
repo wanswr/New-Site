@@ -4,6 +4,7 @@ import "@/styles/globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
 import CustomCursor from "@/components/ui/CustomCursor";
 import PageWrapper from "@/components/ui/PageWrapper";
+import FloatingCTA from "@/components/ui/FloatingCTA";
 
 const serif = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -58,6 +59,7 @@ export default function RootLayout({
         <PageWrapper>
           {children}
         </PageWrapper>
+        <FloatingCTA />
       </body>
     </html>
   );

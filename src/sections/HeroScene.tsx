@@ -133,7 +133,7 @@ export default function HeroScene() {
   }, []);
 
   return (
-    <div id="hero-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#050505] overflow-hidden perspective-2000">
+    <div id="hero-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] overflow-hidden perspective-2000">
       {/* Background Video */}
       <div className="absolute inset-0 overflow-hidden">
         <video
@@ -150,7 +150,7 @@ export default function HeroScene() {
         {/* Darkening Overlay 45% */}
         <div className="absolute inset-0 bg-black/45" />
         {/* Vignette for depth */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-[#050505]" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-[#0A0A0A]" />
       </div>
 
       <div id="hero-content-wrapper" className="relative z-10 w-full min-h-screen max-w-[2000px] mx-auto px-6 md:px-24 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end pt-32 pb-24 md:pb-48 will-change-transform">

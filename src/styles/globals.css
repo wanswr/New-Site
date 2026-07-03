@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-luxury-bg: #050505;
-  --color-luxury-bg-alt: #101010;
+  --color-luxury-bg: #0A0A0A;
+  --color-luxury-bg-alt: #121212;
   --color-luxury-card: #171717;
   --color-luxury-surface: #1D1D1D;
   --color-luxury-text: #F5F3EF;
@@ -17,8 +17,8 @@
 
 :root {
   --foreground-rgb: 245, 243, 239;
-  --background-start-rgb: 5, 5, 5;
-  --background-end-rgb: 5, 5, 5;
+  --background-start-rgb: 10, 10, 10;
+  --background-end-rgb: 10, 10, 10;
 }
 
 body {
