@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { IMAGES } from "@/constants/content";
+import { IMAGES } from "@/lib/constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -36,84 +36,87 @@ export default function PortfolioScene() {
   ];
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    const ctx = gsap.context(() => {
+        if (!containerRef.current) return;
 
-    let splitInstance: SplitType | null = null;
+        let splitInstance: SplitType | null = null;
 
-    // Header reveal
-    const headerTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".portfolio-header",
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    if (titleRef.current) {
-      const reveal = splitTextReveal(titleRef.current);
-      if (reveal) {
-        headerTl.add(reveal.tween, 0);
-        splitInstance = reveal.split;
-      }
-    }
-    headerTl.add(cinematicReveal(".portfolio-reveal"), 0.2);
-
-    // Project reveals
-    const projectElements = gsap.utils.toArray(".portfolio-project") as HTMLElement[];
-    projectElements.forEach((project) => {
-      const tl = gsap.timeline({
+        // Header reveal
+        const headerTl = gsap.timeline({
         scrollTrigger: {
-          trigger: project,
-          start: "top 75%",
-          toggleActions: "play none none reverse"
+            trigger: ".portfolio-header",
+            start: "top 80%",
+            toggleActions: "play none none reverse"
         }
-      });
+        });
 
-      const imgWrapper = project.querySelector(".project-image-wrapper");
-      const info = project.querySelector(".project-info");
+        if (titleRef.current) {
+        const reveal = splitTextReveal(titleRef.current);
+        if (reveal) {
+            headerTl.add(reveal.tween, 0);
+            splitInstance = reveal.split;
+        }
+        }
+        headerTl.add(cinematicReveal(".portfolio-reveal"), 0.2);
 
-      if (imgWrapper) {
-        tl.from(imgWrapper, {
-            opacity: 0,
-            scale: 0.9,
-            y: 50,
-            duration: 1.5,
-            ease: "power3.out"
-        }, 0);
-      }
-
-      if (info) {
-        tl.from(info, {
-            opacity: 0,
-            x: project.classList.contains("flex-col-reverse") ? 50 : -50,
-            duration: 1.5,
-            ease: "power3.out"
-        }, 0.3);
-      }
-
-      // Parallax on project image
-      const img = project.querySelector("img");
-      if (img) {
-          gsap.to(img, {
-            yPercent: 15,
-            ease: "none",
+        // Project reveals
+        const projectElements = gsap.utils.toArray(".portfolio-project") as HTMLElement[];
+        projectElements.forEach((project) => {
+        const tl = gsap.timeline({
             scrollTrigger: {
-              trigger: project,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true
+            trigger: project,
+            start: "top 75%",
+            toggleActions: "play none none reverse"
             }
-          });
-      }
-    });
+        });
 
-    return () => {
-        if (splitInstance) splitInstance.revert();
-    };
+        const imgWrapper = project.querySelector(".project-image-wrapper");
+        const info = project.querySelector(".project-info");
+
+        if (imgWrapper) {
+            tl.from(imgWrapper, {
+                opacity: 0,
+                scale: 0.9,
+                y: 50,
+                duration: 1.5,
+                ease: "power3.out"
+            }, 0);
+        }
+
+        if (info) {
+            tl.from(info, {
+                opacity: 0,
+                x: project.classList.contains("flex-col-reverse") ? 50 : -50,
+                duration: 1.5,
+                ease: "power3.out"
+            }, 0.3);
+        }
+
+        // Parallax on project image
+        const img = project.querySelector("img");
+        if (img) {
+            gsap.to(img, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                trigger: project,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+                }
+            });
+        }
+        });
+
+        return () => {
+            if (splitInstance) splitInstance.revert();
+        };
+    }, containerRef);
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   return (
-    <div id="portfolio-scene" ref={containerRef} className="relative w-full bg-luxury-bg py-24 md:py-64">
+    <div id="portfolio-scene" ref={containerRef} className="relative w-full bg-[#050505] py-24 md:py-64">
       <div className="max-w-7xl mx-auto px-6">
         <div className="portfolio-header mb-16 md:mb-32 text-center">
           <span className="portfolio-reveal text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4">
@@ -135,7 +138,7 @@ export default function PortfolioScene() {
             >
               {/* Image Reveal */}
               <div className="project-image-wrapper w-full lg:w-3/5 will-change-transform">
-                <div className="relative aspect-[16/10] overflow-hidden bg-luxury-surface group">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#111] group">
                   <Image
                     src={project.url}
                     alt={project.title}
@@ -165,13 +168,13 @@ export default function PortfolioScene() {
                 <div className="space-y-8">
                    <div className="space-y-3">
                       <span className="text-[9px] uppercase tracking-[0.2em] text-luxury-brass font-bold">Задача:</span>
-                      <p className="text-luxury-text-muted text-sm tracking-widest leading-relaxed font-medium">
+                      <p className="text-luxury-text-muted text-sm tracking-widest leading-relaxed font-medium uppercase">
                         {project.task}
                       </p>
                    </div>
                    <div className="space-y-3">
                       <span className="text-[9px] uppercase tracking-[0.2em] text-luxury-brass font-bold">Решение:</span>
-                      <p className="text-luxury-text-muted text-sm tracking-widest leading-relaxed font-medium">
+                      <p className="text-luxury-text-muted text-sm tracking-widest leading-relaxed font-medium uppercase">
                         {project.solution}
                       </p>
                    </div>

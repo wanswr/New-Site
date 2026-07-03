@@ -19,11 +19,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Проекты", id: "portfolio-scene" },
-    { name: "Процесс", id: "process-scene" },
-    { name: "Расчет", id: "calculator-scene" },
-    { name: "Вопросы", id: "faq-scene" },
-    { name: "Контакты", id: "final-scene" },
+    { name: "Главная", id: "hero-scene" },
+    { name: "О нас", id: "about-section" },
+    { name: "Работы", id: "portfolio-section" },
+    { name: "Отзывы", id: "reviews-section" },
+    { name: "Расчет", id: "calculator-section" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -38,42 +38,42 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 w-full z-[150] transition-all duration-1000 px-6 py-8 md:px-16 md:py-12",
-        isScrolled ? "bg-black/20 backdrop-blur-xl py-8" : "bg-transparent"
+        "fixed top-0 left-0 w-full z-[150] transition-all duration-700 px-6 py-6 md:px-16 md:py-8",
+        isScrolled ? "bg-black/80 backdrop-blur-xl py-4" : "bg-transparent"
       )}
     >
-      <div className="max-w-[2400px] mx-auto flex justify-between items-center">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link
           href="/"
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="text-2xl font-serif tracking-tighter text-luxury-text font-bold group cursor-none"
+          className="text-xl font-serif tracking-tighter text-luxury-text font-bold group"
         >
-          Potolok<span className="text-luxury-brass group-hover:text-luxury-text transition-colors duration-700">Bel</span>
+          Potolok<span className="text-luxury-brass group-hover:text-luxury-text transition-colors duration-500">Bel</span>
         </Link>
 
-        {/* Cinematic Links */}
-        <div className="hidden md:flex items-center space-x-20">
+        {/* Links */}
+        <div className="hidden md:flex items-center space-x-12">
           {navLinks.map((link) => (
             <a
-              key={link.id}
+              key={link.name}
               href={`#${link.id}`}
               onClick={(e) => handleNavClick(e, link.id)}
-              className="group relative text-[10px] uppercase tracking-[0.6em] text-luxury-text-muted hover:text-luxury-brass transition-colors duration-700 cursor-none font-bold"
+              className="text-[10px] uppercase tracking-[0.4em] text-luxury-text-muted hover:text-luxury-brass transition-colors duration-500 font-bold"
             >
-              <span className="block group-hover:-translate-y-4 opacity-100 group-hover:opacity-0 transition-all duration-500">{link.name}</span>
-              <span className="absolute top-0 left-0 block translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 text-luxury-brass">{link.name}</span>
+              {link.name}
             </a>
           ))}
 
           <button
-            onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'final-scene')}
-            className="group relative px-10 py-3 border border-luxury-brass/20 overflow-hidden transition-all duration-700 hover:border-luxury-brass cursor-none"
+            onClick={() => {
+                document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="px-8 py-3 bg-luxury-brass/10 border border-luxury-brass/20 text-luxury-brass text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-luxury-brass hover:text-luxury-bg transition-all duration-500"
           >
-             <span className="relative z-10 text-[10px] uppercase tracking-[0.5em] text-luxury-text font-bold">Заявка</span>
-             <div className="absolute inset-0 bg-luxury-brass translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-expo" />
+             Заказать расчет
           </button>
         </div>
 
@@ -92,35 +92,37 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.8, ease: [0.87, 0, 0.13, 1] }}
-            className="fixed inset-0 z-[200] bg-black p-12 flex flex-col justify-center"
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[200] bg-[#050505] p-12 flex flex-col justify-center"
           >
             <button
-              className="absolute top-12 right-12 text-luxury-text"
+              className="absolute top-8 right-8 text-luxury-text"
               onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Закрыть меню"
             >
               <X size={32} />
             </button>
-            <div className="flex flex-col space-y-12">
+            <div className="flex flex-col space-y-8">
               {navLinks.map((link) => (
                 <a
-                  key={link.id}
+                  key={link.name}
                   href={`#${link.id}`}
                   onClick={(e) => handleNavClick(e, link.id)}
-                  className="text-4xl font-serif text-luxury-text hover:text-luxury-brass transition-colors"
+                  className="text-3xl font-serif text-luxury-text"
                 >
                   {link.name}
                 </a>
               ))}
               <button
-                onClick={(e) => handleNavClick(e as unknown as React.MouseEvent<HTMLAnchorElement>, 'final-scene')}
-                className="w-full bg-luxury-brass text-black py-6 text-[11px] uppercase tracking-[1em] font-bold"
+                onClick={() => {
+                    document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' });
+                    setIsMobileMenuOpen(false);
+                }}
+                className="w-full bg-luxury-brass text-luxury-bg py-5 text-[11px] uppercase tracking-[0.5em] font-bold"
               >
-                Связаться
+                Получить расчет
               </button>
             </div>
           </motion.div>

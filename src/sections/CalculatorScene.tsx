@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { IMAGES } from "@/constants/content";
+import { IMAGES } from "@/lib/constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -25,33 +25,33 @@ export default function CalculatorScene() {
   const estimatedPrice = area * basePrices[type] + lights * 2500;
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    const ctx = gsap.context(() => {
+        gsap.timeline({
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        }
+        })
+        .add(cinematicReveal(".calc-reveal"));
 
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
-    })
-    .add(cinematicReveal(".calc-reveal"));
-
-    // Subtle background parallax
-    gsap.to(".calc-bg", {
-      yPercent: 10,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-      }
-    });
-
+        // Subtle background parallax
+        gsap.to(".calc-bg", {
+        yPercent: 10,
+        ease: "none",
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+        }
+        });
+    }, containerRef);
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   return (
-    <div id="calculator-scene" ref={containerRef} className="relative w-full min-h-screen bg-luxury-bg overflow-hidden flex items-center justify-center py-24 md:py-64">
+    <div id="calculator-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#050505] overflow-hidden flex items-center justify-center py-24 md:py-64">
 
       {/* Background Ambience */}
       <div className="calc-bg absolute inset-0 opacity-20 will-change-transform">
@@ -63,7 +63,7 @@ export default function CalculatorScene() {
            quality={80}
            sizes="100vw"
          />
-         <div className="absolute inset-0 bg-radial-gradient from-transparent via-luxury-bg/80 to-luxury-bg" />
+         <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/80 to-[#050505]" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
@@ -145,7 +145,7 @@ export default function CalculatorScene() {
                 {estimatedPrice.toLocaleString()}<span className="text-xl md:text-2xl text-luxury-brass ml-2">₽</span>
               </div>
 
-              <p className="mt-8 text-luxury-text-muted text-[10px] uppercase tracking-[0.3em] leading-relaxed max-w-xs lg:ml-auto font-medium">
+              <p className="mt-8 text-luxury-text-muted text-[10px] uppercase tracking-[0.3em] leading-relaxed max-w-xs lg:ml-auto font-medium uppercase">
                 Цена фиксируется в договоре до начала работ. Бесплатный выезд на замер.
               </p>
            </div>

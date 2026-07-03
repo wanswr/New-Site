@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { IMAGES } from "@/constants/content";
+import { IMAGES } from "@/lib/constants";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -26,59 +26,62 @@ export default function FinalScene() {
   };
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    const ctx = gsap.context(() => {
+        if (!containerRef.current) return;
 
-    let splitInstance: SplitType | null = null;
+        let splitInstance: SplitType | null = null;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    if (titleRef.current) {
-      const reveal = splitTextReveal(titleRef.current);
-      if (reveal) {
-        tl.add(reveal.tween, 0);
-        splitInstance = reveal.split;
-      }
-    }
-    tl.add(cinematicReveal(".final-reveal"), 0.2);
-
-    // Final background parallax
-    const bgImg = document.querySelector("#final-bg img");
-    if (bgImg) {
-        gsap.to(bgImg, {
-          scale: 1.1,
-          yPercent: 10,
-          ease: "none",
-          scrollTrigger: {
+        const tl = gsap.timeline({
+        scrollTrigger: {
             trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        }
         });
-    }
 
-    return () => {
-        if (splitInstance) splitInstance.revert();
-    };
+        if (titleRef.current) {
+        const reveal = splitTextReveal(titleRef.current);
+        if (reveal) {
+            tl.add(reveal.tween, 0);
+            splitInstance = reveal.split;
+        }
+        }
+        tl.add(cinematicReveal(".final-reveal"), 0.2);
+
+        // Final background parallax
+        const bgImg = containerRef.current?.querySelector(".final-bg-img");
+        if (bgImg) {
+            gsap.to(bgImg, {
+            scale: 1.1,
+            yPercent: 10,
+            ease: "none",
+            scrollTrigger: {
+                trigger: containerRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true
+            }
+            });
+        }
+
+        return () => {
+            if (splitInstance) splitInstance.revert();
+        };
+    }, containerRef);
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   return (
-    <div id="final-scene" ref={containerRef} className="relative w-full min-h-screen bg-luxury-bg overflow-hidden py-24 md:py-64">
+    <div id="final-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#050505] overflow-hidden py-24 md:py-64">
       <div id="final-bg" className="absolute inset-0 opacity-10 will-change-transform">
          <Image
           src={IMAGES.hero}
           alt="Потолок бизнес-класса"
           fill
-          className="object-cover grayscale"
+          className="final-bg-img object-cover grayscale"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-luxury-bg via-luxury-bg/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">

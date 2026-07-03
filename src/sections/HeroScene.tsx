@@ -12,129 +12,85 @@ export default function HeroScene() {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!titleRef.current) return;
+    const ctx = gsap.context(() => {
+      if (!titleRef.current) return;
 
-    // Slow zoom effect on video
-    gsap.to(videoRef.current, {
-      scale: 1.15,
-      duration: 30,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true
-    });
+      // Slow zoom effect on video
+      gsap.to(videoRef.current, {
+        scale: 1.1,
+        duration: 20,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true
+      });
 
-    // Fly-forward effect on scroll (Cinematic Camera)
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: 1.5,
-        pin: true
-      }
-    });
+      // Text animation
+      const split = new SplitType(titleRef.current, { types: "words" });
+      gsap.set(split.words, {
+        opacity: 0,
+        y: 30,
+        filter: "blur(10px)",
+      });
 
-    tl.to("#hero-content-wrapper", {
-      z: 500,
-      scale: 1.5,
-      opacity: 0,
-      ease: "power2.in"
-    }, 0);
+      gsap.to(split.words, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        stagger: 0.05,
+        duration: 1.2,
+        ease: "power4.out",
+        delay: 0.5,
+      });
 
-    tl.to(videoRef.current, {
-      scale: 1.5,
-      opacity: 0,
-      ease: "power2.in"
-    }, 0);
+      // Reveal other elements
+      gsap.from(".hero-reveal", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power3.out",
+        delay: 1
+      });
 
-    // Text animation: words, y-shift, blur, fade
-    const split = new SplitType(titleRef.current, { types: "words" });
+    }, containerRef);
 
-    gsap.set(split.words, {
-      opacity: 0,
-      y: 60,
-      filter: "blur(20px)",
-      willChange: "transform, opacity"
-    });
-
-    gsap.to(split.words, {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      stagger: 0.15,
-      duration: 2,
-      ease: "expo.out",
-      delay: 0.8,
-      clearProps: "all"
-    });
-
-    // Subtext and Button entry
-    gsap.from(".hero-reveal", {
-      opacity: 0,
-      y: 30,
-      duration: 1.5,
-      stagger: 0.2,
-      ease: "power3.out",
-      delay: 1.5
-    });
-
-    // Right side stats entry
-    gsap.from(".hero-stat", {
-      opacity: 0,
-      x: 30,
-      duration: 1.5,
-      stagger: 0.1,
-      ease: "power3.out",
-      delay: 2
-    });
-
-    return () => {
-        split.revert();
-    };
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   // Mouse reaction for stats with proper cleanup
   useEffect(() => {
     const stats = containerRef.current?.querySelectorAll(".hero-stat");
+    const ctx = gsap.context(() => {
+      const onMouseMove = (e: MouseEvent, stat: Element) => {
+          const { clientX, clientY } = e;
+          const { left, top, width, height } = stat.getBoundingClientRect();
+          const x = (clientX - (left + width / 2)) * 0.1;
+          const y = (clientY - (top + height / 2)) * 0.1;
+          gsap.to(stat, { x, y, duration: 0.4, ease: "power2.out" });
+      };
 
-    const onMouseMove = (e: MouseEvent, stat: Element) => {
-        const { clientX, clientY } = e;
-        const { left, top, width, height } = stat.getBoundingClientRect();
-        const x = (clientX - (left + width / 2)) * 0.2;
-        const y = (clientY - (top + height / 2)) * 0.2;
-        gsap.to(stat, { x, y, duration: 0.4, ease: "power2.out" });
-    };
+      const onMouseLeave = (stat: Element) => {
+          gsap.to(stat, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
+      };
 
-    const onMouseLeave = (stat: Element) => {
-        gsap.to(stat, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" });
-    };
-
-    const handlers: Array<() => void> = [];
-
-    stats?.forEach((stat) => {
-        const moveHandler = (e: Event) => onMouseMove(e as MouseEvent, stat);
-        const leaveHandler = () => onMouseLeave(stat);
-
-        stat.addEventListener("mousemove", moveHandler);
-        stat.addEventListener("mouseleave", leaveHandler);
-
-        handlers.push(() => {
-            stat.removeEventListener("mousemove", moveHandler);
-            stat.removeEventListener("mouseleave", leaveHandler);
-        });
-    });
+      stats?.forEach((stat) => {
+          const mouseMoveHandler = (e: Event) => onMouseMove(e as MouseEvent, stat);
+          const mouseLeaveHandler = () => onMouseLeave(stat);
+          stat.addEventListener("mousemove", mouseMoveHandler);
+          stat.addEventListener("mouseleave", mouseLeaveHandler);
+      });
+    }, containerRef);
 
     return () => {
-        handlers.forEach(cleanup => cleanup());
+        ctx.revert();
     };
   }, []);
 
   return (
-    <div id="hero-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#0A0A0A] overflow-hidden perspective-2000">
-      {/* Background Video */}
+    <div id="hero-scene" ref={containerRef} className="relative w-full h-screen bg-[#050505] overflow-hidden">
+      {/* Background Video/Image */}
       <div className="absolute inset-0 overflow-hidden">
         <video
           ref={videoRef}
@@ -142,84 +98,73 @@ export default function HeroScene() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover grayscale-[0.2] will-change-transform"
+          className="w-full h-full object-cover opacity-60"
           poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000"
         >
           <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-interior-design-of-a-living-room-with-a-fireplace-34538-large.mp4" type="video/mp4" />
         </video>
-        {/* Darkening Overlay 45% */}
-        <div className="absolute inset-0 bg-black/45" />
-        {/* Vignette for depth */}
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-[#0A0A0A]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#050505]" />
       </div>
 
-      <div id="hero-content-wrapper" className="relative z-10 w-full min-h-screen max-w-[2000px] mx-auto px-6 md:px-24 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-end pt-32 pb-24 md:pb-48 will-change-transform">
-
-        {/* Left Content */}
-        <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-5xl w-full">
-          <div className="hero-reveal mb-8 md:mb-12">
-            <p className="text-[9px] md:text-xs uppercase tracking-[0.3em] md:tracking-[0.5em] text-luxury-brass font-bold">
-              POTOLKBEL • НАТЯЖНЫЕ ПОТОЛКИ В МОСКВЕ
-            </p>
+      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-6 flex flex-col justify-center">
+        <div className="max-w-4xl">
+          <div className="hero-reveal mb-6">
+            <span className="text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold">
+              Москва и область • Работаем без выходных
+            </span>
           </div>
 
           <h1
             ref={titleRef}
-            className="hero-title text-[clamp(2.5rem,8vw,120px)] font-serif leading-[1] tracking-tighter text-luxury-text mb-8 md:mb-12"
+            className="text-[clamp(2rem,7vw,90px)] font-serif leading-[1.1] text-luxury-text mb-8 tracking-tighter"
           >
-            Натяжные потолки <br className="hidden md:block" />
-            <span className="italic text-luxury-brass font-normal">за 1 день без пыли</span>
+            Натяжные потолки <br />
+            <span className="italic text-luxury-brass">за 1 день без пыли и грязи</span>
           </h1>
 
-          <p className="hero-reveal text-[11px] md:text-base uppercase tracking-[0.2em] md:tracking-[0.3em] text-luxury-text-muted mb-12 md:mb-16 font-medium max-w-2xl">
-            Бесплатный замер • Фиксированная цена • Гарантия 15 лет
-          </p>
+          <div className="hero-reveal flex flex-wrap gap-x-8 gap-y-4 mb-12">
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-1 bg-luxury-brass rounded-full" />
+              <span className="text-luxury-text-muted text-sm uppercase tracking-widest">Бесплатный замер</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-1 bg-luxury-brass rounded-full" />
+              <span className="text-luxury-text-muted text-sm uppercase tracking-widest">Фиксированная цена</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-1 bg-luxury-brass rounded-full" />
+              <span className="text-luxury-text-muted text-sm uppercase tracking-widest">Гарантия 15 лет</span>
+            </div>
+          </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 hero-reveal">
+          <div className="hero-reveal flex flex-col sm:flex-row gap-6">
             <button
-                onClick={() => document.getElementById('calculator-scene')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-10 md:px-16 py-5 md:py-6 bg-luxury-brass border border-luxury-brass overflow-hidden transition-all duration-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-luxury-brass/50"
-                aria-label="Рассчитать стоимость"
+                onClick={() => document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-12 py-6 bg-luxury-brass text-luxury-bg text-xs uppercase tracking-[0.3em] font-bold hover:bg-white transition-colors duration-500 cursor-pointer"
             >
-                <span className="relative z-10 text-[11px] uppercase tracking-[0.4em] text-luxury-bg font-bold">
                 Рассчитать стоимость
-                </span>
             </button>
 
             <button
                 onClick={() => window.open('https://wa.me/placeholder', '_blank')}
-                className="group relative px-10 md:px-16 py-5 md:py-6 bg-transparent border border-luxury-brass/40 overflow-hidden transition-all duration-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-luxury-brass/50"
-                aria-label="Вызвать замерщика"
+                className="px-12 py-6 border border-luxury-brass/30 text-luxury-text text-xs uppercase tracking-[0.3em] font-bold hover:border-luxury-brass transition-colors duration-500 cursor-pointer"
             >
-                <span className="relative z-10 text-[11px] uppercase tracking-[0.4em] text-luxury-text font-bold">
                 Вызвать замерщика
-                </span>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 shadow-[inset_0_0_20px_rgba(176,141,87,0.3)] border border-luxury-brass" />
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Right Stats */}
-        <div ref={statsRef} className="hidden md:flex flex-col items-end space-y-16 mb-8">
-           <div className="hero-stat flex flex-col items-end opacity-40 hover:opacity-100 transition-all duration-700 cursor-pointer group">
-              <span className="text-7xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors">12</span>
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold mt-3 text-luxury-text-muted">лет опыта</span>
-           </div>
-           <div className="hero-stat flex flex-col items-end opacity-40 hover:opacity-100 transition-all duration-700 cursor-pointer group">
-              <span className="text-7xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors">5000+</span>
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold mt-3 text-luxury-text-muted">объектов</span>
-           </div>
-           <div className="hero-stat flex flex-col items-end opacity-40 hover:opacity-100 transition-all duration-700 cursor-pointer group">
-              <span className="text-7xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors">15 лет</span>
-              <span className="text-[10px] uppercase tracking-[0.3em] font-bold mt-3 text-luxury-text-muted">гарантии</span>
-           </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30">
-           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-luxury-brass to-transparent" />
-           <span className="text-[7px] uppercase tracking-[0.8em] mt-4 text-luxury-text-muted font-bold">листайте вниз</span>
-        </div>
+      {/* Floating Stats */}
+      <div className="absolute bottom-12 right-12 hidden lg:flex flex-col gap-12">
+         <div className="hero-stat text-right">
+            <div className="text-4xl font-serif text-luxury-text">12 лет</div>
+            <div className="text-[10px] uppercase tracking-widest text-luxury-brass">опыта работы</div>
+         </div>
+         <div className="hero-stat text-right">
+            <div className="text-4xl font-serif text-luxury-text">5000+</div>
+            <div className="text-[10px] uppercase tracking-widest text-luxury-brass">объектов сдали</div>
+         </div>
       </div>
     </div>
   );

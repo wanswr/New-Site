@@ -34,34 +34,37 @@ export default function FAQScene() {
   ];
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    const ctx = gsap.context(() => {
+        if (!containerRef.current) return;
 
-    let splitInstance: SplitType | null = null;
+        let splitInstance: SplitType | null = null;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 80%",
-        toggleActions: "play none none reverse"
-      }
-    });
+        const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+        }
+        });
 
-    if (titleRef.current) {
-      const reveal = splitTextReveal(titleRef.current);
-      if (reveal) {
-        tl.add(reveal.tween, 0);
-        splitInstance = reveal.split;
-      }
-    }
-    tl.add(cinematicReveal(".faq-reveal"), 0.2);
+        if (titleRef.current) {
+        const reveal = splitTextReveal(titleRef.current);
+        if (reveal) {
+            tl.add(reveal.tween, 0);
+            splitInstance = reveal.split;
+        }
+        }
+        tl.add(cinematicReveal(".faq-reveal"), 0.2);
 
-    return () => {
-        if (splitInstance) splitInstance.revert();
-    };
+        return () => {
+            if (splitInstance) splitInstance.revert();
+        };
+    }, containerRef);
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   return (
-    <div id="faq-scene" ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-luxury-bg text-luxury-text py-24 md:py-64">
+    <div id="faq-scene" ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-[#050505] text-luxury-text py-24 md:py-64">
       <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
 
         <div className="space-y-8">
@@ -94,7 +97,7 @@ export default function FAQScene() {
               <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-40 opacity-100 mb-8' : 'max-h-0 opacity-0'}`}
               >
-                <p className="text-luxury-text-muted text-sm md:text-base tracking-widest leading-relaxed font-medium">
+                <p className="text-luxury-text-muted text-sm md:text-base tracking-widest leading-relaxed font-medium uppercase">
                   {faq.a}
                 </p>
               </div>

@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import SplitType from "split-type";
-import { IMAGES } from "@/constants/content";
+import { IMAGES } from "@/lib/constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,60 +15,62 @@ export default function BeforeAfterScene() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    const ctx = gsap.context(() => {
+        let splitInstance: SplitType | null = null;
 
-    let splitInstance: SplitType | null = null;
+        const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=200%",
+            scrub: 1,
+            pin: true,
+        }
+        });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=200%",
-        scrub: 1,
-        pin: true,
-      }
-    });
+        // 1. Initial State: "Before" image
+        // 2. Wipe Reveal of "After" image
+        tl.fromTo(".after-image-container",
+        { clipPath: "inset(0 0 0 100%)" },
+        { clipPath: "inset(0 0 0 0%)", duration: 2, ease: "power2.inOut" },
+        0.5
+        );
 
-    // 1. Initial State: "Before" image (sepia/dull)
-    // 2. Wipe Reveal of "After" image
-    tl.fromTo(".after-image-container",
-      { clipPath: "inset(0 0 0 100%)" },
-      { clipPath: "inset(0 0 0 0%)", duration: 2, ease: "power2.inOut" },
-      0.5
-    );
+        // 3. Zoom both images simultaneously
+        tl.to([".before-image", ".after-image"], {
+        scale: 1.1,
+        duration: 3,
+        ease: "none"
+        }, 0);
 
-    // 3. Zoom both images simultaneously
-    tl.to([".before-image", ".after-image"], {
-      scale: 1.1,
-      duration: 3,
-      ease: "none"
-    }, 0);
+        // 4. Text Reveal
+        if (headlineRef.current) {
+        splitInstance = new SplitType(headlineRef.current, { types: "chars,words" });
+        gsap.set(splitInstance.chars, { willChange: "transform, opacity" });
+        tl.fromTo(splitInstance.chars,
+            { opacity: 0, y: 50, filter: "blur(10px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.02, ease: "expo.out", clearProps: "all" },
+            1.5
+        );
+        }
 
-    // 4. Text Reveal
-    if (headlineRef.current) {
-      splitInstance = new SplitType(headlineRef.current, { types: "chars,words" });
-      gsap.set(splitInstance.chars, { willChange: "transform, opacity" });
-      tl.fromTo(splitInstance.chars,
-        { opacity: 0, y: 50, filter: "blur(10px)" },
-        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.02, ease: "expo.out", clearProps: "all" },
-        1.5
-      );
-    }
+        // 5. Labels Reveal
+        tl.fromTo(".ba-label",
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 1, stagger: 0.2 },
+        2
+        );
 
-    // 5. Labels Reveal
-    tl.fromTo(".ba-label",
-      { opacity: 0, x: -20 },
-      { opacity: 1, x: 0, duration: 1, stagger: 0.2 },
-      2
-    );
+        return () => {
+            if (splitInstance) splitInstance.revert();
+        };
+    }, containerRef);
 
-    return () => {
-        if (splitInstance) splitInstance.revert();
-    };
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   return (
-    <div id="before-after-scene" ref={containerRef} className="relative w-full h-screen bg-luxury-bg overflow-hidden">
+    <div id="before-after-scene" ref={containerRef} className="relative w-full h-screen bg-[#050505] overflow-hidden">
       {/* Before Layer (Static Background) */}
       <div className="absolute inset-0">
         <Image

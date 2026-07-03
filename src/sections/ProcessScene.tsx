@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { IMAGES } from "@/constants/content";
+import { IMAGES } from "@/lib/constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,59 +21,61 @@ export default function ProcessScene() {
   }, []);
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    const ctx = gsap.context(() => {
+        if (!containerRef.current) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "+=300%", // Slightly shorter for better pace
-        scrub: 1,
-        pin: true,
-      }
-    });
+        const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=300%",
+            scrub: 1,
+            pin: true,
+        }
+        });
 
-    // Initial state
-    gsap.set(".process-stage", { opacity: 0, y: 50, willChange: "transform, opacity" });
-    gsap.set(".laser-line", { scaleX: 0, opacity: 0 });
-    gsap.set(".marking-dot", { scale: 0, opacity: 0 });
-    gsap.set(".profile-line", { scaleX: 0, opacity: 0 });
+        // Initial state
+        gsap.set(".process-stage", { opacity: 0, y: 50, willChange: "transform, opacity" });
+        gsap.set(".laser-line", { scaleX: 0, opacity: 0 });
+        gsap.set(".marking-dot", { scale: 0, opacity: 0 });
+        gsap.set(".profile-line", { scaleX: 0, opacity: 0 });
 
-    // 1. Stage: Laser
-    tl.to(".process-stage-1", { opacity: 1, y: 0, duration: 0.5 });
-    tl.to(".laser-line", { scaleX: 1, opacity: 1, duration: 1, ease: "power2.inOut" }, 0.2);
-    tl.to(".laser-line", { top: "30%", duration: 1.5, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.5);
-    tl.to(".process-stage-1", { opacity: 0, y: -20, duration: 0.5 }, 1.5);
+        // 1. Stage: Laser
+        tl.to(".process-stage-1", { opacity: 1, y: 0, duration: 0.5 });
+        tl.to(".laser-line", { scaleX: 1, opacity: 1, duration: 1, ease: "power2.inOut" }, 0.2);
+        tl.to(".laser-line", { top: "30%", duration: 1.5, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.5);
+        tl.to(".process-stage-1", { opacity: 0, y: -20, duration: 0.5 }, 1.5);
 
-    // 2. Stage: Marking
-    tl.to(".process-stage-2", { opacity: 1, y: 0, duration: 0.5 }, 2);
-    if (coords.length > 0) {
-      tl.to(".marking-dot", { scale: 1, opacity: 1, stagger: 0.1, duration: 0.5 }, 2.2);
-      tl.to(".marking-coords", { opacity: 0.4, duration: 0.5 }, 2.5);
-    }
-    tl.to(".process-stage-2", { opacity: 0, y: -20, duration: 0.5 }, 3.5);
+        // 2. Stage: Marking
+        tl.to(".process-stage-2", { opacity: 1, y: 0, duration: 0.5 }, 2);
+        if (coords.length > 0) {
+        tl.to(".marking-dot", { scale: 1, opacity: 1, stagger: 0.1, duration: 0.5 }, 2.2);
+        tl.to(".marking-coords", { opacity: 0.4, duration: 0.5 }, 2.5);
+        }
+        tl.to(".process-stage-2", { opacity: 0, y: -20, duration: 0.5 }, 3.5);
 
-    // 3. Stage: Mounting
-    tl.to(".process-stage-3", { opacity: 1, y: 0, duration: 0.5 }, 4);
-    tl.to(".profile-line", { scaleX: 1, opacity: 1, duration: 1, stagger: 0.2 }, 4.2);
-    tl.to(".process-stage-3", { opacity: 0, y: -20, duration: 0.5 }, 5.5);
+        // 3. Stage: Mounting
+        tl.to(".process-stage-3", { opacity: 1, y: 0, duration: 0.5 }, 4);
+        tl.to(".profile-line", { scaleX: 1, opacity: 1, duration: 1, stagger: 0.2 }, 4.2);
+        tl.to(".process-stage-3", { opacity: 0, y: -20, duration: 0.5 }, 5.5);
 
-    // 4. Stage: Stretching
-    tl.to(".process-stage-4", { opacity: 1, y: 0, duration: 0.5 }, 6);
-    tl.to(".canvas-overlay", { opacity: 0, duration: 1.5 }, 6.2);
-    tl.to(".process-stage-4", { opacity: 0, y: -20, duration: 0.5 }, 7.5);
+        // 4. Stage: Stretching
+        tl.to(".process-stage-4", { opacity: 1, y: 0, duration: 0.5 }, 6);
+        tl.to(".canvas-overlay", { opacity: 0, duration: 1.5 }, 6.2);
+        tl.to(".process-stage-4", { opacity: 0, y: -20, duration: 0.5 }, 7.5);
 
-    // 5. Stage: Finish
-    tl.to(".process-stage-5", { opacity: 1, y: 0, duration: 0.5 }, 8);
-    tl.to(".final-illumination", { opacity: 1, duration: 1 }, 8.2);
+        // 5. Stage: Finish
+        tl.to(".process-stage-5", { opacity: 1, y: 0, duration: 0.5 }, 8);
+        tl.to(".final-illumination", { opacity: 1, duration: 1 }, 8.2);
 
-    // Background scaling throughout
-    tl.to(".process-bg", { scale: 1.05, duration: 10, ease: "none" }, 0);
-
+        // Background scaling throughout
+        tl.to(".process-bg", { scale: 1.05, duration: 10, ease: "none" }, 0);
+    }, containerRef);
+    return () => ctx.revert();
   }, { scope: containerRef, dependencies: [coords] });
 
   return (
-    <div id="process-scene" ref={containerRef} className="relative w-full h-screen bg-luxury-bg overflow-hidden">
+    <div id="process-scene" ref={containerRef} className="relative w-full h-screen bg-[#050505] overflow-hidden">
       {/* Background Media */}
       <div className="absolute inset-0 process-bg">
         <Image
@@ -84,7 +86,7 @@ export default function ProcessScene() {
           sizes="100vw"
         />
         {/* Stretching Canvas Overlay (blurred/textured) */}
-        <div className="canvas-overlay absolute inset-0 bg-luxury-bg/80 backdrop-blur-md z-10" />
+        <div className="canvas-overlay absolute inset-0 bg-[#050505]/80 backdrop-blur-md z-10" />
 
         {/* Final Illumination Layer */}
         <div className="final-illumination absolute inset-0 bg-luxury-brass/5 z-15 opacity-0" />
@@ -140,7 +142,7 @@ export default function ProcessScene() {
       </div>
 
       {/* Ambient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-luxury-bg via-transparent to-luxury-bg z-25 pointer-events-none opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] z-25 pointer-events-none opacity-60" />
     </div>
   );
 }
