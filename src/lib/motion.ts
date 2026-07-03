@@ -30,7 +30,10 @@ export const splitTextReveal = (el: string | HTMLElement, type: "chars" | "words
     duration: 1.5,
     ease: "expo.out",
     delay,
-    clearProps: "all"
+    clearProps: "all",
+    onComplete: () => {
+      gsap.set(targets, { clearProps: "filter,transform" });
+    }
   });
 };
 

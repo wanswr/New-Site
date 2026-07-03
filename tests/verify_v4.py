@@ -1,46 +1,34 @@
-from playwright.sync_api import sync_playwright
-import time
-import os
+import asyncio
+from playwright.async_api import async_playwright
 
-def run_v4():
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page()
+async def run():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page()
+        try:
+            # Check for 3003 port as used in background dev server
+            await page.goto("http://localhost:3003", timeout=10000)
+            print("Page loaded successfully")
 
-        # Ensure verification directory exists
-        os.makedirs("verification", exist_ok=True)
+            # Take a screenshot
+            await page.screenshot(path="public/audit_screenshot.png")
+            print("Screenshot saved to public/audit_screenshot.png")
 
-        print("Navigating to http://localhost:3005...")
-        page.goto("http://localhost:3005")
+            # Check for key elements
+            title = await page.title()
+            print(f"Page title: {title}")
 
-        # Wait for loader
-        print("Waiting for loader...")
-        time.sleep(5)
+            hero_title = await page.locator("h1").inner_text()
+            print(f"Hero title: {hero_title}")
 
-        # Capture Hero
-        print("Capturing Hero...")
-        page.screenshot(path="verification/01_hero_v4.png")
+            # Check for the newly added LightingScene
+            lighting_scene = await page.locator("#lighting-scene").count()
+            print(f"Lighting scene count: {lighting_scene}")
 
-        # Scroll to Explorer
-        print("Capturing Explorer...")
-        page.evaluate("document.getElementById('explorer-scene').scrollIntoView()")
-        time.sleep(1)
-        page.screenshot(path="verification/02_explorer_v4.png")
-
-        # Scroll to Portfolio
-        print("Capturing Portfolio...")
-        page.evaluate("document.getElementById('portfolio-scene').scrollIntoView()")
-        time.sleep(1)
-        page.screenshot(path="verification/03_portfolio_v4.png")
-
-        # Scroll to Calculator
-        print("Capturing Calculator...")
-        page.evaluate("document.getElementById('calculator-scene').scrollIntoView()")
-        time.sleep(1)
-        page.screenshot(path="verification/04_calculator_v4.png")
-
-        browser.close()
-        print("Done.")
+        except Exception as e:
+            print(f"Error: {e}")
+        finally:
+            await browser.close()
 
 if __name__ == "__main__":
-    run_v4()
+    asyncio.run(run())

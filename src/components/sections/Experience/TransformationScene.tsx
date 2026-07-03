@@ -136,7 +136,7 @@ export default function TransformationScene() {
           {ROOMS.map((room) => (
             <h2
               key={room.id}
-              className="room-title absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter text-center opacity-0 whitespace-nowrap"
+              className="room-title absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter text-center opacity-0 w-full max-w-4xl"
             >
               {room.title}
             </h2>

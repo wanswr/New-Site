@@ -103,6 +103,7 @@ export default function MacroDetailScene() {
           fill
           className="macro-image object-cover grayscale opacity-60"
           quality={100}
+          sizes="100vw"
         />
         <div className="macro-overlay absolute inset-0 bg-black/40 transition-colors duration-1000" />
       </div>
@@ -119,7 +120,7 @@ export default function MacroDetailScene() {
         {/* Giant Background Title */}
         <h2
           ref={titleRef}
-          className="text-[clamp(4rem,15vw,250px)] font-serif text-luxury-text tracking-[0.1em] uppercase leading-none text-center whitespace-nowrap"
+          className="text-[clamp(4rem,15vw,250px)] font-serif text-luxury-text tracking-[0.1em] uppercase leading-none text-center w-full"
         >
           Детали
         </h2>

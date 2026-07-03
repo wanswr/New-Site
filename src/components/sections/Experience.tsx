@@ -3,6 +3,7 @@
 import HeroScene from "./Experience/HeroScene";
 import FloatingAtmosphere from "../ui/FloatingAtmosphere";
 import TransformationScene from "./Experience/TransformationScene";
+import LightingScene from "./Experience/LightingScene";
 import MacroDetailScene from "./Experience/MacroDetailScene";
 import BeforeAfterScene from "./Experience/BeforeAfterScene";
 import ProcessScene from "./Experience/ProcessScene";
@@ -17,7 +18,7 @@ export default function Experience() {
   return (
     <div id="main-experience" className="relative w-full bg-luxury-bg">
       {/* Global Cinematic Grain - Reduced opacity for performance */}
-      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.015] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.015] mix-blend-overlay bg-noise" />
 
       {/* Ambient Depth Layer */}
       <FloatingAtmosphere />
@@ -35,6 +36,9 @@ export default function Experience() {
       {/* 3. Product Explanation: Visual & Interactive */}
       <section className="relative w-full">
         <TransformationScene />
+      </section>
+      <section className="relative w-full">
+        <LightingScene />
       </section>
       <div className="relative z-10 bg-luxury-bg">
         <ExplorerScene />

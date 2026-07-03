@@ -47,8 +47,10 @@ export default function ProcessScene() {
 
     // 2. Stage: Marking
     tl.to(".process-stage-2", { opacity: 1, y: 0, duration: 0.5 }, 2);
-    tl.to(".marking-dot", { scale: 1, opacity: 1, stagger: 0.1, duration: 0.5 }, 2.2);
-    tl.to(".marking-coords", { opacity: 0.4, duration: 0.5 }, 2.5);
+    if (coords.length > 0) {
+      tl.to(".marking-dot", { scale: 1, opacity: 1, stagger: 0.1, duration: 0.5 }, 2.2);
+      tl.to(".marking-coords", { opacity: 0.4, duration: 0.5 }, 2.5);
+    }
     tl.to(".process-stage-2", { opacity: 0, y: -20, duration: 0.5 }, 3.5);
 
     // 3. Stage: Mounting
@@ -79,6 +81,7 @@ export default function ProcessScene() {
           alt="Process background"
           fill
           className="object-cover grayscale opacity-40"
+          sizes="100vw"
         />
         {/* Stretching Canvas Overlay (blurred/textured) */}
         <div className="canvas-overlay absolute inset-0 bg-luxury-bg/80 backdrop-blur-md z-10" />
@@ -114,23 +117,23 @@ export default function ProcessScene() {
 
       {/* Content: Stage Titles */}
       <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
-        <div className="process-stage process-stage-1 absolute whitespace-nowrap">
+        <div className="process-stage process-stage-1 absolute w-full max-w-4xl">
           <span className="text-red-500 text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 01</span>
           <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Лазерное нивелирование</h2>
         </div>
-        <div className="process-stage process-stage-2 absolute whitespace-nowrap">
+        <div className="process-stage process-stage-2 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 02</span>
           <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Архитектурная разметка</h2>
         </div>
-        <div className="process-stage process-stage-3 absolute whitespace-nowrap">
+        <div className="process-stage process-stage-3 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 03</span>
           <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Монтаж профилей</h2>
         </div>
-        <div className="process-stage process-stage-4 absolute whitespace-nowrap">
+        <div className="process-stage process-stage-4 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 04</span>
           <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Натяжение полотна</h2>
         </div>
-        <div className="process-stage process-stage-5 absolute whitespace-nowrap">
+        <div className="process-stage process-stage-5 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 05</span>
           <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase italic">Запуск атмосферы</h2>
         </div>

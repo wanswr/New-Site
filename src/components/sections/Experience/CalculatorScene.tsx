@@ -61,6 +61,7 @@ export default function CalculatorScene() {
            fill
            className="object-cover grayscale"
            quality={95}
+           sizes="100vw"
          />
          <div className="absolute inset-0 bg-radial-gradient from-transparent via-luxury-bg/80 to-luxury-bg" />
       </div>

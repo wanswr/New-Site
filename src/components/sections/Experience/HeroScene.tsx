@@ -154,7 +154,7 @@ export default function HeroScene() {
 
           <button
             onClick={() => document.getElementById('calculator-scene')?.scrollIntoView({ behavior: 'smooth' })}
-            className="hero-reveal group relative px-10 md:px-16 py-5 md:py-6 bg-black border border-luxury-brass/40 overflow-hidden transition-all duration-700 cursor-none"
+            className="hero-reveal group relative px-10 md:px-16 py-5 md:py-6 bg-black border border-luxury-brass/40 overflow-hidden transition-all duration-700 cursor-none focus:outline-none focus:ring-2 focus:ring-luxury-brass/50"
             aria-label="Перейти к расчету стоимости"
           >
             <span className="relative z-10 text-[11px] uppercase tracking-[0.6em] text-luxury-text font-bold">

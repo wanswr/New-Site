@@ -72,6 +72,7 @@ export default function BeforeAfterScene() {
           fill
           className="before-image object-cover grayscale sepia brightness-50"
           quality={90}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute top-12 left-12 md:top-24 md:left-24 z-20">
@@ -87,6 +88,7 @@ export default function BeforeAfterScene() {
           fill
           className="after-image object-cover"
           quality={100}
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         <div className="absolute top-12 right-12 md:top-24 md:right-24 z-20 text-right">
@@ -96,7 +98,7 @@ export default function BeforeAfterScene() {
 
       {/* Content Overlay */}
       <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
-         <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none max-w-5xl whitespace-nowrap">
+         <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none max-w-5xl w-full">
            Радикальное <br />
            <span className="italic text-luxury-brass">Преображение</span>
          </h2>

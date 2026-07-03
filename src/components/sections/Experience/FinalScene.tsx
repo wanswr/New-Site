@@ -64,6 +64,7 @@ export default function FinalScene() {
           alt="Final Background"
           fill
           className="object-cover grayscale"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-luxury-bg via-luxury-bg/80 to-transparent" />
       </div>
@@ -73,7 +74,7 @@ export default function FinalScene() {
               <span className="final-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold mb-8">
                 Шедевр Ждет Вас
               </span>
-              <h2 ref={titleRef} className="text-4xl md:text-6xl font-serif text-luxury-text mb-8 leading-tight tracking-tighter whitespace-nowrap">
+              <h2 ref={titleRef} className="text-4xl md:text-6xl font-serif text-luxury-text mb-8 leading-tight tracking-tighter w-full">
                 Создадим <br />
                 <span className="italic text-luxury-brass/80 font-normal">Ваш Интерьер</span>
               </h2>

@@ -70,6 +70,7 @@ export default function AboutScene() {
             alt="Craftsmanship detail"
             fill
             priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="about-image-inner object-cover grayscale transition-all duration-1000 scale-110 will-change-transform"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-luxury-bg via-transparent to-transparent opacity-60" />
