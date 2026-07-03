@@ -27,7 +27,7 @@ export default function ProcessScene() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=500%", // Long enough for 5 stages
+        end: "+=300%", // Slightly shorter for better pace
         scrub: 1,
         pin: true,
       }
@@ -60,17 +60,17 @@ export default function ProcessScene() {
 
     // 4. Stage: Stretching
     tl.to(".process-stage-4", { opacity: 1, y: 0, duration: 0.5 }, 6);
-    tl.to(".canvas-overlay", { opacity: 0, duration: 1.5 }, 6.2); // Reveal the perfect image
+    tl.to(".canvas-overlay", { opacity: 0, duration: 1.5 }, 6.2);
     tl.to(".process-stage-4", { opacity: 0, y: -20, duration: 0.5 }, 7.5);
 
-    // 5. Stage: Light
+    // 5. Stage: Finish
     tl.to(".process-stage-5", { opacity: 1, y: 0, duration: 0.5 }, 8);
     tl.to(".final-illumination", { opacity: 1, duration: 1 }, 8.2);
 
     // Background scaling throughout
-    tl.to(".process-bg", { scale: 1.1, duration: 10, ease: "none" }, 0);
+    tl.to(".process-bg", { scale: 1.05, duration: 10, ease: "none" }, 0);
 
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [coords] });
 
   return (
     <div id="process-scene" ref={containerRef} className="relative w-full h-screen bg-luxury-bg overflow-hidden">
@@ -78,7 +78,7 @@ export default function ProcessScene() {
       <div className="absolute inset-0 process-bg">
         <Image
           src={IMAGES.details.process}
-          alt="Process background"
+          alt="Процесс монтажа"
           fill
           className="object-cover grayscale opacity-40"
           sizes="100vw"
@@ -119,23 +119,23 @@ export default function ProcessScene() {
       <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
         <div className="process-stage process-stage-1 absolute w-full max-w-4xl">
           <span className="text-red-500 text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 01</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Лазерное нивелирование</h2>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Замер и проектирование</h2>
         </div>
         <div className="process-stage process-stage-2 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 02</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Архитектурная разметка</h2>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Точная разметка</h2>
         </div>
         <div className="process-stage process-stage-3 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 03</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Монтаж профилей</h2>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Чистый монтаж профилей</h2>
         </div>
         <div className="process-stage process-stage-4 absolute w-full max-w-4xl">
           <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 04</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Натяжение полотна</h2>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Бесщелевое натяжение</h2>
         </div>
         <div className="process-stage process-stage-5 absolute w-full max-w-4xl">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 05</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase italic">Запуск атмосферы</h2>
+          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Результат</span>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase italic">Идеальный потолок</h2>
         </div>
       </div>
 

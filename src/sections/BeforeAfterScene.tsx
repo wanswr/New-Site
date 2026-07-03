@@ -17,11 +17,13 @@ export default function BeforeAfterScene() {
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    let splitInstance: SplitType | null = null;
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=300%",
+        end: "+=200%",
         scrub: 1,
         pin: true,
       }
@@ -37,16 +39,16 @@ export default function BeforeAfterScene() {
 
     // 3. Zoom both images simultaneously
     tl.to([".before-image", ".after-image"], {
-      scale: 1.2,
+      scale: 1.1,
       duration: 3,
       ease: "none"
     }, 0);
 
     // 4. Text Reveal
     if (headlineRef.current) {
-      const split = new SplitType(headlineRef.current, { types: "chars,words" });
-      gsap.set(split.chars, { willChange: "transform, opacity" });
-      tl.fromTo(split.chars,
+      splitInstance = new SplitType(headlineRef.current, { types: "chars,words" });
+      gsap.set(splitInstance.chars, { willChange: "transform, opacity" });
+      tl.fromTo(splitInstance.chars,
         { opacity: 0, y: 50, filter: "blur(10px)" },
         { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.02, ease: "expo.out", clearProps: "all" },
         1.5
@@ -60,6 +62,9 @@ export default function BeforeAfterScene() {
       2
     );
 
+    return () => {
+        if (splitInstance) splitInstance.revert();
+    };
   }, { scope: containerRef });
 
   return (
@@ -68,15 +73,15 @@ export default function BeforeAfterScene() {
       <div className="absolute inset-0">
         <Image
           src={IMAGES.details.before_after}
-          alt="Before Transformation"
+          alt="Потолок ДО"
           fill
           className="before-image object-cover grayscale sepia brightness-50"
-          quality={90}
+          quality={80}
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute top-12 left-12 md:top-24 md:left-24 z-20">
-           <span className="ba-label text-white/40 text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">Состояние: ДО</span>
+           <span className="ba-label text-white/40 text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">ДО РЕМОНТА</span>
         </div>
       </div>
 
@@ -84,29 +89,29 @@ export default function BeforeAfterScene() {
       <div className="after-image-container absolute inset-0 z-10">
         <Image
           src={IMAGES.details.before_after}
-          alt="After Transformation"
+          alt="Потолок ПОСЛЕ"
           fill
           className="after-image object-cover"
-          quality={100}
+          quality={90}
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         <div className="absolute top-12 right-12 md:top-24 md:right-24 z-20 text-right">
-           <span className="ba-label text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">Результат: ПОСЛЕ</span>
+           <span className="ba-label text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.8em] font-bold">ИДЕАЛЬНЫЙ РЕЗУЛЬТАТ</span>
         </div>
       </div>
 
       {/* Content Overlay */}
       <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
          <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none max-w-5xl w-full">
-           Радикальное <br />
-           <span className="italic text-luxury-brass">Преображение</span>
+           Превращаем <br />
+           <span className="italic text-luxury-brass">хаос в эстетику</span>
          </h2>
 
          <div className="mt-12 flex items-center gap-6 ba-label">
             <div className="w-12 h-[1px] bg-luxury-brass" />
             <p className="text-[10px] md:text-xs uppercase tracking-[0.5em] text-luxury-text-muted font-bold">
-              От старого интерьера к архитектурному шедевру
+              Чисто, быстро, безупречно
             </p>
             <div className="w-12 h-[1px] bg-luxury-brass" />
          </div>

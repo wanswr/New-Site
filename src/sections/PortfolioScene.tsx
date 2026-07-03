@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { splitTextReveal, cinematicReveal } from "@/lib/motion";
+import type SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +38,8 @@ export default function PortfolioScene() {
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    let splitInstance: SplitType | null = null;
+
     // Header reveal
     const headerTl = gsap.timeline({
       scrollTrigger: {
@@ -48,13 +51,16 @@ export default function PortfolioScene() {
 
     if (titleRef.current) {
       const reveal = splitTextReveal(titleRef.current);
-      if (reveal) headerTl.add(reveal, 0);
+      if (reveal) {
+        headerTl.add(reveal.tween, 0);
+        splitInstance = reveal.split;
+      }
     }
     headerTl.add(cinematicReveal(".portfolio-reveal"), 0.2);
 
     // Project reveals
-    const projects = gsap.utils.toArray(".portfolio-project") as HTMLElement[];
-    projects.forEach((project) => {
+    const projectElements = gsap.utils.toArray(".portfolio-project") as HTMLElement[];
+    projectElements.forEach((project) => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: project,
@@ -63,34 +69,47 @@ export default function PortfolioScene() {
         }
       });
 
-      tl.from(project.querySelector(".project-image-wrapper"), {
-        opacity: 0,
-        scale: 0.9,
-        y: 50,
-        duration: 1.5,
-        ease: "power3.out"
-      }, 0);
+      const imgWrapper = project.querySelector(".project-image-wrapper");
+      const info = project.querySelector(".project-info");
 
-      tl.from(project.querySelector(".project-info"), {
-        opacity: 0,
-        x: project.classList.contains("flex-col-reverse") ? 50 : -50,
-        duration: 1.5,
-        ease: "power3.out"
-      }, 0.3);
+      if (imgWrapper) {
+        tl.from(imgWrapper, {
+            opacity: 0,
+            scale: 0.9,
+            y: 50,
+            duration: 1.5,
+            ease: "power3.out"
+        }, 0);
+      }
+
+      if (info) {
+        tl.from(info, {
+            opacity: 0,
+            x: project.classList.contains("flex-col-reverse") ? 50 : -50,
+            duration: 1.5,
+            ease: "power3.out"
+        }, 0.3);
+      }
 
       // Parallax on project image
-      gsap.to(project.querySelector("img"), {
-        yPercent: 15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: project,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
+      const img = project.querySelector("img");
+      if (img) {
+          gsap.to(img, {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: project,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            }
+          });
+      }
     });
 
+    return () => {
+        if (splitInstance) splitInstance.revert();
+    };
   }, { scope: containerRef });
 
   return (
@@ -98,13 +117,13 @@ export default function PortfolioScene() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="portfolio-header mb-16 md:mb-32 text-center">
           <span className="portfolio-reveal text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4">
-            Галерея Проектов
+            Наши работы
           </span>
           <h2
             ref={titleRef}
             className="text-4xl md:text-6xl font-serif text-luxury-text tracking-tighter"
           >
-            Реализованные <span className="italic text-luxury-brass/80">Идеи</span>
+            Реализованные <span className="italic text-luxury-brass/80">проекты</span>
           </h2>
         </div>
 
@@ -158,11 +177,14 @@ export default function PortfolioScene() {
                    </div>
                 </div>
 
-                <button className="group flex items-center gap-6 cursor-none mt-8">
+                <button
+                  onClick={() => window.open('https://wa.me/placeholder', '_blank')}
+                  className="group flex items-center gap-6 cursor-pointer mt-8"
+                >
                    <div className="w-10 h-10 rounded-full border border-luxury-brass/30 flex items-center justify-center transition-all duration-700 group-hover:bg-luxury-brass">
                       <div className="w-1.5 h-1.5 bg-luxury-brass rounded-full group-hover:bg-black transition-colors" />
                    </div>
-                   <span className="text-[10px] uppercase tracking-[0.4em] text-luxury-text font-bold">Посмотреть все фото</span>
+                   <span className="text-[10px] uppercase tracking-[0.4em] text-luxury-text font-bold">Узнать стоимость подобного</span>
                 </button>
               </div>
             </div>

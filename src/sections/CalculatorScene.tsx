@@ -60,7 +60,7 @@ export default function CalculatorScene() {
            alt="Atmosphere"
            fill
            className="object-cover grayscale"
-           quality={95}
+           quality={80}
            sizes="100vw"
          />
          <div className="absolute inset-0 bg-radial-gradient from-transparent via-luxury-bg/80 to-luxury-bg" />
@@ -70,29 +70,29 @@ export default function CalculatorScene() {
         <div className="space-y-12">
           <div className="space-y-4">
             <span className="calc-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold">
-              Конфигурация Стоимости
+              РАСЧЕТ СТОИМОСТИ
             </span>
 
             <h2 className="text-3xl md:text-5xl font-serif text-luxury-text leading-tight tracking-tighter">
-              Архитектура <br />
-              <span className="italic text-luxury-brass/80 font-normal">Инвестиций</span>
+              Узнайте цену <br />
+              <span className="italic text-luxury-brass/80 font-normal">вашего потолка</span>
             </h2>
           </div>
 
           <div className="space-y-12">
              <div className="space-y-6">
-                <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Выбор Системы</span>
+                <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Тип решения</span>
                 <div className="flex flex-wrap gap-8">
                    {Object.keys(basePrices).map((key) => (
                      <button
                        key={key}
                        onClick={() => setType(key)}
-                       className={`relative py-2 transition-all duration-700 cursor-none ${
+                       className={`relative py-2 transition-all duration-700 cursor-pointer ${
                          type === key ? "text-luxury-text" : "text-luxury-text/20 hover:text-luxury-text/40"
                        }`}
                      >
                        <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">
-                         {key === "standard" ? "Классика" : key === "premium" ? "Теневой" : "Эксклюзив"}
+                         {key === "standard" ? "Матовый" : key === "premium" ? "Теневой" : "Световой"}
                        </span>
                        {type === key && (
                          <div className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-brass" />
@@ -111,20 +111,20 @@ export default function CalculatorScene() {
                   <input
                     type="range" min="10" max="250" value={area}
                     onChange={(e) => setArea(parseInt(e.target.value))}
-                    className="w-full h-[1px] bg-luxury-surface appearance-none cursor-none accent-luxury-brass"
+                    className="w-full h-[1px] bg-luxury-surface appearance-none cursor-pointer accent-luxury-brass"
                     aria-label="Площадь помещения"
                   />
                 </div>
 
                 <div className="space-y-6">
                   <div className="flex justify-between items-center border-b border-luxury-brass/10 pb-2">
-                     <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Свет</span>
-                     <span className="text-2xl font-serif text-luxury-text">{lights} тчк.</span>
+                     <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Точки света</span>
+                     <span className="text-2xl font-serif text-luxury-text">{lights} шт.</span>
                   </div>
                   <input
                     type="range" min="0" max="100" value={lights}
                     onChange={(e) => setLights(parseInt(e.target.value))}
-                    className="w-full h-[1px] bg-luxury-surface appearance-none cursor-none accent-luxury-brass"
+                    className="w-full h-[1px] bg-luxury-surface appearance-none cursor-pointer accent-luxury-brass"
                     aria-label="Количество точек света"
                   />
                 </div>
@@ -135,7 +135,7 @@ export default function CalculatorScene() {
         <div className="flex flex-col items-center lg:items-end">
            <div className="relative text-center lg:text-right">
               <span className="text-[10px] uppercase tracking-[0.6em] text-luxury-brass font-bold mb-4 block opacity-60">
-                Предварительная Оценка
+                Предварительная стоимость
               </span>
 
               <div
@@ -146,17 +146,20 @@ export default function CalculatorScene() {
               </div>
 
               <p className="mt-8 text-luxury-text-muted text-[10px] uppercase tracking-[0.3em] leading-relaxed max-w-xs lg:ml-auto font-medium">
-                Финальная стоимость уточняется после инженерного замера.
+                Цена фиксируется в договоре до начала работ. Бесплатный выезд на замер.
               </p>
            </div>
 
            <div className="mt-16 w-full lg:w-auto">
-             <button className="group relative w-full lg:w-72 h-16 bg-luxury-brass overflow-hidden cursor-none">
+             <button
+                onClick={() => window.open('https://wa.me/placeholder', '_blank')}
+                className="group relative w-full lg:w-72 h-16 bg-luxury-brass overflow-hidden cursor-pointer"
+             >
                 <span className="relative z-10 text-[10px] uppercase tracking-[0.6em] text-black font-bold transition-transform duration-700 group-hover:-translate-y-20 block text-center">
-                  Запросить Смету
+                  Получить точную смету
                 </span>
                 <span className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.6em] text-black font-bold translate-y-20 transition-transform duration-700 group-hover:translate-y-0">
-                  Обсудить Проект
+                  Написать в WhatsApp
                 </span>
              </button>
            </div>

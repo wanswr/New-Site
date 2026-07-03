@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
 import CustomCursor from "@/components/ui/CustomCursor";
 import PageWrapper from "@/components/ui/PageWrapper";

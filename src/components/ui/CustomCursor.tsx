@@ -12,6 +12,13 @@ export default function CustomCursor() {
     const follower = followerRef.current;
     if (!cursor || !follower) return;
 
+    // Check if touch device
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      cursor.style.display = "none";
+      follower.style.display = "none";
+      return;
+    }
+
     const xTo = gsap.quickTo(cursor, "x", { duration: 0.2, ease: "power3" });
     const yTo = gsap.quickTo(cursor, "y", { duration: 0.2, ease: "power3" });
 
@@ -29,7 +36,7 @@ export default function CustomCursor() {
 
     // Hover effects with event delegation for robustness
     const handleMouseOver = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, [type="range"]');
+      const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, [type="range"], .cursor-pointer');
       if (target) {
         gsap.to(cursor, { scale: 1.5, opacity: 0.5, duration: 0.3 });
         gsap.to(follower, { scale: 2, opacity: 0.1, duration: 0.3 });
@@ -37,7 +44,7 @@ export default function CustomCursor() {
     };
 
     const handleMouseOut = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, [type="range"]');
+      const target = (e.target as HTMLElement).closest('a, button, [role="button"], input, [type="range"], .cursor-pointer');
       if (target) {
         gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
         gsap.to(follower, { scale: 1, opacity: 0.3, duration: 0.3 });
@@ -58,11 +65,11 @@ export default function CustomCursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-3 h-3 bg-luxury-brass rounded-full pointer-events-none z-[999] mix-blend-difference -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 w-3 h-3 bg-luxury-brass rounded-full pointer-events-none z-[999] mix-blend-difference -translate-x-1/2 -translate-y-1/2 hidden md:block"
       />
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-12 h-12 border border-luxury-brass/30 rounded-full pointer-events-none z-[998] -translate-x-1/2 -translate-y-1/2 opacity-30"
+        className="fixed top-0 left-0 w-12 h-12 border border-luxury-brass/30 rounded-full pointer-events-none z-[998] -translate-x-1/2 -translate-y-1/2 opacity-30 hidden md:block"
       />
     </>
   );

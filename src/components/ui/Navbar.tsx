@@ -19,9 +19,10 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Философия", id: "explorer-scene" },
     { name: "Проекты", id: "portfolio-scene" },
+    { name: "Процесс", id: "process-scene" },
     { name: "Расчет", id: "calculator-scene" },
+    { name: "Вопросы", id: "faq-scene" },
     { name: "Контакты", id: "final-scene" },
   ];
 
