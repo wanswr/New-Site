@@ -19,18 +19,23 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Главная", id: "hero-scene" },
-    { name: "О нас", id: "about-section" },
-    { name: "Работы", id: "portfolio-section" },
-    { name: "Отзывы", id: "reviews-section" },
-    { name: "Расчет", id: "calculator-section" },
+    { name: "Главная", id: "hero" },
+    { name: "О нас", id: "about" },
+    { name: "Работы", id: "proof" },
+    { name: "Отзывы", id: "faq" },
+    { name: "Расчет", id: "calculator" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Use Lenis scroll if available, or fallback to native
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(`#${id}`);
+      } else {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -69,9 +74,13 @@ export default function Navbar() {
 
           <button
             onClick={() => {
-                document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' });
+                const element = document.getElementById('calculator');
+                if (element) {
+                   if ((window as any).lenis) (window as any).lenis.scrollTo('#calculator');
+                   else element.scrollIntoView({ behavior: 'smooth' });
+                }
             }}
-            className="px-8 py-3 bg-luxury-brass/10 border border-luxury-brass/20 text-luxury-brass text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-luxury-brass hover:text-luxury-bg transition-all duration-500"
+            className="px-8 py-3 bg-luxury-brass/10 border border-luxury-brass/20 text-luxury-brass text-[10px] uppercase tracking-[0.4em] font-bold hover:bg-luxury-brass hover:text-luxury-bg transition-all duration-500 cursor-pointer"
           >
              Заказать расчет
           </button>
@@ -117,10 +126,14 @@ export default function Navbar() {
               ))}
               <button
                 onClick={() => {
-                    document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' });
+                    const element = document.getElementById('calculator');
+                    if (element) {
+                        if ((window as any).lenis) (window as any).lenis.scrollTo('#calculator');
+                        else element.scrollIntoView({ behavior: 'smooth' });
+                    }
                     setIsMobileMenuOpen(false);
                 }}
-                className="w-full bg-luxury-brass text-luxury-bg py-5 text-[11px] uppercase tracking-[0.5em] font-bold"
+                className="w-full bg-luxury-brass text-luxury-bg py-5 text-[11px] uppercase tracking-[0.5em] font-bold cursor-pointer"
               >
                 Получить расчет
               </button>

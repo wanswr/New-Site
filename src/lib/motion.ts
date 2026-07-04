@@ -15,8 +15,9 @@ export const cinematicReveal = (el: string | HTMLElement, delay = 0, y = 30) => 
   });
 };
 
-export const splitTextReveal = (el: string | HTMLElement, type: "chars" | "words" | "lines" = "chars", delay = 0) => {
+export const splitTextReveal = (el: string | HTMLElement, type: "chars" | "words" | "lines" = "words", delay = 0) => {
   if (!el) return;
+  // Default to words to prevent character stacking in narrow containers
   const split = new SplitType(el as HTMLElement, { types: type });
   const targets = type === "chars" ? split.chars : type === "words" ? split.words : split.lines;
 
@@ -26,7 +27,7 @@ export const splitTextReveal = (el: string | HTMLElement, type: "chars" | "words
     opacity: 0,
     y: 40,
     filter: "blur(20px)",
-    stagger: 0.03,
+    stagger: 0.05,
     duration: 1.5,
     ease: "expo.out",
     delay,
@@ -48,18 +49,6 @@ export const imageParallax = (trigger: string | HTMLElement, image: string | HTM
       start: "top bottom",
       end: "bottom top",
       scrub: true
-    }
-  });
-};
-
-export const spatialTransition = (container: string | HTMLElement) => {
-  return gsap.timeline({
-    scrollTrigger: {
-      trigger: container,
-      start: "top top",
-      end: "bottom top",
-      scrub: 1,
-      pin: true
     }
   });
 };

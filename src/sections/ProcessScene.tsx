@@ -1,148 +1,98 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { IMAGES } from "@/lib/constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ProcessScene() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = useState<{x: string, y: string}[]>([]);
-
-  useEffect(() => {
-    setCoords([...Array(6)].map(() => ({
-      x: (Math.random() * 1000).toFixed(2),
-      y: (Math.random() * 1000).toFixed(2)
-    })));
-  }, []);
 
   useGSAP(() => {
     const ctx = gsap.context(() => {
-        if (!containerRef.current) return;
-
-        const tl = gsap.timeline({
-        scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: "+=300%",
-            scrub: 1,
-            pin: true,
-        }
+      const stages = gsap.utils.toArray(".stage-card") as HTMLElement[];
+      stages.forEach((stage) => {
+        gsap.from(stage, {
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: stage,
+            start: "top 85%",
+          }
         });
+      });
 
-        // Initial state
-        gsap.set(".process-stage", { opacity: 0, y: 50, willChange: "transform, opacity" });
-        gsap.set(".laser-line", { scaleX: 0, opacity: 0 });
-        gsap.set(".marking-dot", { scale: 0, opacity: 0 });
-        gsap.set(".profile-line", { scaleX: 0, opacity: 0 });
-
-        // 1. Stage: Laser
-        tl.to(".process-stage-1", { opacity: 1, y: 0, duration: 0.5 });
-        tl.to(".laser-line", { scaleX: 1, opacity: 1, duration: 1, ease: "power2.inOut" }, 0.2);
-        tl.to(".laser-line", { top: "30%", duration: 1.5, repeat: 1, yoyo: true, ease: "sine.inOut" }, 0.5);
-        tl.to(".process-stage-1", { opacity: 0, y: -20, duration: 0.5 }, 1.5);
-
-        // 2. Stage: Marking
-        tl.to(".process-stage-2", { opacity: 1, y: 0, duration: 0.5 }, 2);
-        if (coords.length > 0) {
-        tl.to(".marking-dot", { scale: 1, opacity: 1, stagger: 0.1, duration: 0.5 }, 2.2);
-        tl.to(".marking-coords", { opacity: 0.4, duration: 0.5 }, 2.5);
+      // Animated connector lines
+      gsap.from(".process-line", {
+        scaleY: 0,
+        transformOrigin: "top",
+        duration: 1.5,
+        stagger: 0.5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 60%",
+          end: "bottom 80%",
+          scrub: true
         }
-        tl.to(".process-stage-2", { opacity: 0, y: -20, duration: 0.5 }, 3.5);
-
-        // 3. Stage: Mounting
-        tl.to(".process-stage-3", { opacity: 1, y: 0, duration: 0.5 }, 4);
-        tl.to(".profile-line", { scaleX: 1, opacity: 1, duration: 1, stagger: 0.2 }, 4.2);
-        tl.to(".process-stage-3", { opacity: 0, y: -20, duration: 0.5 }, 5.5);
-
-        // 4. Stage: Stretching
-        tl.to(".process-stage-4", { opacity: 1, y: 0, duration: 0.5 }, 6);
-        tl.to(".canvas-overlay", { opacity: 0, duration: 1.5 }, 6.2);
-        tl.to(".process-stage-4", { opacity: 0, y: -20, duration: 0.5 }, 7.5);
-
-        // 5. Stage: Finish
-        tl.to(".process-stage-5", { opacity: 1, y: 0, duration: 0.5 }, 8);
-        tl.to(".final-illumination", { opacity: 1, duration: 1 }, 8.2);
-
-        // Background scaling throughout
-        tl.to(".process-bg", { scale: 1.05, duration: 10, ease: "none" }, 0);
+      });
     }, containerRef);
+
     return () => ctx.revert();
-  }, { scope: containerRef, dependencies: [coords] });
+  }, { scope: containerRef });
+
+  const steps = [
+    {
+      t: "Заявка",
+      d: "Оставьте заявку на сайте или позвоните нам. Менеджер согласует удобное время для выезда замерщика."
+    },
+    {
+      t: "Бесплатный замер",
+      d: "Мастер приедет с образцами материалов, выполнит точный замер и составит проект освещения."
+    },
+    {
+      t: "Смета и договор",
+      d: "Сразу после замера вы получаете итоговую стоимость. Заключаем официальный договор с гарантией."
+    },
+    {
+      t: "Монтаж за 1 день",
+      d: "Бригада приезжает в назначенный день и выполняет чистый монтаж. Принимаете работу и наслаждаетесь результатом."
+    }
+  ];
 
   return (
-    <div id="process-scene" ref={containerRef} className="relative w-full h-screen bg-[#050505] overflow-hidden">
-      {/* Background Media */}
-      <div className="absolute inset-0 process-bg">
-        <Image
-          src={IMAGES.details.process}
-          alt="Процесс монтажа"
-          fill
-          className="object-cover grayscale opacity-40"
-          sizes="100vw"
-        />
-        {/* Stretching Canvas Overlay (blurred/textured) */}
-        <div className="canvas-overlay absolute inset-0 bg-[#050505]/80 backdrop-blur-md z-10" />
-
-        {/* Final Illumination Layer */}
-        <div className="final-illumination absolute inset-0 bg-luxury-brass/5 z-15 opacity-0" />
-      </div>
-
-      {/* FX Layer: Laser */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
-        <div className="laser-line absolute top-1/2 left-0 w-full h-[2px] bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.8)] blur-[0.5px]" />
-      </div>
-
-      {/* FX Layer: Marking */}
-      <div className="absolute inset-0 z-20 pointer-events-none p-24">
-        {coords.map((coord, i) => (
-          <div key={i} className={`marking-dot absolute w-2 h-2 bg-luxury-brass rounded-full`} style={{
-            top: `${20 + i * 10}%`,
-            left: `${15 + (i % 3) * 30}%`
-          }}>
-            <span className="marking-coords absolute top-4 left-4 text-[8px] font-mono text-luxury-brass opacity-0">
-              X: {coord.x} Y: {coord.y}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      {/* FX Layer: Mounting */}
-      <div className="absolute inset-0 z-20 pointer-events-none">
-        <div className="profile-line absolute top-[10%] left-[10%] right-[10%] h-[1px] bg-white/40 origin-left" />
-        <div className="profile-line absolute bottom-[10%] left-[10%] right-[10%] h-[1px] bg-white/40 origin-right" />
-      </div>
-
-      {/* Content: Stage Titles */}
-      <div className="relative z-30 w-full h-full flex flex-col items-center justify-center p-6 text-center overflow-hidden">
-        <div className="process-stage process-stage-1 absolute w-full max-w-4xl">
-          <span className="text-red-500 text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 01</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Замер и проектирование</h2>
+    <section ref={containerRef} className="relative w-full py-24 md:py-48 px-6 bg-[#050505] overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-24 text-center">
+          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4 whitespace-nowrap">Процесс работы</span>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter whitespace-nowrap leading-[1.1]">
+            От замера до <span className="italic text-luxury-brass">идеального потолка</span>
+          </h2>
         </div>
-        <div className="process-stage process-stage-2 absolute w-full max-w-4xl">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 02</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Точная разметка</h2>
-        </div>
-        <div className="process-stage process-stage-3 absolute w-full max-w-4xl">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 03</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Чистый монтаж профилей</h2>
-        </div>
-        <div className="process-stage process-stage-4 absolute w-full max-w-4xl">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Этап 04</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase">Бесщелевое натяжение</h2>
-        </div>
-        <div className="process-stage process-stage-5 absolute w-full max-w-4xl">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] mb-4 block font-bold">Результат</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter uppercase italic">Идеальный потолок</h2>
+
+        <div className="relative grid md:grid-cols-4 gap-12">
+          {steps.map((step, i) => (
+            <div key={i} className="stage-card relative z-10 group">
+              <div className="mb-8">
+                <div className="w-16 h-16 rounded-full border border-luxury-brass/30 flex items-center justify-center text-luxury-brass font-serif text-2xl group-hover:bg-luxury-brass group-hover:text-black transition-all duration-700">
+                  {i + 1}
+                </div>
+              </div>
+              <h3 className="text-xl font-serif text-luxury-text mb-4 tracking-widest uppercase whitespace-nowrap">{step.t}</h3>
+              <p className="text-luxury-text-muted text-[10px] tracking-[0.2em] leading-relaxed uppercase">{step.d}</p>
+
+              {/* Connector for desktop */}
+              {i < steps.length - 1 && (
+                <div className="hidden md:block absolute top-8 left-[calc(50%+40px)] w-[calc(100%-80px)] h-[1px] bg-luxury-brass/20" />
+              )}
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Ambient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505] z-25 pointer-events-none opacity-60" />
-    </div>
+    </section>
   );
 }

@@ -51,7 +51,7 @@ export default function CalculatorScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="calculator-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#050505] overflow-hidden flex items-center justify-center py-24 md:py-64">
+    <div id="calculator-scene" ref={containerRef} className="relative w-full h-full bg-[#050505] overflow-hidden flex items-center justify-center py-12 md:py-24">
 
       {/* Background Ambience */}
       <div className="calc-bg absolute inset-0 opacity-20 will-change-transform">
@@ -66,32 +66,32 @@ export default function CalculatorScene() {
          <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/80 to-[#050505]" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-24 items-center">
-        <div className="space-y-12">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="space-y-8">
           <div className="space-y-4">
-            <span className="calc-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold">
+            <span className="calc-reveal text-luxury-brass text-[9px] uppercase tracking-[0.8em] block font-bold whitespace-nowrap">
               РАСЧЕТ СТОИМОСТИ
             </span>
 
-            <h2 className="text-3xl md:text-5xl font-serif text-luxury-text leading-tight tracking-tighter">
+            <h2 className="text-3xl md:text-5xl font-serif text-luxury-text leading-tight tracking-tighter whitespace-nowrap">
               Узнайте цену <br />
               <span className="italic text-luxury-brass/80 font-normal">вашего потолка</span>
             </h2>
           </div>
 
-          <div className="space-y-12">
-             <div className="space-y-6">
-                <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Тип решения</span>
-                <div className="flex flex-wrap gap-8">
+          <div className="space-y-8">
+             <div className="space-y-4">
+                <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold whitespace-nowrap">Тип решения</span>
+                <div className="flex flex-wrap gap-6">
                    {Object.keys(basePrices).map((key) => (
                      <button
                        key={key}
                        onClick={() => setType(key)}
-                       className={`relative py-2 transition-all duration-700 cursor-pointer ${
+                       className={`relative py-1 transition-all duration-700 cursor-pointer ${
                          type === key ? "text-luxury-text" : "text-luxury-text/20 hover:text-luxury-text/40"
                        }`}
                      >
-                       <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">
+                       <span className="text-[9px] md:text-xs uppercase tracking-[0.4em] font-bold whitespace-nowrap">
                          {key === "standard" ? "Матовый" : key === "premium" ? "Теневой" : "Световой"}
                        </span>
                        {type === key && (
@@ -102,11 +102,11 @@ export default function CalculatorScene() {
                 </div>
              </div>
 
-             <div className="grid md:grid-cols-2 gap-12">
-                <div className="space-y-6">
+             <div className="grid md:grid-cols-2 gap-8">
+                <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-luxury-brass/10 pb-2">
-                     <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Площадь</span>
-                     <span className="text-2xl font-serif text-luxury-text">{area} м²</span>
+                     <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold whitespace-nowrap">Площадь</span>
+                     <span className="text-xl font-serif text-luxury-text whitespace-nowrap">{area} м²</span>
                   </div>
                   <input
                     type="range" min="10" max="250" value={area}
@@ -116,10 +116,10 @@ export default function CalculatorScene() {
                   />
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-luxury-brass/10 pb-2">
-                     <span className="text-[10px] uppercase tracking-widest text-luxury-brass/60 font-bold">Точки света</span>
-                     <span className="text-2xl font-serif text-luxury-text">{lights} шт.</span>
+                     <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold whitespace-nowrap">Точки света</span>
+                     <span className="text-xl font-serif text-luxury-text whitespace-nowrap">{lights} шт.</span>
                   </div>
                   <input
                     type="range" min="0" max="100" value={lights}
@@ -134,31 +134,29 @@ export default function CalculatorScene() {
 
         <div className="flex flex-col items-center lg:items-end">
            <div className="relative text-center lg:text-right">
-              <span className="text-[10px] uppercase tracking-[0.6em] text-luxury-brass font-bold mb-4 block opacity-60">
+              <span className="text-[9px] uppercase tracking-[0.6em] text-luxury-brass font-bold mb-2 block opacity-60 whitespace-nowrap">
                 Предварительная стоимость
               </span>
 
               <div
                 key={estimatedPrice}
-                className="text-5xl md:text-7xl font-serif text-luxury-text leading-none tracking-tighter animate-in fade-in zoom-in duration-700 will-change-transform"
+                data-testid="calc-price"
+                className="text-4xl md:text-6xl font-serif text-luxury-text leading-none tracking-tighter whitespace-nowrap"
               >
-                {estimatedPrice.toLocaleString()}<span className="text-xl md:text-2xl text-luxury-brass ml-2">₽</span>
+                {estimatedPrice.toLocaleString()}<span className="text-lg md:text-xl text-luxury-brass ml-2">₽</span>
               </div>
 
-              <p className="mt-8 text-luxury-text-muted text-[10px] uppercase tracking-[0.3em] leading-relaxed max-w-xs lg:ml-auto font-medium uppercase">
-                Цена фиксируется в договоре до начала работ. Бесплатный выезд на замер.
+              <p className="mt-6 text-luxury-text-muted text-[9px] uppercase tracking-[0.3em] leading-relaxed max-w-xs lg:ml-auto font-medium">
+                Цена фиксируется в договоре. Бесплатный выезд.
               </p>
            </div>
 
-           <div className="mt-16 w-full lg:w-auto">
+           <div className="mt-12 w-full lg:w-auto">
              <button
                 onClick={() => window.open('https://wa.me/placeholder', '_blank')}
-                className="group relative w-full lg:w-72 h-16 bg-luxury-brass overflow-hidden cursor-pointer"
+                className="group relative w-full lg:w-64 h-14 bg-luxury-brass overflow-hidden cursor-pointer"
              >
-                <span className="relative z-10 text-[10px] uppercase tracking-[0.6em] text-black font-bold transition-transform duration-700 group-hover:-translate-y-20 block text-center">
-                  Получить точную смету
-                </span>
-                <span className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-[0.6em] text-black font-bold translate-y-20 transition-transform duration-700 group-hover:translate-y-0">
+                <span className="relative z-10 text-[9px] uppercase tracking-[0.6em] text-black font-bold block text-center whitespace-nowrap">
                   Написать в WhatsApp
                 </span>
              </button>

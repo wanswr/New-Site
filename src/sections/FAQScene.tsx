@@ -64,40 +64,40 @@ export default function FAQScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="faq-scene" ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-[#050505] text-luxury-text py-24 md:py-64">
-      <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+    <div id="faq-scene" ref={containerRef} className="relative w-full h-full flex items-center justify-center bg-[#050505] text-luxury-text py-16 md:py-24 overflow-hidden">
+      <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
 
         <div className="space-y-8">
-           <span className="text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold">
+           <span className="text-luxury-brass text-[9px] uppercase tracking-[0.8em] block font-bold whitespace-nowrap">
              Ответы на вопросы
            </span>
-           <h2 ref={titleRef} className="text-3xl md:text-5xl font-serif leading-tight tracking-tighter">
+           <h2 ref={titleRef} className="text-2xl md:text-5xl font-serif leading-tight tracking-tighter whitespace-nowrap">
              Снимаем <br />
              <span className="italic text-luxury-brass/80 font-normal">ваши опасения</span>
            </h2>
            <div className="faq-reveal h-[1px] w-24 bg-luxury-brass/30" />
-           <p className="faq-reveal text-luxury-text-muted text-[10px] md:text-xs uppercase tracking-[0.4em] leading-relaxed max-w-sm font-medium">
+           <p className="faq-reveal text-luxury-text-muted text-[9px] md:text-xs uppercase tracking-[0.4em] leading-relaxed max-w-sm font-medium">
              Прозрачность и честность — основа нашей работы. Мы ответим на любой ваш технический вопрос.
            </p>
         </div>
 
-        <div className="divide-y divide-luxury-brass/10">
+        <div className="divide-y divide-luxury-brass/10 w-full">
           {faqs.map((faq, i) => (
             <div
                 key={i}
                 className="cursor-pointer group"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
             >
-              <div className="flex justify-between items-center py-8 transition-all duration-700">
-                <h3 className={`text-lg md:text-xl font-serif transition-colors ${openIndex === i ? 'text-luxury-brass' : 'group-hover:text-luxury-brass/70'}`}>
+              <div className="flex justify-between items-center py-6 transition-all duration-700">
+                <h3 className={`text-base md:text-xl font-serif transition-colors whitespace-nowrap ${openIndex === i ? 'text-luxury-brass' : 'group-hover:text-luxury-brass/70'}`}>
                   {faq.q}
                 </h3>
-                <div className={`w-10 h-[1px] bg-luxury-brass/20 transition-all duration-700 ${openIndex === i ? 'w-16 bg-luxury-brass' : 'group-hover:w-16'}`} />
+                <div className={`w-8 h-[1px] bg-luxury-brass/20 transition-all duration-700 ${openIndex === i ? 'w-12 bg-luxury-brass' : 'group-hover:w-12'}`} />
               </div>
               <div
-                className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-40 opacity-100 mb-8' : 'max-h-0 opacity-0'}`}
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-40 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}
               >
-                <p className="text-luxury-text-muted text-sm md:text-base tracking-widest leading-relaxed font-medium uppercase">
+                <p className="text-luxury-text-muted text-[11px] md:text-sm tracking-widest leading-relaxed font-medium uppercase">
                   {faq.a}
                 </p>
               </div>

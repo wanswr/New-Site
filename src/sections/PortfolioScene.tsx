@@ -116,65 +116,65 @@ export default function PortfolioScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="portfolio-scene" ref={containerRef} className="relative w-full bg-[#050505] py-24 md:py-64">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="portfolio-header mb-16 md:mb-32 text-center">
-          <span className="portfolio-reveal text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4">
+    <div id="portfolio-scene" ref={containerRef} className="relative w-full h-full bg-[#050505] py-24 md:py-32 flex flex-col justify-center overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="portfolio-header mb-16 md:mb-24 text-center">
+          <span className="portfolio-reveal text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4 whitespace-nowrap">
             Наши работы
           </span>
           <h2
             ref={titleRef}
-            className="text-4xl md:text-6xl font-serif text-luxury-text tracking-tighter"
+            className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter whitespace-nowrap"
           >
             Реализованные <span className="italic text-luxury-brass/80">проекты</span>
           </h2>
         </div>
 
-        <div className="space-y-32 md:space-y-64">
+        <div className="grid lg:grid-cols-3 gap-8 w-full">
           {projects.map((project, index) => (
             <div
               key={index}
-              className={`portfolio-project flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 md:gap-24 lg:gap-32 items-center`}
+              className="portfolio-project flex flex-col gap-8 bg-white/[0.02] border border-white/5 p-6 group hover:border-luxury-brass/20 transition-all duration-700"
             >
               {/* Image Reveal */}
-              <div className="project-image-wrapper w-full lg:w-3/5 will-change-transform">
-                <div className="relative aspect-[16/10] overflow-hidden bg-[#111] group">
+              <div className="project-image-wrapper w-full will-change-transform">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#111]">
                   <Image
                     src={project.url}
                     alt={project.title}
                     fill
                     className="object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-1000 will-change-transform"
                     quality={90}
-                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
                   />
-                  <div className="absolute top-8 left-8 bg-black/40 backdrop-blur-md px-6 py-2 border border-white/10">
-                     <span className="text-[10px] uppercase tracking-[0.2em] text-white font-bold">{project.area}</span>
+                  <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md px-4 py-1 border border-white/10">
+                     <span className="text-[9px] uppercase tracking-[0.2em] text-white font-bold whitespace-nowrap">{project.area}</span>
                   </div>
                 </div>
               </div>
 
               {/* Project Info */}
-              <div className="project-info w-full lg:w-2/5 space-y-12">
-                <div className="space-y-4">
-                  <span className="text-luxury-brass text-[10px] uppercase tracking-[0.5em] block font-bold">
+              <div className="project-info w-full space-y-6">
+                <div className="space-y-2">
+                  <span className="text-luxury-brass text-[9px] uppercase tracking-[0.5em] block font-bold whitespace-nowrap">
                     {project.title.split(' • ')[1]}
                   </span>
-                  <h3 className="text-2xl md:text-3xl font-serif text-luxury-text leading-tight tracking-tighter">
+                  <h3 className="text-xl md:text-2xl font-serif text-luxury-text leading-tight tracking-tighter whitespace-nowrap">
                     {project.title.split(' • ')[0]}
                   </h3>
-                  <div className="h-[1px] w-20 bg-luxury-brass/40" />
+                  <div className="h-[1px] w-12 bg-luxury-brass/40" />
                 </div>
 
-                <div className="space-y-8">
-                   <div className="space-y-3">
-                      <span className="text-[9px] uppercase tracking-[0.2em] text-luxury-brass font-bold">Задача:</span>
-                      <p className="text-luxury-text-muted text-sm tracking-widest leading-relaxed font-medium uppercase">
+                <div className="space-y-4">
+                   <div className="space-y-1">
+                      <span className="text-[8px] uppercase tracking-[0.2em] text-luxury-brass font-bold whitespace-nowrap">Задача:</span>
+                      <p className="text-luxury-text-muted text-[11px] tracking-widest leading-relaxed font-medium uppercase line-clamp-2">
                         {project.task}
                       </p>
                    </div>
-                   <div className="space-y-3">
-                      <span className="text-[9px] uppercase tracking-[0.2em] text-luxury-brass font-bold">Решение:</span>
-                      <p className="text-luxury-text-muted text-sm tracking-widest leading-relaxed font-medium uppercase">
+                   <div className="space-y-1">
+                      <span className="text-[8px] uppercase tracking-[0.2em] text-luxury-brass font-bold whitespace-nowrap">Решение:</span>
+                      <p className="text-luxury-text-muted text-[11px] tracking-widest leading-relaxed font-medium uppercase line-clamp-2">
                         {project.solution}
                       </p>
                    </div>
@@ -182,12 +182,12 @@ export default function PortfolioScene() {
 
                 <button
                   onClick={() => window.open('https://wa.me/placeholder', '_blank')}
-                  className="group flex items-center gap-6 cursor-pointer mt-8"
+                  className="group flex items-center gap-4 cursor-pointer pt-4"
                 >
-                   <div className="w-10 h-10 rounded-full border border-luxury-brass/30 flex items-center justify-center transition-all duration-700 group-hover:bg-luxury-brass">
-                      <div className="w-1.5 h-1.5 bg-luxury-brass rounded-full group-hover:bg-black transition-colors" />
+                   <div className="w-8 h-8 rounded-full border border-luxury-brass/30 flex items-center justify-center transition-all duration-700 group-hover:bg-luxury-brass">
+                      <div className="w-1 h-1 bg-luxury-brass rounded-full group-hover:bg-black transition-colors" />
                    </div>
-                   <span className="text-[10px] uppercase tracking-[0.4em] text-luxury-text font-bold">Узнать стоимость подобного</span>
+                   <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-text font-bold whitespace-nowrap">Рассчитать проект</span>
                 </button>
               </div>
             </div>
