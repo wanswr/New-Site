@@ -1,5 +1,5 @@
-import LandingPage from "@/sections/LandingPage";
+import Experience from "@/sections/Experience";
 
 export default function Home() {
-  return <LandingPage />;
+  return <Experience />;
 }
