@@ -27,11 +27,17 @@ export default function SmoothScroll({
       wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
+      autoResize: true,
     });
 
-    lenis.on("scroll", () => {
-      ScrollTrigger.update();
-    });
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    lenis.on("scroll", ScrollTrigger.update);
 
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);

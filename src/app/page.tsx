@@ -1,4 +1,4 @@
-import Experience from "@/components/sections/Experience";
+import Experience from "@/sections/Experience";
 
 export default function Home() {
   return <Experience />;

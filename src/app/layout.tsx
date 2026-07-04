@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
-import "./globals.css";
+import "@/styles/globals.css";
 import SchemaOrg from "@/components/ui/SchemaOrg";
 import CustomCursor from "@/components/ui/CustomCursor";
 import PageWrapper from "@/components/ui/PageWrapper";
+import FloatingCTA from "@/components/ui/FloatingCTA";
 
 const serif = Playfair_Display({
   subsets: ["latin", "cyrillic"],
@@ -18,7 +19,6 @@ const sans = Montserrat({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
 };
 
 export const metadata: Metadata = {
@@ -52,12 +52,13 @@ export default function RootLayout({
       lang="ru"
       className={`${serif.variable} ${sans.variable} antialiased selection:bg-luxury-brass selection:text-luxury-bg`}
     >
-      <body className="bg-luxury-bg text-luxury-text font-sans overflow-x-hidden antialiased">
+      <body className="bg-luxury-bg text-luxury-text font-sans overflow-hidden antialiased touch-none">
         <CustomCursor />
         <SchemaOrg />
         <PageWrapper>
           {children}
         </PageWrapper>
+        <FloatingCTA />
       </body>
     </html>
   );

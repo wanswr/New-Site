@@ -8,28 +8,31 @@ export default function FloatingAtmosphere() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    const orbs = gsap.utils.toArray(".atmos-orb") as HTMLElement[];
+    const ctx = gsap.context(() => {
+      const orbs = gsap.utils.toArray(".atmos-orb") as HTMLElement[];
 
-    orbs.forEach((orb, i) => {
-      gsap.to(orb, {
-        x: "random(-100, 100)",
-        y: "random(-100, 100)",
-        duration: "random(10, 20)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: i * 2
-      });
+      orbs.forEach((orb, i) => {
+        gsap.to(orb, {
+          x: "random(-100, 100)",
+          y: "random(-100, 100)",
+          duration: "random(10, 20)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: i * 2
+        });
 
-      gsap.to(orb, {
-        opacity: "random(0.05, 0.15)",
-        scale: "random(0.8, 1.2)",
-        duration: "random(5, 10)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
+        gsap.to(orb, {
+          opacity: "random(0.05, 0.15)",
+          scale: "random(0.8, 1.2)",
+          duration: "random(5, 10)",
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        });
       });
-    });
+    }, containerRef);
+    return () => ctx.revert();
   }, { scope: containerRef });
 
   return (
@@ -42,9 +45,6 @@ export default function FloatingAtmosphere() {
 
       {/* Deep Shadow Orb */}
       <div className="atmos-orb absolute top-[60%] left-[50%] w-[700px] h-[700px] bg-black/30 blur-[120px] rounded-full will-change-transform" />
-
-      {/* Micro Dust Particles (Mockup with CSS) */}
-      <div className="absolute inset-0 opacity-[0.02] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
     </div>
   );
 }
