@@ -64,14 +64,14 @@ export default function FAQScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="faq-scene" ref={containerRef} className="relative w-full h-full flex items-center justify-center bg-[#050505] text-luxury-text py-16 md:py-24 overflow-hidden">
+    <div id="faq-scene" ref={containerRef} className="relative w-full min-h-screen flex items-center justify-center bg-[#0F0F0F] text-luxury-text py-16 md:py-24 overflow-hidden">
       <div className="max-w-7xl w-full mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
 
         <div className="space-y-8">
-           <span className="text-luxury-brass text-[9px] uppercase tracking-[0.8em] block font-bold whitespace-nowrap">
+           <span className="text-luxury-brass text-[9px] uppercase tracking-[0.8em] block font-bold ">
              Ответы на вопросы
            </span>
-           <h2 ref={titleRef} className="text-2xl md:text-5xl font-serif leading-tight tracking-tighter whitespace-nowrap">
+           <h2 ref={titleRef} className="text-2xl md:text-5xl font-serif leading-tight tracking-tighter ">
              Снимаем <br />
              <span className="italic text-luxury-brass/80 font-normal">ваши опасения</span>
            </h2>
@@ -89,7 +89,7 @@ export default function FAQScene() {
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
             >
               <div className="flex justify-between items-center py-6 transition-all duration-700">
-                <h3 className={`text-base md:text-xl font-serif transition-colors whitespace-nowrap ${openIndex === i ? 'text-luxury-brass' : 'group-hover:text-luxury-brass/70'}`}>
+                <h3 className={`text-base md:text-xl font-serif transition-colors  ${openIndex === i ? 'text-luxury-brass' : 'group-hover:text-luxury-brass/70'}`}>
                   {faq.q}
                 </h3>
                 <div className={`w-8 h-[1px] bg-luxury-brass/20 transition-all duration-700 ${openIndex === i ? 'w-12 bg-luxury-brass' : 'group-hover:w-12'}`} />

@@ -37,6 +37,9 @@ export default function SmoothScroll({
 
     requestAnimationFrame(raf);
 
+    const win = window as Window & typeof globalThis & { lenis?: Lenis };
+    win.lenis = lenis;
+
     lenis.on("scroll", ScrollTrigger.update);
 
     gsap.ticker.add((time) => {

@@ -69,7 +69,7 @@ export default function AboutScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="about-scene" ref={containerRef} className="relative w-full h-full bg-[#050505] py-16 md:py-32 overflow-hidden flex items-center justify-center">
+    <div id="about-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#0F0F0F] py-16 md:py-32 overflow-hidden flex items-center justify-center">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 md:gap-24 items-center w-full">
         <div
           ref={imageRef}
@@ -82,22 +82,22 @@ export default function AboutScene() {
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="about-image-inner object-cover grayscale transition-all duration-1000 scale-110 will-change-transform"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F0F] via-transparent to-transparent opacity-60" />
 
           <div className="absolute bottom-8 left-8 about-reveal">
-             <span className="text-[9px] uppercase tracking-[0.5em] text-luxury-brass font-bold mb-2 block whitespace-nowrap">Основатель</span>
-             <h3 className="text-xl md:text-2xl font-serif text-luxury-text whitespace-nowrap">Александр Белов</h3>
+             <span className="text-[9px] uppercase tracking-[0.5em] text-luxury-brass font-bold mb-2 block ">Основатель</span>
+             <h3 className="text-xl md:text-2xl font-serif text-luxury-text ">Александр Белов</h3>
           </div>
         </div>
 
         <div className="space-y-12">
-          <span className="about-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold whitespace-nowrap">
+          <span className="about-reveal text-luxury-brass text-[10px] uppercase tracking-[0.8em] block font-bold ">
             Доверие и Опыт
           </span>
 
           <h2
             ref={titleRef}
-            className="text-3xl md:text-6xl font-serif text-luxury-text leading-[1.1] tracking-tighter whitespace-nowrap"
+            className="text-3xl md:text-6xl font-serif text-luxury-text leading-[1.1] tracking-tighter "
           >
             12 лет создаем <br />
             <span className="italic text-luxury-brass/80 font-normal">безупречность</span>
@@ -111,12 +111,12 @@ export default function AboutScene() {
 
           <div className="grid grid-cols-2 gap-12 pt-4 about-reveal">
              <div className="space-y-2">
-                <span className="text-3xl md:text-5xl font-serif text-luxury-text whitespace-nowrap">12 лет</span>
-                <p className="text-[9px] uppercase tracking-[0.3em] text-luxury-brass font-bold whitespace-nowrap">Опыта</p>
+                <span className="text-3xl md:text-5xl font-serif text-luxury-text ">12 лет</span>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-luxury-brass font-bold ">Опыта</p>
              </div>
              <div className="space-y-2">
-                <span className="text-3xl md:text-5xl font-serif text-luxury-text whitespace-nowrap">5000+</span>
-                <p className="text-[9px] uppercase tracking-[0.3em] text-luxury-brass font-bold whitespace-nowrap">Объектов</p>
+                <span className="text-3xl md:text-5xl font-serif text-luxury-text ">5000+</span>
+                <p className="text-[9px] uppercase tracking-[0.3em] text-luxury-brass font-bold ">Объектов</p>
              </div>
           </div>
         </div>

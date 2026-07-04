@@ -51,7 +51,7 @@ export default function CalculatorScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="calculator-scene" ref={containerRef} className="relative w-full h-full bg-[#050505] overflow-hidden flex items-center justify-center py-12 md:py-24">
+    <div id="calculator-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#0F0F0F] overflow-hidden flex items-center justify-center py-12 md:py-24">
 
       {/* Background Ambience */}
       <div className="calc-bg absolute inset-0 opacity-20 will-change-transform">
@@ -63,17 +63,17 @@ export default function CalculatorScene() {
            quality={80}
            sizes="100vw"
          />
-         <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/80 to-[#050505]" />
+         <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/80 to-[#0F0F0F]" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
         <div className="space-y-8">
           <div className="space-y-4">
-            <span className="calc-reveal text-luxury-brass text-[9px] uppercase tracking-[0.8em] block font-bold whitespace-nowrap">
+            <span className="calc-reveal text-luxury-brass text-[9px] uppercase tracking-[0.8em] block font-bold ">
               РАСЧЕТ СТОИМОСТИ
             </span>
 
-            <h2 className="text-3xl md:text-5xl font-serif text-luxury-text leading-tight tracking-tighter whitespace-nowrap">
+            <h2 className="text-3xl md:text-5xl font-serif text-luxury-text leading-tight tracking-tighter ">
               Узнайте цену <br />
               <span className="italic text-luxury-brass/80 font-normal">вашего потолка</span>
             </h2>
@@ -81,7 +81,7 @@ export default function CalculatorScene() {
 
           <div className="space-y-8">
              <div className="space-y-4">
-                <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold whitespace-nowrap">Тип решения</span>
+                <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold ">Тип решения</span>
                 <div className="flex flex-wrap gap-6">
                    {Object.keys(basePrices).map((key) => (
                      <button
@@ -91,7 +91,7 @@ export default function CalculatorScene() {
                          type === key ? "text-luxury-text" : "text-luxury-text/20 hover:text-luxury-text/40"
                        }`}
                      >
-                       <span className="text-[9px] md:text-xs uppercase tracking-[0.4em] font-bold whitespace-nowrap">
+                       <span className="text-[9px] md:text-xs uppercase tracking-[0.4em] font-bold ">
                          {key === "standard" ? "Матовый" : key === "premium" ? "Теневой" : "Световой"}
                        </span>
                        {type === key && (
@@ -105,8 +105,8 @@ export default function CalculatorScene() {
              <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-luxury-brass/10 pb-2">
-                     <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold whitespace-nowrap">Площадь</span>
-                     <span className="text-xl font-serif text-luxury-text whitespace-nowrap">{area} м²</span>
+                     <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold ">Площадь</span>
+                     <span className="text-xl font-serif text-luxury-text ">{area} м²</span>
                   </div>
                   <input
                     type="range" min="10" max="250" value={area}
@@ -118,8 +118,8 @@ export default function CalculatorScene() {
 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-luxury-brass/10 pb-2">
-                     <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold whitespace-nowrap">Точки света</span>
-                     <span className="text-xl font-serif text-luxury-text whitespace-nowrap">{lights} шт.</span>
+                     <span className="text-[9px] uppercase tracking-widest text-luxury-brass/60 font-bold ">Точки света</span>
+                     <span className="text-xl font-serif text-luxury-text ">{lights} шт.</span>
                   </div>
                   <input
                     type="range" min="0" max="100" value={lights}
@@ -134,14 +134,14 @@ export default function CalculatorScene() {
 
         <div className="flex flex-col items-center lg:items-end">
            <div className="relative text-center lg:text-right">
-              <span className="text-[9px] uppercase tracking-[0.6em] text-luxury-brass font-bold mb-2 block opacity-60 whitespace-nowrap">
+              <span className="text-[9px] uppercase tracking-[0.6em] text-luxury-brass font-bold mb-2 block opacity-60 ">
                 Предварительная стоимость
               </span>
 
               <div
                 key={estimatedPrice}
                 data-testid="calc-price"
-                className="text-4xl md:text-6xl font-serif text-luxury-text leading-none tracking-tighter whitespace-nowrap"
+                className="text-4xl md:text-6xl font-serif text-luxury-text leading-none tracking-tighter "
               >
                 {estimatedPrice.toLocaleString()}<span className="text-lg md:text-xl text-luxury-brass ml-2">₽</span>
               </div>
@@ -156,7 +156,7 @@ export default function CalculatorScene() {
                 onClick={() => window.open('https://wa.me/placeholder', '_blank')}
                 className="group relative w-full lg:w-64 h-14 bg-luxury-brass overflow-hidden cursor-pointer"
              >
-                <span className="relative z-10 text-[9px] uppercase tracking-[0.6em] text-black font-bold block text-center whitespace-nowrap">
+                <span className="relative z-10 text-[9px] uppercase tracking-[0.6em] text-black font-bold block text-center ">
                   Написать в WhatsApp
                 </span>
              </button>

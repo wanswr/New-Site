@@ -31,8 +31,9 @@ export default function Navbar() {
     const element = document.getElementById(id);
     if (element) {
       // Use Lenis scroll if available, or fallback to native
-      if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(`#${id}`);
+      const win = window as Window & typeof globalThis & { lenis?: { scrollTo: (id: string) => void } };
+      if (win.lenis) {
+        win.lenis.scrollTo(`#${id}`);
       } else {
         element.scrollIntoView({ behavior: "smooth" });
       }
@@ -75,8 +76,9 @@ export default function Navbar() {
           <button
             onClick={() => {
                 const element = document.getElementById('calculator');
+                const win = window as Window & typeof globalThis & { lenis?: { scrollTo: (id: string) => void } };
                 if (element) {
-                   if ((window as any).lenis) (window as any).lenis.scrollTo('#calculator');
+                   if (win.lenis) win.lenis.scrollTo('#calculator');
                    else element.scrollIntoView({ behavior: 'smooth' });
                 }
             }}
@@ -105,7 +107,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-[200] bg-[#050505] p-12 flex flex-col justify-center"
+            className="fixed inset-0 z-[200] bg-[#0F0F0F] p-12 flex flex-col justify-center"
           >
             <button
               className="absolute top-8 right-8 text-luxury-text"
@@ -127,8 +129,9 @@ export default function Navbar() {
               <button
                 onClick={() => {
                     const element = document.getElementById('calculator');
+                    const win = window as Window & typeof globalThis & { lenis?: { scrollTo: (id: string) => void } };
                     if (element) {
-                        if ((window as any).lenis) (window as any).lenis.scrollTo('#calculator');
+                        if (win.lenis) win.lenis.scrollTo('#calculator');
                         else element.scrollIntoView({ behavior: 'smooth' });
                     }
                     setIsMobileMenuOpen(false);

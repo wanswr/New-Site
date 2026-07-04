@@ -64,8 +64,8 @@ export default function AdvantagesScene() {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           <div>
-            <span className="text-luxury-brass text-[10px] uppercase tracking-[0.5em] block font-bold mb-4 whitespace-nowrap">Преимущества</span>
-            <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter mb-12 whitespace-nowrap leading-[1.1]">
+            <span className="text-luxury-brass text-[10px] uppercase tracking-[0.5em] block font-bold mb-4 ">Преимущества</span>
+            <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter mb-12  leading-[1.1]">
               Результат, которым <br /> <span className="italic text-luxury-brass">хочется гордиться</span>
             </h2>
 

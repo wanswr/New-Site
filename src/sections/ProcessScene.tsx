@@ -65,11 +65,11 @@ export default function ProcessScene() {
   ];
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 md:py-48 px-6 bg-[#050505] overflow-hidden">
+    <section ref={containerRef} className="relative w-full py-24 md:py-48 px-6 min-h-screen bg-[#0F0F0F] overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24 text-center">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4 whitespace-nowrap">Процесс работы</span>
-          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter whitespace-nowrap leading-[1.1]">
+          <span className="text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4 ">Процесс работы</span>
+          <h2 className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter  leading-[1.1]">
             От замера до <span className="italic text-luxury-brass">идеального потолка</span>
           </h2>
         </div>
@@ -82,7 +82,7 @@ export default function ProcessScene() {
                   {i + 1}
                 </div>
               </div>
-              <h3 className="text-xl font-serif text-luxury-text mb-4 tracking-widest uppercase whitespace-nowrap">{step.t}</h3>
+              <h3 className="text-xl font-serif text-luxury-text mb-4 tracking-widest uppercase ">{step.t}</h3>
               <p className="text-luxury-text-muted text-[10px] tracking-[0.2em] leading-relaxed uppercase">{step.d}</p>
 
               {/* Connector for desktop */}

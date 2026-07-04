@@ -52,7 +52,7 @@ export default function RootLayout({
       lang="ru"
       className={`${serif.variable} ${sans.variable} antialiased selection:bg-luxury-brass selection:text-luxury-bg`}
     >
-      <body className="bg-luxury-bg text-luxury-text font-sans overflow-hidden antialiased touch-none">
+      <body className="bg-luxury-bg text-luxury-text font-sans antialiased">
         <CustomCursor />
         <SchemaOrg />
         <PageWrapper>

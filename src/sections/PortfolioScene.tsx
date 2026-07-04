@@ -116,15 +116,15 @@ export default function PortfolioScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="portfolio-scene" ref={containerRef} className="relative w-full h-full bg-[#050505] py-24 md:py-32 flex flex-col justify-center overflow-hidden">
+    <div id="portfolio-scene" ref={containerRef} className="relative w-full min-h-screen bg-[#0F0F0F] py-24 md:py-32 flex flex-col justify-center overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 w-full">
         <div className="portfolio-header mb-16 md:mb-24 text-center">
-          <span className="portfolio-reveal text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4 whitespace-nowrap">
+          <span className="portfolio-reveal text-luxury-brass text-[10px] uppercase tracking-[1em] block font-bold mb-4 ">
             Наши работы
           </span>
           <h2
             ref={titleRef}
-            className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter whitespace-nowrap"
+            className="text-4xl md:text-7xl font-serif text-luxury-text tracking-tighter "
           >
             Реализованные <span className="italic text-luxury-brass/80">проекты</span>
           </h2>
@@ -148,7 +148,7 @@ export default function PortfolioScene() {
                     sizes="(max-width: 1024px) 100vw, 33vw"
                   />
                   <div className="absolute top-4 left-4 bg-black/40 backdrop-blur-md px-4 py-1 border border-white/10">
-                     <span className="text-[9px] uppercase tracking-[0.2em] text-white font-bold whitespace-nowrap">{project.area}</span>
+                     <span className="text-[9px] uppercase tracking-[0.2em] text-white font-bold ">{project.area}</span>
                   </div>
                 </div>
               </div>
@@ -156,10 +156,10 @@ export default function PortfolioScene() {
               {/* Project Info */}
               <div className="project-info w-full space-y-6">
                 <div className="space-y-2">
-                  <span className="text-luxury-brass text-[9px] uppercase tracking-[0.5em] block font-bold whitespace-nowrap">
+                  <span className="text-luxury-brass text-[9px] uppercase tracking-[0.5em] block font-bold ">
                     {project.title.split(' • ')[1]}
                   </span>
-                  <h3 className="text-xl md:text-2xl font-serif text-luxury-text leading-tight tracking-tighter whitespace-nowrap">
+                  <h3 className="text-xl md:text-2xl font-serif text-luxury-text leading-tight tracking-tighter ">
                     {project.title.split(' • ')[0]}
                   </h3>
                   <div className="h-[1px] w-12 bg-luxury-brass/40" />
@@ -167,13 +167,13 @@ export default function PortfolioScene() {
 
                 <div className="space-y-4">
                    <div className="space-y-1">
-                      <span className="text-[8px] uppercase tracking-[0.2em] text-luxury-brass font-bold whitespace-nowrap">Задача:</span>
+                      <span className="text-[8px] uppercase tracking-[0.2em] text-luxury-brass font-bold ">Задача:</span>
                       <p className="text-luxury-text-muted text-[11px] tracking-widest leading-relaxed font-medium uppercase line-clamp-2">
                         {project.task}
                       </p>
                    </div>
                    <div className="space-y-1">
-                      <span className="text-[8px] uppercase tracking-[0.2em] text-luxury-brass font-bold whitespace-nowrap">Решение:</span>
+                      <span className="text-[8px] uppercase tracking-[0.2em] text-luxury-brass font-bold ">Решение:</span>
                       <p className="text-luxury-text-muted text-[11px] tracking-widest leading-relaxed font-medium uppercase line-clamp-2">
                         {project.solution}
                       </p>
@@ -187,7 +187,7 @@ export default function PortfolioScene() {
                    <div className="w-8 h-8 rounded-full border border-luxury-brass/30 flex items-center justify-center transition-all duration-700 group-hover:bg-luxury-brass">
                       <div className="w-1 h-1 bg-luxury-brass rounded-full group-hover:bg-black transition-colors" />
                    </div>
-                   <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-text font-bold whitespace-nowrap">Рассчитать проект</span>
+                   <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-text font-bold ">Рассчитать проект</span>
                 </button>
               </div>
             </div>

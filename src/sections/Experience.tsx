@@ -33,7 +33,7 @@ export default function Experience() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="relative w-full bg-[#050505]">
+    <div ref={containerRef} className="relative w-full bg-[#0F0F0F]">
       <div className="pointer-events-none fixed inset-0 z-[100] opacity-[0.015] mix-blend-overlay bg-noise" />
       <FloatingAtmosphere />
 

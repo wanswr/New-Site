@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-luxury-bg: #0A0A0A;
-  --color-luxury-bg-alt: #121212;
+  --color-luxury-bg: #0F0F0F;
+  --color-luxury-bg-alt: #171717;
   --color-luxury-card: #171717;
   --color-luxury-surface: #1D1D1D;
   --color-luxury-text: #F5F3EF;
@@ -24,9 +24,6 @@
 body {
   color: var(--color-luxury-text);
   background: var(--color-luxury-bg);
-  overflow: hidden;
-  cursor: none;
-  touch-action: none;
 }
 
 ::selection {

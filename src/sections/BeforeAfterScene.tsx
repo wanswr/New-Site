@@ -65,7 +65,7 @@ export default function BeforeAfterScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="before-after-scene" ref={containerRef} className="relative w-full h-full bg-[#050505] overflow-hidden flex items-center justify-center">
+    <div id="before-after-scene" ref={containerRef} className="relative w-full h-screen bg-[#0F0F0F] overflow-hidden flex items-center justify-center">
       {/* Before Layer */}
       <div className="absolute inset-0">
         <Image
@@ -77,7 +77,7 @@ export default function BeforeAfterScene() {
           sizes="100vw"
         />
         <div className="absolute top-8 left-8 z-20">
-           <span className="ba-label text-white/30 text-[9px] uppercase tracking-[0.8em] font-bold whitespace-nowrap">ДО РЕМОНТА</span>
+           <span className="ba-label text-white/30 text-[9px] uppercase tracking-[0.8em] font-bold ">ДО РЕМОНТА</span>
         </div>
       </div>
 
@@ -93,20 +93,20 @@ export default function BeforeAfterScene() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
         <div className="absolute top-8 right-8 z-20 text-right">
-           <span className="ba-label text-luxury-brass text-[9px] uppercase tracking-[0.8em] font-bold whitespace-nowrap">ИДЕАЛЬНЫЙ РЕЗУЛЬТАТ</span>
+           <span className="ba-label text-luxury-brass text-[9px] uppercase tracking-[0.8em] font-bold ">ИДЕАЛЬНЫЙ РЕЗУЛЬТАТ</span>
         </div>
       </div>
 
       {/* Content Overlay */}
       <div className="relative z-30 w-full max-w-7xl mx-auto px-6 text-center">
-         <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none whitespace-nowrap">
+         <h2 ref={headlineRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-none ">
            Превращаем <br />
            <span className="italic text-luxury-brass">хаос в эстетику</span>
          </h2>
 
          <div className="mt-8 flex items-center justify-center gap-4 ba-label">
             <div className="w-8 h-[1px] bg-luxury-brass/30" />
-            <p className="text-[9px] uppercase tracking-[0.5em] text-luxury-text-muted font-bold whitespace-nowrap">
+            <p className="text-[9px] uppercase tracking-[0.5em] text-luxury-text-muted font-bold ">
               Чисто • Быстро • Безупречно
             </p>
             <div className="w-8 h-[1px] bg-luxury-brass/30" />

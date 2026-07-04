@@ -69,6 +69,10 @@ export default function HeroScene() {
         clearProps: "all"
       });
 
+      return () => {
+        split.revert();
+      };
+
       // Reveal other elements
       gsap.from(".hero-reveal", {
         opacity: 0,
@@ -85,7 +89,7 @@ export default function HeroScene() {
   }, { scope: containerRef });
 
   return (
-    <div id="hero-scene" ref={containerRef} className="w-full h-full bg-[#050505] overflow-hidden flex items-center justify-center">
+    <div id="hero-scene" ref={containerRef} className="relative w-full h-screen bg-[#0F0F0F] overflow-hidden flex items-center justify-center">
       {/* Background Video */}
       <div className="absolute inset-0 overflow-hidden">
         <video
@@ -94,31 +98,31 @@ export default function HeroScene() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-50 grayscale-[0.2]"
+          className="w-full h-full object-cover opacity-60"
           poster="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2000"
         >
           <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-interior-design-of-a-living-room-with-a-fireplace-34538-large.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-[#050505]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-[#0F0F0F]" />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-24 flex flex-col justify-center items-center md:items-start text-center md:text-left">
         <div className="w-full">
           <div className="hero-reveal mb-8">
-            <span className="text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold whitespace-nowrap">
+            <span className="text-luxury-brass text-[10px] md:text-xs uppercase tracking-[0.5em] font-bold ">
               POTOLKBEL • НАТЯЖНЫЕ ПОТОЛКИ В МОСКВЕ
             </span>
           </div>
 
           <h1
             ref={titleRef}
-            className="text-[clamp(2rem,10vw,120px)] font-serif leading-[1] text-luxury-text mb-10 tracking-tighter whitespace-nowrap flex flex-wrap justify-center md:justify-start"
+            className="text-[clamp(2rem,10vw,120px)] font-serif leading-[1] text-luxury-text mb-10 tracking-tighter  flex flex-wrap justify-center md:justify-start"
           >
             Натяжные потолки <br className="hidden md:block" />
             <span className="italic text-luxury-brass font-normal ml-0 md:ml-4">за 1 день без пыли</span>
           </h1>
 
-          <p className="hero-reveal text-[10px] md:text-lg uppercase tracking-[0.4em] text-luxury-text-muted mb-12 font-medium leading-relaxed whitespace-nowrap">
+          <p className="hero-reveal text-[10px] md:text-lg uppercase tracking-[0.4em] text-luxury-text-muted mb-12 font-medium leading-relaxed ">
             Бесплатный замер • Фиксированная цена • Гарантия 15 лет
           </p>
 
@@ -128,14 +132,14 @@ export default function HeroScene() {
                    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
                    window.scrollTo({ top: scrollHeight * 0.95, behavior: 'smooth' });
                 }}
-                className="px-12 py-5 bg-luxury-brass text-luxury-bg text-[10px] uppercase tracking-[0.5em] font-bold hover:bg-white transition-colors duration-700 cursor-pointer whitespace-nowrap"
+                className="px-12 py-5 bg-luxury-brass text-luxury-bg text-[10px] uppercase tracking-[0.5em] font-bold hover:bg-white transition-colors duration-700 cursor-pointer "
             >
                 Рассчитать стоимость
             </button>
 
             <button
                 onClick={() => window.open('https://wa.me/placeholder', '_blank')}
-                className="px-12 py-5 border border-luxury-brass/30 text-luxury-text text-[10px] uppercase tracking-[0.5em] font-bold hover:border-luxury-brass transition-all duration-700 cursor-pointer whitespace-nowrap"
+                className="px-12 py-5 border border-luxury-brass/30 text-luxury-text text-[10px] uppercase tracking-[0.5em] font-bold hover:border-luxury-brass transition-all duration-700 cursor-pointer "
             >
                 Вызвать замерщика
             </button>
@@ -146,19 +150,19 @@ export default function HeroScene() {
       {/* Floating Stats */}
       <div className="absolute bottom-16 right-16 hidden lg:flex flex-col gap-12 text-right">
          <div className="hero-stat group">
-            <div className="text-6xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors duration-700 whitespace-nowrap">12 лет</div>
-            <div className="text-[9px] uppercase tracking-[0.4em] text-luxury-brass font-bold mt-2 whitespace-nowrap">опыта работы</div>
+            <div className="text-6xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors duration-700 ">12 лет</div>
+            <div className="text-[9px] uppercase tracking-[0.4em] text-luxury-brass font-bold mt-2 ">опыта работы</div>
          </div>
          <div className="hero-stat group">
-            <div className="text-6xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors duration-700 whitespace-nowrap">5000+</div>
-            <div className="text-[9px] uppercase tracking-[0.4em] text-luxury-brass font-bold mt-2 whitespace-nowrap">объектов сдали</div>
+            <div className="text-6xl font-serif text-luxury-text leading-none group-hover:text-luxury-brass transition-colors duration-700 ">5000+</div>
+            <div className="text-[9px] uppercase tracking-[0.4em] text-luxury-brass font-bold mt-2 ">объектов сдали</div>
          </div>
       </div>
 
       {/* Scroll Hint */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30">
          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-luxury-brass to-transparent" />
-         <span className="text-[7px] uppercase tracking-[1em] mt-4 text-luxury-text font-bold whitespace-nowrap">листайте вниз</span>
+         <span className="text-[7px] uppercase tracking-[1em] mt-4 text-luxury-text font-bold ">листайте вниз</span>
       </div>
     </div>
   );

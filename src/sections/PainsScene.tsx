@@ -68,11 +68,11 @@ export default function PainsScene() {
   ];
 
   return (
-    <section ref={containerRef} className="relative w-full py-24 md:py-48 px-6 bg-[#050505]">
+    <section ref={containerRef} className="relative w-full py-24 md:py-48 px-6 min-h-screen bg-[#0F0F0F]">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24">
-          <span className="text-luxury-brass text-[10px] uppercase tracking-[0.5em] block font-bold mb-4 whitespace-nowrap">Ваши страхи — наша забота</span>
-          <h2 ref={titleRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-[1.1] whitespace-nowrap">
+          <span className="text-luxury-brass text-[10px] uppercase tracking-[0.5em] block font-bold mb-4 ">Ваши страхи — наша забота</span>
+          <h2 ref={titleRef} className="text-4xl md:text-8xl font-serif text-luxury-text tracking-tighter leading-[1.1] ">
             Ремонт <span className="italic text-luxury-brass">без стресса</span>
           </h2>
         </div>
@@ -81,7 +81,7 @@ export default function PainsScene() {
           {pains.map((pain, i) => (
             <div key={i} className="pain-card p-10 border border-white/5 bg-white/[0.02] backdrop-blur-xl group hover:border-luxury-brass/30 transition-all duration-700">
               <div className="text-luxury-brass/20 text-5xl font-serif mb-6 group-hover:text-luxury-brass transition-colors duration-700">0{i+1}</div>
-              <h3 className="text-xl font-serif text-luxury-text mb-4 tracking-widest uppercase whitespace-nowrap">{pain.title}</h3>
+              <h3 className="text-xl font-serif text-luxury-text mb-4 tracking-widest uppercase ">{pain.title}</h3>
               <p className="text-luxury-text-muted text-[10px] tracking-[0.3em] leading-relaxed uppercase">{pain.desc}</p>
             </div>
           ))}
